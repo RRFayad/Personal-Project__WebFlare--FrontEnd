@@ -5,7 +5,12 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import HomePage from './business/pages/Homepage';
+import Homepage from './business/pages/Homepage';
+import Business from './business/pages/Business';
+import NewOffer from './business/pages/NewOffer';
+import UsersBusiness from './users/pages/UsersBusiness';
+import UserDetails from './users/pages/UserDetails';
+import Auth from './auth/pages/Auth';
 
 import './App.css';
 
@@ -14,25 +19,25 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact>
-          <HomePage />
+          <Homepage />
         </Route>
         <Route path="/business/:bid" exact>
-          <h1>Business Details Page</h1>
+          <Business />
         </Route>
         <Route path="/business/:bid/create-offer" exact>
-          <h1>Create Offer page</h1>
+          <NewOffer />
         </Route>
         <Route path="/users/:uid" exact>
-          <h1>User Details page</h1>
+          <UserDetails />
         </Route>
         <Route path="/users/:uid/create-business" exact>
-          <h1>Create Business page</h1>
+          <NewOffer />
         </Route>
         <Route path="/users/:uid/my-business" exact>
-          <h1>My Businesses Page</h1>
+          <UsersBusiness />
         </Route>
         <Route path="/auth" exact>
-          <h1>Authentication Page</h1>
+          <Auth />
         </Route>
         <Redirect to="/" />
       </Switch>

@@ -1,14 +1,14 @@
 import Navbar from '../../shared/Navbar';
 import Footer from '../../shared/Footer';
 
-function Homepage() {
+function UsersBusiness() {
   return (
     <>
       <Navbar />
-      <h1>This is the HomePage</h1>
+      <h1>This is the User's Business Page</h1>
       <Footer />
     </>
   );
 }
 
-export default Homepage;
+export default UsersBusiness;

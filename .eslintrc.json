@@ -17,5 +17,8 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "eslint-disable no-unused-vars": 0,
+    "react/no-unescaped-entities": 0
+  }
 }
