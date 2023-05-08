@@ -11,7 +11,7 @@ function Navbar() {
         <span />
       </div>
       <Link to="/" className={`${classes['nav-bar__logo']}`}>
-        <h1>LOGO HERE</h1>
+        <h2>LOGO HERE</h2>
       </Link>
       <ul className={`${classes['nav-bar__links']}`}>
         <li className={`${classes['nav-bar__item']}`}>
