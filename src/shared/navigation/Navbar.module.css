@@ -25,6 +25,7 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .nav-bar__item a {
@@ -34,6 +35,14 @@
   text-decoration: none;
   font-size: 1.2rem;
   /* font-weight: bold; */
+}
+
+.nav-bar__item--cta a {
+  margin: 1rem 0rem;
+  display: block;
+  background-color: #0058ff;
+  padding: 4px 16px;
+  border-radius: 25px;
 }
 
 .nav-bar__item a:hover,

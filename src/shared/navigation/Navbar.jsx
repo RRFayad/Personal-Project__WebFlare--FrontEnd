@@ -29,7 +29,9 @@ function Navbar() {
             Logout
           </NavLink>
         </li>
-        <li className={`${classes['nav-bar__item']}`}>
+        <li
+          className={`${classes['nav-bar__item']} ${classes['nav-bar__item--cta']}`}
+        >
           <NavLink to="/auth" exact>
             Login
           </NavLink>

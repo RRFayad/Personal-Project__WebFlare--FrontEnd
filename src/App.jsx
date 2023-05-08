@@ -11,6 +11,7 @@ import NewOffer from './business/pages/NewOffer';
 import UsersBusiness from './users/pages/UsersBusiness';
 import UserDetails from './users/pages/UserDetails';
 import Auth from './auth/pages/Auth';
+import NewBusiness from './business/pages/NewBusiness';
 
 import './App.css';
 
@@ -31,7 +32,7 @@ function App() {
           <UserDetails />
         </Route>
         <Route path="/users/:uid/create-business" exact>
-          <NewOffer />
+          <NewBusiness />
         </Route>
         <Route path="/users/:uid/my-business" exact>
           <UsersBusiness />

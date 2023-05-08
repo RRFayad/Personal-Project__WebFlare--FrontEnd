@@ -1,0 +1,13 @@
+.content {
+  margin-left: 200px; /*Set because of the fixed sidebar*/
+  width: calc(100vw - 200px); /*The difference from 100vw and the sidebar*/
+  max-width: 100%;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    width: 100vw;
+  }
+}

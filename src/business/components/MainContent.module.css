@@ -1,0 +1,6 @@
+.main-container {
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 7rem); /*7rem = nav+footer*/
+  padding: 0;
+}

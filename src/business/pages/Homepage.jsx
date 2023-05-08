@@ -1,11 +1,12 @@
-import Navbar from '../../shared/Navbar';
-import Footer from '../../shared/Footer';
+import Navbar from '../../shared/navigation/Navbar';
+import MainContent from '../components/MainContent';
+import Footer from '../../shared/navigation/Footer';
 
 function Homepage() {
   return (
     <>
       <Navbar />
-      <h1>This is the HomePage</h1>
+      <MainContent />
       <Footer />
     </>
   );

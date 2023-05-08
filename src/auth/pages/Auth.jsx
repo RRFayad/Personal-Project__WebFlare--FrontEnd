@@ -1,5 +1,5 @@
-import Navbar from '../../shared/Navbar';
-import Footer from '../../shared/Footer';
+import Navbar from '../../shared/navigation/Navbar';
+import Footer from '../../shared/navigation/Footer';
 
 function Auth() {
   return (
