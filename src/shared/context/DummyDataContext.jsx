@@ -2,8 +2,8 @@
 import React, { useMemo } from 'react';
 
 const DataContext = React.createContext({
-  fakeBusinesses: [],
-  fakeUsers: [],
+  businessesList: [],
+  usersList: [],
 });
 
 export function DataContextProvider(props) {
@@ -14,36 +14,42 @@ export function DataContextProvider(props) {
         imageUrl:
           'https://www.civitatis.com/f/hungria/budapest/galeria/parlamento-budapest.jpg',
         type: 'e-commerce',
+        niche: 'beauty',
+        age: '3', // int
         monthlyRevenue: '40000',
         monthlyProfit: '8000',
         askingPrice: '96000',
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
-        owner: 'u1',
+        owner: 'User1',
       },
       {
         title: 'Store 2',
         imageUrl:
           'https://www.civitatis.com/f/hungria/budapest/galeria/parlamento-budapest.jpg',
         type: 'e-commerce',
+        niche: 'beauty',
+        age: '3', // int
         monthlyRevenue: '40000',
         monthlyProfit: '8000',
         askingPrice: '96000',
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
-        owner: 'u2',
+        owner: 'User2',
       },
       {
         title: 'Store 3',
         imageUrl:
           'https://www.civitatis.com/f/hungria/budapest/galeria/parlamento-budapest.jpg',
         type: 'e-commerce',
+        niche: 'beauty',
+        age: '3', // int
         monthlyRevenue: '40000',
         monthlyProfit: '8000',
         askingPrice: '96000',
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
-        owner: 'u1',
+        owner: 'User1',
       },
     ],
     []
@@ -80,8 +86,8 @@ export function DataContextProvider(props) {
   return (
     <DataContext.Provider
       value={{
-        fakeBusinesses: DUMMY_BUSINESSES_LIST,
-        fakeUsers: DUMMY_USERS_LIST,
+        businessesList: DUMMY_BUSINESSES_LIST,
+        usersList: DUMMY_USERS_LIST,
       }}
     >
       {props.children}

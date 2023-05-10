@@ -16,8 +16,8 @@ function SideBar() {
       <p>1-10 of 20 results</p>
       <div className={classes.sidebar__items}>
         {BUSINESS_TYPES.map((item) => (
-          <label htmlFor={item}>
-            <input type="checkbox" id={item} />
+          <label htmlFor={item} key={item}>
+            <input type="checkbox" key={item} />
             {item}
           </label>
         ))}

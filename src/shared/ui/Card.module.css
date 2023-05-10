@@ -1,0 +1,13 @@
+.details {
+  background-color: #f9f9f9;
+  border: 1px solid hsl(0, 0%, 0%, 20%);
+  height: 30vh;
+}
+
+.details__title {
+  text-align: center;
+}
+.details__image {
+  height: 8rem;
+  width: 14rem;
+}
