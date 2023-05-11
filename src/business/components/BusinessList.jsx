@@ -10,6 +10,7 @@ function BusinessList() {
 
   return (
     <main className={classes.content}>
+      <input type="search" placeholder="Search.." />
       <Card business={ctx.businessesList[0]} />
     </main>
   );

@@ -2,7 +2,9 @@
   height: calc(100vh - 6.5rem); /*6.5rem = nav+footer*/
   position: fixed;
   border-right: 2px solid #b8b8b8;
-  width: 180px;
+  width: 15vw;
+  min-width: 160px;
+  max-width: 200px;
   padding: 14px 20px;
 }
 
