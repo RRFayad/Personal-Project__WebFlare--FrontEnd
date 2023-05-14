@@ -22,6 +22,7 @@ export function DataContextProvider(props) {
         description:
           'Mussum Ipsum, cacilds vidis litro abertis. Sapien in monti palavris qui num significa nadis i pareci latim.Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo!Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Praesent vel viverra nisi. Mauris aliquet nunc non turpis scelerisque, eget.',
         owner: 'User1',
+        id: '0001',
       },
       {
         title: 'Store 2',
@@ -36,6 +37,7 @@ export function DataContextProvider(props) {
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
         owner: 'User2',
+        id: '0002',
       },
       {
         title: 'Store 3',
@@ -50,6 +52,7 @@ export function DataContextProvider(props) {
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
         owner: 'User1',
+        id: '0003',
       },
     ],
     []

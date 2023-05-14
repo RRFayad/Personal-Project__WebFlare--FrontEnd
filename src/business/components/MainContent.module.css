@@ -1,6 +1,11 @@
 .main-container {
   display: flex;
-  width: 100%;
-  min-height: calc(100vh - 7rem); /*7rem = nav+footer*/
-  padding: 0;
+  min-height: calc(100vh - 102px); /*102px = nav+footer*/
+  padding-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding-bottom: 0px;
+  }
 }
