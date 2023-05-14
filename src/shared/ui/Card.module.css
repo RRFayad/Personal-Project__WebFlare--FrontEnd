@@ -1,8 +1,9 @@
 .details {
-  height: 45%;
-  width: 90%;
-  margin: auto;
+  height: min(40vh, 280px);
+  width: 75vw;
   padding-bottom: 16px;
+  margin-bottom: 40px;
+  margin-left: min(40px);
   background-color: #f9f9f9;
   border: 1px solid hsl(0, 0%, 0%, 20%);
   display: flex;
@@ -20,20 +21,20 @@
   /* background-color: yellow; */
   display: flex;
   margin: 4px 16px;
-  justify-content: space-around;
+  justify-content: space-between;
   overflow: hidden;
 }
 
 .details__image {
   height: 100%;
-  width: 60%;
+  width: 40%;
 
   /* max-height: 180px;
 
   max-width: 300px; */
 }
 
-.details__container--info {
+.details__info {
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
@@ -46,14 +47,27 @@
   text-align: center;
 }
 
+.details__item dt {
+  color: hsl(0, 0%, 0%, 40%);
+}
 .details__item dd {
   text-align: center;
   margin: 0;
 }
 
+.details__price {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 .details__description {
   width: 100%;
-  text-align: left;
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .details button {
   color: white;
@@ -66,4 +80,48 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+@media (max-width: 1200px) and (min-width: 768px) {
+  .details__item--optional {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .details {
+    height: min(70vh, 500px);
+    overflow: scroll;
+    padding-bottom: 8px;
+    margin: auto;
+  }
+
+  .details__container {
+    flex-direction: column;
+  }
+
+  .details__image {
+    height: 60%;
+    width: 100%;
+  }
+
+  .details__item--optional {
+    display: none;
+  }
+
+  .details__info {
+    padding: 0;
+  }
+
+  .details__description {
+    -webkit-line-clamp: 4; /* number of lines to show */
+  }
+
+  .details button {
+    position: static;
+    margin: auto;
+    margin-top: 16px;
+    width: 80%;
+    max-width: 280px;
+    height: 40px;
+  }
 }

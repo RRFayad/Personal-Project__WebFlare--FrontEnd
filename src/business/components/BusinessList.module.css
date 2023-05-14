@@ -1,14 +1,17 @@
 .content {
-  margin-left: calc(15vw); /*Set because of the fixed sidebar*/
+  margin-left: max(15vw, 100px); /*Set because of the fixed sidebar*/
   width: 85vw; /*The difference from 100vw and the sidebar*/
   max-width: 100%;
   padding: 1.5rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .content input {
-  width: 90%;
+  display: block;
+  width: 80%;
+  margin: auto;
   margin-bottom: 1.5rem;
+  /* margin-left: min(40px); */
 }
 
 @media (max-width: 768px) {

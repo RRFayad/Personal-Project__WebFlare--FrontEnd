@@ -20,7 +20,7 @@ export function DataContextProvider(props) {
         monthlyProfit: '8000',
         askingPrice: '96000',
         description:
-          'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
+          'Mussum Ipsum, cacilds vidis litro abertis. Sapien in monti palavris qui num significa nadis i pareci latim.Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo!Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Praesent vel viverra nisi. Mauris aliquet nunc non turpis scelerisque, eget.',
         owner: 'User1',
       },
       {

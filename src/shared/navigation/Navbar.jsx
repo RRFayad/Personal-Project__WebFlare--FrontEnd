@@ -8,7 +8,7 @@ function Navbar() {
       <div className={`${classes['nav-bar__sandwich-menu']}`}>
         <span />
         <span />
-        <span />
+        <span className={`${classes['nav-bar__sandwich-bar--last']}`} />
       </div>
       <Link to="/" className={`${classes['nav-bar__logo']}`}>
         <h2>LOGO HERE</h2>

@@ -1,6 +1,6 @@
 .nav-bar {
   background-color: #001f44;
-  height: 4rem;
+  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,7 +15,7 @@
   display: none;
 }
 .nav-bar__logo {
-  margin: 0 0 0 3rem;
+  margin: 0 0 0 24px;
   text-decoration: none;
   color: white;
 }
@@ -30,7 +30,7 @@
 
 .nav-bar__item a {
   margin: 16px 8px;
-  padding: 0 0.5rem;
+  padding: 0 8px;
   color: white;
   text-decoration: none;
   font-size: 1rem;
@@ -75,5 +75,8 @@
     margin-left: 12px;
     margin-bottom: 8px;
     background-color: white;
+  }
+  .nav-bar__sandwich-menu span:last-child {
+    margin-bottom: 0;
   }
 }
