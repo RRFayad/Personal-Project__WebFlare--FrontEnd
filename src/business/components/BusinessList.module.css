@@ -1,30 +1,4 @@
-.content {
-  margin-left: min(
-    max(15vw, 160px),
-    200px
-  ); /*Set because of the fixed sidebar*/
-  width: 85vw; /*The difference from 100vw and the sidebar*/
-  /* max-width: 100%; */
-  padding: 1.5rem;
-  /* text-align: center; */
-}
-
-.content input {
-  display: block;
-  width: 80%;
-  margin: auto;
-  margin-bottom: 1.5rem;
-  /* margin-left: min(40px); */
-}
-
-.content ul {
+.business-list {
   margin: 0;
   padding: 0;
-}
-
-@media (max-width: 768px) {
-  .content {
-    margin-left: 0;
-    width: 100vw;
-  }
 }

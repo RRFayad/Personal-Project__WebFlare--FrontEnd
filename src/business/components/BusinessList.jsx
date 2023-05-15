@@ -8,18 +8,15 @@ function BusinessList() {
   const ctx = useContext(DataContext);
 
   return (
-    <main className={classes.content}>
-      <input type="search" placeholder="Search..." />
-      <ul>
-        {ctx.businessesList.length > 0 ? (
-          ctx.businessesList.map((item) => (
-            <BusinessItem business={item} key={item.id} />
-          ))
-        ) : (
-          <p>'aaa'</p>
-        )}
-      </ul>
-    </main>
+    <ul className={`${classes['business-list']}`}>
+      {ctx.businessesList.length > 0 ? (
+        ctx.businessesList.map((item) => (
+          <BusinessItem business={item} key={item.id} />
+        ))
+      ) : (
+        <h1>No Business Found!</h1>
+      )}
+    </ul>
   );
 }
 
