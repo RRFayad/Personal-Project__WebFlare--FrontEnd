@@ -14,6 +14,7 @@ function BusinessItem(props) {
     owner,
     title,
     type,
+    id,
   } = props.business;
 
   const ageContent =
@@ -59,7 +60,9 @@ function BusinessItem(props) {
           <p className={classes.details__description}>{description}</p>
         </div>
       </div>
-      <button type="button">View Details</button>
+      <button type="button">
+        <a href={`/business/${id}`}>View Details</a>
+      </button>
     </li>
   );
 }
