@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import Homepage from './business/pages/Homepage';
-import Business from './business/pages/Business';
+import BusinessDetails from './business/pages/BusinessDetails';
 import NewOffer from './business/pages/NewOffer';
 import UsersBusiness from './users/pages/UsersBusiness';
 import UserDetails from './users/pages/UserDetails';
@@ -23,7 +23,7 @@ function App() {
           <Homepage />
         </Route>
         <Route path="/business/:bid" exact>
-          <Business />
+          <BusinessDetails />
         </Route>
         <Route path="/business/:bid/create-offer" exact>
           <NewOffer />

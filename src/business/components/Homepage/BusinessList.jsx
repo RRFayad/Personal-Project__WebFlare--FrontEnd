@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import DataContext from '../../shared/context/DummyDataContext';
+import DataContext from '../../../shared/context/DummyDataContext';
 import BusinessItem from './BusinessItem';
 import classes from './BusinessList.module.css';
 
