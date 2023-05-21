@@ -4,21 +4,30 @@ import React, { useMemo } from 'react';
 const DataContext = React.createContext({
   businessesList: [],
   usersList: [],
+  formatCurrency: () => {},
 });
 
 export function DataContextProvider(props) {
+  const formatCurrency = (value) =>
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+
   const DUMMY_BUSINESSES_LIST = useMemo(
     () => [
       {
         title: 'Store 1',
         imageUrl:
           'https://www.civitatis.com/f/hungria/budapest/galeria/parlamento-budapest.jpg',
-        type: 'e-commerce',
+        type: 'E-Commerce',
         niche: 'beauty',
-        age: '3', // int
-        monthlyRevenue: '40000',
-        monthlyProfit: '8000',
-        askingPrice: '96000',
+        age: 3, // int
+        monthlyRevenue: 40000,
+        monthlyProfit: 8000,
+        askingPrice: 96000,
         description:
           'Mussum Ipsum, cacilds vidis litro abertis. Sapien in monti palavris qui num significa nadis i pareci latim.Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo!Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Praesent vel viverra nisi. Mauris aliquet nunc non turpis scelerisque, eget.',
         owner: 'User1',
@@ -28,12 +37,12 @@ export function DataContextProvider(props) {
         title: 'Store 2',
         imageUrl:
           'https://www.civitatis.com/f/hungria/budapest/galeria/parlamento-budapest.jpg',
-        type: 'e-commerce',
+        type: 'E-Commerce',
         niche: 'beauty',
-        age: '3', // int
-        monthlyRevenue: '40000',
-        monthlyProfit: '8000',
-        askingPrice: '96000',
+        age: 3, // int
+        monthlyRevenue: 40000,
+        monthlyProfit: 8000,
+        askingPrice: 96000,
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
         owner: 'User2',
@@ -43,12 +52,12 @@ export function DataContextProvider(props) {
         title: 'Store 3',
         imageUrl:
           'https://www.civitatis.com/f/hungria/budapest/galeria/parlamento-budapest.jpg',
-        type: 'e-commerce',
+        type: 'E-Commerce',
         niche: 'beauty',
-        age: '3', // int
-        monthlyRevenue: '40000',
-        monthlyProfit: '8000',
-        askingPrice: '96000',
+        age: 3, // int
+        monthlyRevenue: 40000,
+        monthlyProfit: 8000,
+        askingPrice: 96000,
         description:
           'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
         owner: 'User1',
@@ -91,6 +100,7 @@ export function DataContextProvider(props) {
       value={{
         businessesList: DUMMY_BUSINESSES_LIST,
         usersList: DUMMY_USERS_LIST,
+        formatCurrency,
       }}
     >
       {props.children}

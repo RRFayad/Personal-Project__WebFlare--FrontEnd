@@ -5,13 +5,17 @@ import BusinessItem from './BusinessItem';
 import classes from './BusinessList.module.css';
 
 function BusinessList() {
-  const ctx = useContext(DataContext);
+  const { businessesList, usersList, formatCurrency } = useContext(DataContext);
 
   return (
     <ul className={`${classes['business-list']}`}>
-      {ctx.businessesList.length > 0 ? (
-        ctx.businessesList.map((item) => (
-          <BusinessItem business={item} key={item.id} />
+      {businessesList.length > 0 ? (
+        businessesList.map((item) => (
+          <BusinessItem
+            business={item}
+            key={item.id}
+            formatCurrency={formatCurrency}
+          />
         ))
       ) : (
         <h1>No Business Found!</h1>

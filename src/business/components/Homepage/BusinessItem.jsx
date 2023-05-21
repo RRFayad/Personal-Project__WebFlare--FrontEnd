@@ -22,7 +22,6 @@ function BusinessItem(props) {
       ? `${age} year`
       : `${age > 1 ? `${age} years` : '>1 year'}`;
 
-  const typeContent = type.charAt(0).toUpperCase() + type.slice(1);
   const nicheContent = niche.charAt(0).toUpperCase() + niche.slice(1);
 
   return (
@@ -34,7 +33,7 @@ function BusinessItem(props) {
           <dl className={classes.details__items}>
             <div className={`${classes.details__item}`}>
               <dt>Type</dt>
-              <dd>{typeContent}</dd>
+              <dd>{type}</dd>
             </div>
             <div className={classes.details__item}>
               <dt>Niche</dt>
@@ -50,11 +49,13 @@ function BusinessItem(props) {
               className={`${classes.details__item} ${classes['details__item--optional']}`}
             >
               <dt>Monthly Net Profit</dt>
-              <dd>$ {monthlyProfit}</dd>
+              <dd>{props.formatCurrency(monthlyProfit)}</dd>
             </div>
             <div className={classes.details__item}>
               <dt>Asking Price</dt>
-              <dd className={classes.details__price}>$ {askingPrice}</dd>
+              <dd className={classes.details__price}>
+                {props.formatCurrency(askingPrice)}
+              </dd>
             </div>
           </dl>
           <p className={classes.details__description}>{description}</p>

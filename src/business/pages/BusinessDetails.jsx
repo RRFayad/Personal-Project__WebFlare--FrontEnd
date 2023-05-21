@@ -12,13 +12,7 @@ function BusinessDetails() {
   return (
     <>
       <Navbar />
-      <div className={classes.content}>
-        <BusinessInfo />
-        <aside className={classes.content__sidebar}>
-          <Offer />
-          <UserInfo />
-        </aside>
-      </div>
+      <BusinessInfo className={classes.content__business} />
       <Footer />
     </>
   );

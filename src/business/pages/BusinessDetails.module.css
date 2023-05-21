@@ -1,8 +1,15 @@
 .content {
   display: flex;
+  justify-content: space-between;
+}
+
+.content__business {
+  background-color: blanchedalmond;
 }
 .content__sidebar {
   display: flex;
   flex-direction: column;
+  width: 25vw;
+  background-color: aqua;
   /* justify-content: space-between; */
 }
