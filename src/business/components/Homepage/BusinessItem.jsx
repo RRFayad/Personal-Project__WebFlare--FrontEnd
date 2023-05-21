@@ -22,8 +22,6 @@ function BusinessItem(props) {
       ? `${age} year`
       : `${age > 1 ? `${age} years` : '>1 year'}`;
 
-  const nicheContent = niche.charAt(0).toUpperCase() + niche.slice(1);
-
   return (
     <li className={classes.details}>
       <h2 className={classes.details__title}>{props.business.title}</h2>
@@ -37,7 +35,7 @@ function BusinessItem(props) {
             </div>
             <div className={classes.details__item}>
               <dt>Niche</dt>
-              <dd>{nicheContent}</dd>
+              <dd>{niche}</dd>
             </div>
             <div
               className={`${classes.details__item} ${classes['details__item--optional']}`}

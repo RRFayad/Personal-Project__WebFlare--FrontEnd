@@ -82,6 +82,10 @@
   cursor: pointer;
 }
 
+.details button:hover {
+  background-color: #003fb4;
+}
+
 .details button a {
   text-decoration: none;
   color: white;
