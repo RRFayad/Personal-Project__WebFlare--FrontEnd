@@ -34,6 +34,9 @@ function OfferModal(props) {
     <div className={classes.modal}>
       <header className={classes.modal__header}>
         <h2>{title}</h2>
+        <button type="button" onClick={props.onClick}>
+          &times;
+        </button>
       </header>
       <main className={classes.modal__content}>
         <div className={classes['modal__user-info']}>
@@ -60,13 +63,24 @@ function OfferModal(props) {
               </div>
             </dl>
             <p className={classes.modal__description}>{owner.description}</p>
+            <div className={classes.modal__price}>
+              <h4>Asking Price:</h4>
+              <p>{formatCurrency(askingPrice)}</p>
+            </div>
           </div>
         </div>
-        <div className={classes['modal__business-info']}>Business</div>
       </main>
+      <hr />
       <footer className={classes.modal__footer}>
-        <button type="button">Make Offer Now</button>
-        <button type="button">Close</button>
+        <button type="button" className={classes.modal__button}>
+          Make Offer
+        </button>
+        <button
+          type="button"
+          className={`${classes.modal__button} ${classes['modal__button--cta']}`}
+        >
+          But it now for {formatCurrency(askingPrice)}
+        </button>
       </footer>
     </div>
   );

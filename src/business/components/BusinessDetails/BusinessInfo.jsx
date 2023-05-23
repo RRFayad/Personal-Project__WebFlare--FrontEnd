@@ -24,7 +24,7 @@ function BusinessInfo() {
         ReactDOM.createPortal(
           <>
             <Backdrop onClick={toggleModalHandler} />
-            <OfferModal business={business} />
+            <OfferModal business={business} onClick={toggleModalHandler} />
           </>,
           document.querySelector('#backdrop')
         )}

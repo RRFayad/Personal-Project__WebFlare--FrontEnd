@@ -11,16 +11,39 @@
 
 .modal__header {
   width: 100%;
+  height: 70px;
   padding: 1px;
   background: #001f44;
   color: white;
   text-align: center;
+  position: relative;
+}
+
+.modal__header button {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 16px;
+  top: 15px;
+  bottom: 15px;
+  color: white;
+  font: bolder;
+  font-size: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: #001f44;
+  border: none;
+  outline: none;
 }
 
 .modal__user-info {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .modal__content img {
@@ -32,6 +55,7 @@
 }
 
 .modal__item {
+  margin-top: 2px;
   margin-left: 20px;
   display: flex;
 }
@@ -45,6 +69,9 @@
   font-weight: bold;
 }
 
+.modal__item dd {
+  margin-left: 8px;
+}
 .modal__item dd a {
   text-decoration: none;
   color: black;
@@ -53,4 +80,78 @@
 .modal__description {
   margin: 0 20px;
   text-align: justify;
+}
+
+.modal__price {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+  /* align-items: last-baseline; */
+}
+
+.modal__price p {
+  margin-left: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.modal hr {
+  margin: 0;
+}
+
+.modal__footer {
+  height: 72px;
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.modal__button {
+  width: 240px;
+  height: 40px;
+  margin-top: 16px;
+  background-color: white;
+  border-radius: 8px;
+  color: #0058ff;
+  font-size: 1rem;
+  border: solid 1px #0058ff;
+  cursor: pointer;
+}
+
+.modal__button--cta {
+  background-color: #0058ff;
+  color: white;
+}
+
+.modal__button:hover {
+  /* font-weight: bold; */
+  border: solid 2px;
+}
+
+.modal__button--cta:hover {
+  border: solid 1px #0058ff;
+  background-color: #003fb4;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    height: 90vh;
+    width: 90vw;
+    top: 5vh;
+    left: 5vw;
+  }
+  .modal__user-info {
+    flex-direction: column;
+    font-size: 0.8rem;
+  }
+
+  .modal__price p {
+    font-size: 1rem;
+  }
+
+  .modal__footer {
+    flex-direction: column;
+    align-items: center;
+  }
 }
