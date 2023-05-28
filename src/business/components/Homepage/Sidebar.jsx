@@ -1,25 +1,19 @@
+import React, { useContext } from 'react';
+
+import DataContext from '../../../shared/context/DummyDataContext';
 import classes from './Sidebar.module.css';
 
-const BUSINESS_TYPES = [
-  'Blog / Content',
-  'E-Commerce',
-  'Forum',
-  'IG Profile',
-  'MarketPlace',
-  'SaaS',
-  'Tik Tok Profile',
-  'Others',
-];
 function SideBar() {
+  const { businessTypesOptions } = useContext(DataContext);
   return (
     <aside className={classes.sidebar}>
       <p>1-10 of 20 results</p>
 
       <div className={classes.sidebar__items}>
         <div className={classes.sidebar__checkboxes}>
-          {BUSINESS_TYPES.map((item) => (
+          {businessTypesOptions.map((item) => (
             <label htmlFor={item} key={item}>
-              <input type="checkbox" key={item} />
+              <input type="checkbox" id={item} name={item} />
               {item}
             </label>
           ))}

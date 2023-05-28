@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useParams } from 'react-router-dom';
 
 import DataContext from '../../../shared/context/DummyDataContext';
-import Backdrop from '../../../shared/ui/Backdrop';
+import Backdrop from '../../../shared/ui-ux/Backdrop';
 import OfferModal from './OfferModal';
 
 import classes from './BusinessInfo.module.css';

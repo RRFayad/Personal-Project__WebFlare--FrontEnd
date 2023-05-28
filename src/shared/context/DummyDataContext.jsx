@@ -4,8 +4,40 @@ import React, { useMemo } from 'react';
 const DataContext = React.createContext({
   businessesList: [],
   usersList: [],
+  businessTypesOptions: [],
+  nichesOptions: [],
   formatCurrency: () => {},
 });
+
+const businessTypesOptions = [
+  'Blog / Content',
+  'E-Commerce',
+  'Forum',
+  'IG Profile',
+  'MarketPlace',
+  'SaaS',
+  'Services',
+  'TikTok Profile',
+  'Others',
+];
+
+const nichesOptions = [
+  'Arts',
+  'Automotive',
+  'Beauty',
+  'Education',
+  'Entertainment / Games',
+  'Food',
+  'Health',
+  'Home & Garden',
+  'Make Money Online',
+  'Music',
+  'Pet',
+  'Real State',
+  'Sports',
+  'Technology',
+  'Others',
+];
 
 export function DataContextProvider(props) {
   const formatCurrency = (value) =>
@@ -103,6 +135,8 @@ export function DataContextProvider(props) {
       value={{
         businessesList: DUMMY_BUSINESSES_LIST,
         usersList: DUMMY_USERS_LIST,
+        businessTypesOptions,
+        nichesOptions,
         formatCurrency,
       }}
     >

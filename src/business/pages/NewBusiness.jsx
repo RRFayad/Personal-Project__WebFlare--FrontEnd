@@ -1,11 +1,16 @@
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
+import classes from './NewBusiness.module.css';
+import NewBusinessForm from '../components/NewBusiness/NewBusinessForm';
+
 function NewBusiness() {
   return (
     <>
       <Navbar />
-      <h1>This is the New Business Page</h1>
+      <main className={classes.content}>
+        <NewBusinessForm />
+      </main>
       <Footer />
     </>
   );

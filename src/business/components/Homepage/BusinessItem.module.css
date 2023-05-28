@@ -133,7 +133,21 @@
 }
 
 @media (max-width: 550px) {
+  /* .details {
+    height: 120vw;
+  } */
+
   .details__item--optional {
     display: none;
+  }
+
+  .details button {
+    height: 32px;
+  }
+}
+
+@media (max-width: 425px) {
+  .details {
+    height: 120vw;
   }
 }
