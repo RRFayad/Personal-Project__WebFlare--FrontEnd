@@ -28,7 +28,6 @@ function OfferModal(props) {
       ownersBusiness += 1;
     }
   });
-  console.log(owner);
 
   return (
     <div className={classes.modal}>

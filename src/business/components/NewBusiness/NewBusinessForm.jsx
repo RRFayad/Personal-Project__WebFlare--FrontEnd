@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import DataContext from '../../../shared/context/DummyDataContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
+import FormInput from '../../../shared/ui-ux/FormInput';
 import classes from './NewBusinessForm.module.css';
 
 function NewBusinessForm() {
@@ -20,55 +21,77 @@ function NewBusinessForm() {
     </option>
   ));
 
-  const submitHandler = () => {
-    console.log('ihaa');
+  const createHandler = () => {
+    console.log('ihaa - Create');
+  };
+
+  const deleteHandler = (event) => {
+    console.log('ihaa - delete');
   };
 
   return (
     <Form>
-      <label htmlFor="title">
-        Title
-        <input type="text" name="title" id="title" />
-      </label>
-      <label htmlFor="image">
-        Image URL
-        <input type="text" name="image" id="image" />
-      </label>
-      <label htmlFor="type">
-        Type of Business
-        <select name="type" id="type">
-          {typesOptionsContent}
-        </select>
-      </label>
-      <label htmlFor="niche">
-        Niche
-        <select name="niche" id="niche">
-          {nichesOptionsContent}
-        </select>
-      </label>
-      <label htmlFor="age">
-        Age of the Business
-        <input type="number" id="age" name="age" />
-      </label>
-      <label htmlFor="revenue">
-        Monthly Revenue
-        <input type="number" name="revenue" id="revenue" />
-      </label>
-      <label htmlFor="profit">
-        Monthly Profit
-        <input type="number" name="profit" id="profit" />
-      </label>
-      <label htmlFor="price">
-        Asking Price
-        <input type="number" name="price" id="price" />
-      </label>
-      <label htmlFor="description">
-        Description
-        <textarea name="description" id="description" cols="30" rows="10" />
-      </label>
+      <div className={classes.form__inputs}>
+        <FormInput
+          labelValue="Title"
+          HTMLElement="input"
+          name="title"
+          type="text"
+          validation={(value) => value.length <= 3}
+        />
+        <FormInput
+          labelValue="Image URL"
+          HTMLElement="input"
+          name="image"
+          type="text"
+        />
+        <FormInput
+          labelValue="Type Of Business"
+          HTMLElement="select"
+          name="type"
+          options={businessTypesOptions}
+        />
+        <FormInput
+          labelValue="Niche"
+          HTMLElement="select"
+          name="niche"
+          options={nichesOptions}
+        />
+        <FormInput
+          labelValue="Age of the Business"
+          HTMLElement="input"
+          type="number"
+          name="age"
+        />
+        <FormInput
+          labelValue="Monthly Revenue"
+          HTMLElement="input"
+          type="number"
+          name="revenue"
+        />
+        <FormInput
+          labelValue="Monthly Profit"
+          HTMLElement="input"
+          type="number"
+          name="profit"
+        />
+        <FormInput
+          labelValue="Asking Price"
+          HTMLElement="input"
+          type="number"
+          name="price"
+        />
+        <FormInput
+          labelValue="Description"
+          HTMLElement="textarea"
+          name="description"
+        />
+      </div>
       <div className={classes.form__buttons}>
-        <FormButton caution>Delete</FormButton>
-        <FormButton>Create</FormButton>
+        <FormButton caution onClick={deleteHandler}>
+          Delete
+        </FormButton>
+        <FormButton onClick={createHandler}>Create</FormButton>
       </div>
     </Form>
   );

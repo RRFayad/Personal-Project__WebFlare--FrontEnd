@@ -2,4 +2,6 @@
   min-height: calc(100vh - 104px);
   background-color: #4d4d4d;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
