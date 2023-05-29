@@ -1,0 +1,51 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+.input,
+.select,
+.textarea {
+  background-color: #f3f3f3;
+  outline: none;
+  border: solid 1.2px #001f44;
+  margin-top: 4px;
+  border-radius: 4px;
+  padding: 1px 2px;
+  font-size: 1rem;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border: solid 2px #001f44;
+}
+
+.textarea {
+  height: 96px;
+}
+
+.input,
+.select {
+  height: 28px;
+}
+
+.input[type='number']::-webkit-outer-spin-button,
+.input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.invalid {
+  border: solid 2px red;
+}
+
+.error-message {
+  color: red;
+  margin: 2px 0;
+}
