@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import classes from './FormInput.module.css';
 
@@ -6,11 +6,11 @@ function FormInput(props) {
   const {
     labelValue, // What I want to show in the label
     HTMLElement, // Which HTML tag I want to return
-    content, // The value of the tag
+    content, // Content's value (inside the tag)
     validation, // Validation method
     type, // input type
     options, // array of options (for <select> <option>)
-    placeholder, // placeholder of the input
+    placeholder, // input's placeholder
     name, // will name & id of each input
     errorMessage, // the message to be shown if it's not valid
     onChange, // Created to pass the validity 1 level up
@@ -23,9 +23,10 @@ function FormInput(props) {
   let element;
   const controlClass = !isValid && isTouched ? 'invalid' : null;
 
+  useEffect(() => onChange && onChange(isValid, name), [isValid]); // Without the useEffect it would pass the 'delayed' state
+
   const changeHandler = () => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
-    return onChange && onChange(isValid, name);
   };
 
   if (HTMLElement === 'input') {
@@ -42,7 +43,6 @@ function FormInput(props) {
             onChange={changeHandler}
             ref={inputRef}
             className={`${classes.input} ${classes[controlClass]}`}
-            // autoComplete="off" // needed this to solve a bug in the autoComplete vs onChange in the URL
           />
         </label>
         {!isValid && isTouched && (
