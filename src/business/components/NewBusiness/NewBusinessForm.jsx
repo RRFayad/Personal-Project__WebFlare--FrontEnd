@@ -67,7 +67,7 @@ function NewBusinessForm() {
           name="title"
           type="text"
           validation={minLengthValidator}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Title must have at least 3 Characters"
         />
         <FormInput
@@ -76,7 +76,7 @@ function NewBusinessForm() {
           name="image"
           type="text"
           validation={urlValidator}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Please enter a valid URL"
         />
         <FormInput
@@ -97,7 +97,7 @@ function NewBusinessForm() {
           type="number"
           name="age"
           validation={integerInputValidator}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -106,7 +106,7 @@ function NewBusinessForm() {
           type="number"
           name="revenue"
           validation={integerInputValidator}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -115,7 +115,7 @@ function NewBusinessForm() {
           type="number"
           name="profit"
           validation={integerInputValidator}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -124,7 +124,7 @@ function NewBusinessForm() {
           type="number"
           name="price"
           validation={integerInputValidator}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -132,7 +132,7 @@ function NewBusinessForm() {
           HTMLElement="textarea"
           name="description"
           validation={(value) => minLengthValidator(value, 6)}
-          onChange={validateHandler}
+          onValidationChange={validateHandler}
           errorMessage="Description must contain at least 6 characters"
         />
       </div>
