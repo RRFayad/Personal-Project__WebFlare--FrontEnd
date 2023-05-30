@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect, useReducer } from 'react';
 
 import DataContext from '../../../shared/context/DummyDataContext';
 import Form from '../../../shared/ui-ux/Form';
@@ -13,8 +13,50 @@ import {
 
 import classes from './NewBusinessForm.module.css';
 
+const initialInputsStates = {
+  titleIsValid: false,
+  imageIsValid: false,
+  ageIsValid: false,
+  revenueIsValid: false,
+  profitIsValid: false,
+  priceIsValid: false,
+  descriptionIsValid: false,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'VALIDATE_INPUT':
+      return {
+        ...state,
+        [action.payload]: true,
+      };
+    case 'INVALIDATE_INPUT':
+      return {
+        ...state,
+
+        [action.payload]: false,
+      };
+    default:
+      return state;
+  }
+};
+
 function NewBusinessForm() {
+  const [inputsStates, dispatch] = useReducer(reducer, initialInputsStates);
+  const [formIsValid, setFormIsValid] = useState(false);
+
   const { businessTypesOptions, nichesOptions } = useContext(DataContext);
+
+  const validateHandler = (inputIsValid, fieldName) =>
+    inputIsValid
+      ? dispatch({ type: 'VALIDATE_INPUT', payload: `${fieldName}IsValid` })
+      : dispatch({ type: 'INVALIDATE_INPUT', payload: `${fieldName}IsValid` });
+
+  useEffect(() => {
+    setFormIsValid(() =>
+      Object.values(inputsStates).every((isValid) => isValid)
+    );
+  }, [inputsStates]);
 
   return (
     <Form>
@@ -25,6 +67,7 @@ function NewBusinessForm() {
           name="title"
           type="text"
           validation={minLengthValidator}
+          onChange={validateHandler}
           errorMessage="Title must have at least 3 Characters"
         />
         <FormInput
@@ -33,6 +76,7 @@ function NewBusinessForm() {
           name="image"
           type="text"
           validation={urlValidator}
+          onChange={validateHandler}
           errorMessage="Please enter a valid URL"
         />
         <FormInput
@@ -53,6 +97,7 @@ function NewBusinessForm() {
           type="number"
           name="age"
           validation={integerInputValidator}
+          onChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -61,6 +106,7 @@ function NewBusinessForm() {
           type="number"
           name="revenue"
           validation={integerInputValidator}
+          onChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -69,6 +115,7 @@ function NewBusinessForm() {
           type="number"
           name="profit"
           validation={integerInputValidator}
+          onChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -77,6 +124,7 @@ function NewBusinessForm() {
           type="number"
           name="price"
           validation={integerInputValidator}
+          onChange={validateHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -84,14 +132,20 @@ function NewBusinessForm() {
           HTMLElement="textarea"
           name="description"
           validation={(value) => minLengthValidator(value, 6)}
+          onChange={validateHandler}
           errorMessage="Description must contain at least 6 characters"
         />
       </div>
       <div className={classes.form__buttons}>
-        <FormButton caution disabled onClick={() => console.log('Delete!!')}>
+        <FormButton caution onClick={() => console.log({ inputsStates })}>
           Cancel
         </FormButton>
-        <FormButton onClick={() => console.log('Create!!')}>Create</FormButton>
+        <FormButton
+          disabled={!formIsValid}
+          onClick={() => console.log('Create!!')}
+        >
+          Create
+        </FormButton>
       </div>
     </Form>
   );

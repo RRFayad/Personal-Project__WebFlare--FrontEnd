@@ -25,6 +25,7 @@ function FormInput(props) {
 
   const changeHandler = () => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
+    return onChange && onChange(isValid, name);
   };
 
   if (HTMLElement === 'input') {
@@ -41,6 +42,7 @@ function FormInput(props) {
             onChange={changeHandler}
             ref={inputRef}
             className={`${classes.input} ${classes[controlClass]}`}
+            // autoComplete="off" // needed this to solve a bug in the autoComplete vs onChange in the URL
           />
         </label>
         {!isValid && isTouched && (
