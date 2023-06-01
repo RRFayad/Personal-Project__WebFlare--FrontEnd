@@ -2,10 +2,11 @@ import { useContext } from 'react';
 
 import DataContext from '../../../shared/context/DummyDataContext';
 import BusinessItem from './BusinessItem';
+import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import classes from './BusinessList.module.css';
 
 function BusinessList() {
-  const { businessesList, usersList, formatCurrency } = useContext(DataContext);
+  const { businessesList, usersList } = useContext(DataContext);
 
   return (
     <ul className={`${classes['business-list']}`}>

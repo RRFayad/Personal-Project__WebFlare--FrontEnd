@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 
 import DataContext from '../../../shared/context/DummyDataContext';
+import { formatCurrency } from '../../../shared/util/validators-and-formatters';
+
 import classes from './OfferModal.module.css';
 
 function OfferModal(props) {
-  const { businessesList, usersList, formatCurrency } = useContext(DataContext);
+  const { businessesList, usersList } = useContext(DataContext);
 
   const {
     age,

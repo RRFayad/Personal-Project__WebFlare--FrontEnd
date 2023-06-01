@@ -9,7 +9,7 @@ import {
   minLengthValidator,
   integerInputValidator,
   urlValidator,
-} from '../../../shared/util/validators';
+} from '../../../shared/util/validators-and-formatters';
 
 import classes from './NewBusinessForm.module.css';
 
@@ -42,12 +42,12 @@ const reducer = (state, action) => {
 };
 
 function NewBusinessForm() {
+  const { businessTypesOptions, nichesOptions } = useContext(DataContext);
+
   const [inputsStates, dispatch] = useReducer(reducer, initialInputsStates);
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const { businessTypesOptions, nichesOptions } = useContext(DataContext);
-
-  const validateHandler = (inputIsValid, fieldName) =>
+  const inputValidationChangeHandler = (inputIsValid, fieldName) =>
     inputIsValid
       ? dispatch({ type: 'VALIDATE_INPUT', payload: `${fieldName}IsValid` })
       : dispatch({ type: 'INVALIDATE_INPUT', payload: `${fieldName}IsValid` });
@@ -67,7 +67,7 @@ function NewBusinessForm() {
           name="title"
           type="text"
           validation={minLengthValidator}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Title must have at least 3 Characters"
         />
         <FormInput
@@ -76,7 +76,7 @@ function NewBusinessForm() {
           name="image"
           type="text"
           validation={urlValidator}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Please enter a valid URL"
         />
         <FormInput
@@ -97,7 +97,7 @@ function NewBusinessForm() {
           type="number"
           name="age"
           validation={integerInputValidator}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -106,7 +106,7 @@ function NewBusinessForm() {
           type="number"
           name="revenue"
           validation={integerInputValidator}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -115,7 +115,7 @@ function NewBusinessForm() {
           type="number"
           name="profit"
           validation={integerInputValidator}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -124,7 +124,7 @@ function NewBusinessForm() {
           type="number"
           name="price"
           validation={integerInputValidator}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Please insert a integer and positive number"
         />
         <FormInput
@@ -132,7 +132,7 @@ function NewBusinessForm() {
           HTMLElement="textarea"
           name="description"
           validation={(value) => minLengthValidator(value, 6)}
-          onValidationChange={validateHandler}
+          onValidationChange={inputValidationChangeHandler}
           errorMessage="Description must contain at least 6 characters"
         />
       </div>

@@ -7,3 +7,11 @@ export const urlValidator = (value) => {
   const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
   return pattern.test(value);
 };
+
+export const formatCurrency = (value) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);

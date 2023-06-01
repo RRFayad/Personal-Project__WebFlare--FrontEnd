@@ -11,7 +11,7 @@ function FormInput(props) {
     type, // input type
     options, // array of options (for <select> <option>)
     placeholder, // input's placeholder
-    name, // will name & id of each input
+    name, // will be the name & id of each input
     errorMessage, // the message to be shown if it's not valid
     onValidationChange, // Created to pass the validity 1 level up
   } = props;
@@ -23,10 +23,11 @@ function FormInput(props) {
   let element;
   const controlClass = !isValid && isTouched ? 'invalid' : null;
 
+  // Without the useEffect it would pass the 'delayed' state (as useEffect will work when componentDidUpdate, and without it, before the component update)
   useEffect(
     () => onValidationChange && onValidationChange(isValid, name),
     [isValid]
-  ); // Without the useEffect it would pass the 'delayed' state
+  );
 
   const changeHandler = () => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));

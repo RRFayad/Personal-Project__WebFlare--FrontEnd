@@ -5,12 +5,13 @@ import { useParams } from 'react-router-dom';
 import DataContext from '../../../shared/context/DummyDataContext';
 import Backdrop from '../../../shared/ui-ux/Backdrop';
 import OfferModal from './OfferModal';
+import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 
 import classes from './BusinessInfo.module.css';
 
 function BusinessInfo() {
   const { bid } = useParams();
-  const { businessesList, usersList, formatCurrency } = useContext(DataContext);
+  const { businessesList, usersList } = useContext(DataContext);
 
   const [modalIsShown, setModalIsShown] = useState(false);
 
