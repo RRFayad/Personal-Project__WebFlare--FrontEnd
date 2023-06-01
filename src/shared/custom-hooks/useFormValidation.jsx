@@ -1,15 +1,5 @@
 import React, { useReducer, useState, useEffect } from 'react';
 
-// const initialInputsStates = {
-//   titleIsValid: false,
-//   imageIsValid: false,
-//   ageIsValid: false,
-//   revenueIsValid: false,
-//   profitIsValid: false,
-//   priceIsValid: false,
-//   descriptionIsValid: false,
-// };
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'VALIDATE_INPUT':
@@ -28,7 +18,7 @@ const reducer = (state, action) => {
   }
 };
 
-const useForm = (...initialInputs) => {
+const useFormValidation = (...initialInputs) => {
   const initialInputsStates = {};
 
   // eslint-disable-next-line no-restricted-syntax
@@ -42,8 +32,8 @@ const useForm = (...initialInputs) => {
 
   const inputValidationChangeHandler = (inputIsValid, fieldName) =>
     inputIsValid
-      ? dispatch({ type: 'VALIDATE_INPUT', payload: `${fieldName}isValid` })
-      : dispatch({ type: 'INVALIDATE_INPUT', payload: `${fieldName}isValid` });
+      ? dispatch({ type: 'VALIDATE_INPUT', payload: `${fieldName}IsValid` })
+      : dispatch({ type: 'INVALIDATE_INPUT', payload: `${fieldName}IsValid` });
 
   useEffect(() => {
     setFormIsValid(() =>
@@ -56,4 +46,4 @@ const useForm = (...initialInputs) => {
   // const [formState, dispatch] = useReducer(reducer, initialInputsStates);
 };
 
-export default useForm;
+export default useFormValidation;

@@ -4,6 +4,7 @@ import DataContext from '../../../shared/context/DummyDataContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
+import useFormValidation from '../../../shared/custom-hooks/useFormValidation';
 
 import {
   minLengthValidator,
@@ -13,50 +14,18 @@ import {
 
 import classes from './NewBusinessForm.module.css';
 
-const initialInputsStates = {
-  titleIsValid: false,
-  imageIsValid: false,
-  ageIsValid: false,
-  revenueIsValid: false,
-  profitIsValid: false,
-  priceIsValid: false,
-  descriptionIsValid: false,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'VALIDATE_INPUT':
-      return {
-        ...state,
-        [action.payload]: true,
-      };
-    case 'INVALIDATE_INPUT':
-      return {
-        ...state,
-
-        [action.payload]: false,
-      };
-    default:
-      return state;
-  }
-};
-
 function NewBusinessForm() {
   const { businessTypesOptions, nichesOptions } = useContext(DataContext);
 
-  const [inputsStates, dispatch] = useReducer(reducer, initialInputsStates);
-  const [formIsValid, setFormIsValid] = useState(false);
-
-  const inputValidationChangeHandler = (inputIsValid, fieldName) =>
-    inputIsValid
-      ? dispatch({ type: 'VALIDATE_INPUT', payload: `${fieldName}IsValid` })
-      : dispatch({ type: 'INVALIDATE_INPUT', payload: `${fieldName}IsValid` });
-
-  useEffect(() => {
-    setFormIsValid(() =>
-      Object.values(inputsStates).every((isValid) => isValid)
-    );
-  }, [inputsStates]);
+  const [formIsValid, inputValidationChangeHandler] = useFormValidation(
+    'title',
+    'image',
+    'age',
+    'revenue',
+    'profit',
+    'price',
+    'description'
+  );
 
   return (
     <Form>
@@ -137,7 +106,7 @@ function NewBusinessForm() {
         />
       </div>
       <div className={classes.form__buttons}>
-        <FormButton caution onClick={() => console.log({ inputsStates })}>
+        <FormButton caution onClick={() => console.log('cancel')}>
           Cancel
         </FormButton>
         <FormButton
