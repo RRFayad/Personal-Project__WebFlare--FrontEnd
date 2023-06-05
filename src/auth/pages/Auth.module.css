@@ -1,0 +1,15 @@
+.content {
+  min-height: calc(100vh - 104px);
+  background-color: #4d4d4d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__buttons {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
+}

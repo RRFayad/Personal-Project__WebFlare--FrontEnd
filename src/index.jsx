@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { DataContextProvider } from './shared/context/DummyDataContext';
+import { AuthContextProvider } from './shared/context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DataContextProvider>
-      <App />
-    </DataContextProvider>
+    <AuthContextProvider>
+      <DataContextProvider>
+        <App />
+      </DataContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 

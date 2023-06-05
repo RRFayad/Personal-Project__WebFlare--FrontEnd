@@ -123,6 +123,11 @@
   color: white;
 }
 
+.modal__button a {
+  text-decoration: none;
+  color: #0058ff;
+}
+
 .modal__button:hover {
   /* font-weight: bold; */
   border: solid 2px;

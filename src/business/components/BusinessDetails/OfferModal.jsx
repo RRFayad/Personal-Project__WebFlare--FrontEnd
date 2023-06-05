@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import DataContext from '../../../shared/context/DummyDataContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
@@ -7,6 +8,7 @@ import classes from './OfferModal.module.css';
 
 function OfferModal(props) {
   const { businessesList, usersList } = useContext(DataContext);
+  const history = useHistory();
 
   const {
     age,
@@ -73,7 +75,13 @@ function OfferModal(props) {
       </main>
       <hr />
       <footer className={classes.modal__footer}>
-        <button type="button" className={classes.modal__button}>
+        <button
+          type="button"
+          className={classes.modal__button}
+          onClick={() =>
+            history.push(`${history.location.pathname}/create-offer`)
+          }
+        >
           Make Offer
         </button>
         <button

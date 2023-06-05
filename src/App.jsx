@@ -12,6 +12,7 @@ import UsersBusiness from './users/pages/UsersBusiness';
 import UserDetails from './users/pages/UserDetails';
 import Auth from './auth/pages/Auth';
 import NewBusiness from './business/pages/NewBusiness';
+import SuccessPage from './business/pages/SuccessPage';
 
 import './App.css';
 
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path="/auth" exact>
           <Auth />
+        </Route>
+        <Route path="/success" exact>
+          <SuccessPage />
         </Route>
         <Redirect to="/" />
       </Switch>

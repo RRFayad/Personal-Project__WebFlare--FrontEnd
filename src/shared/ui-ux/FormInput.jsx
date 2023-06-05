@@ -14,6 +14,7 @@ function FormInput(props) {
     name, // will be the name & id of each input
     errorMessage, // the message to be shown if it's not valid
     onValidationChange, // Created to pass the validity 1 level up
+    formatter,
   } = props;
 
   const [isValid, setIsValid] = useState(false);

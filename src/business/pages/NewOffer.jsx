@@ -1,11 +1,16 @@
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
+import NewOfferForm from '../components/NewOffer/NewOfferForm';
+import classes from './NewOffer.module.css';
+
 function NewOffer() {
   return (
     <>
       <Navbar />
-      <h1>This is the New Offer Page</h1>
+      <main className={classes.content}>
+        <NewOfferForm />
+      </main>
       <Footer />
     </>
   );
