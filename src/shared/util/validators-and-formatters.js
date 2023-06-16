@@ -26,7 +26,7 @@ export const fullNameValidator = (fullName) => {
 };
 
 export const urlValidator = (value) => {
-  const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+  const pattern = /^(https?:\/\/)?[a-zA-Z0-9-.]+\.[a-zA-Z]{2,}(\/\S*)?$/;
   return pattern.test(value);
 };
 

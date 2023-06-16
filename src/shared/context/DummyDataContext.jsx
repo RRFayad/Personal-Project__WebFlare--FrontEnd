@@ -6,7 +6,6 @@ const DataContext = React.createContext({
   usersList: [],
   businessTypesOptions: [],
   nichesOptions: [],
-  formatCurrency: () => {},
 });
 
 const businessTypesOptions = [
@@ -40,14 +39,6 @@ const nichesOptions = [
 ];
 
 export function DataContextProvider(props) {
-  const formatCurrency = (value) =>
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-
   const DUMMY_BUSINESSES_LIST = useMemo(
     () => [
       {
@@ -137,7 +128,6 @@ export function DataContextProvider(props) {
         usersList: DUMMY_USERS_LIST,
         businessTypesOptions,
         nichesOptions,
-        formatCurrency,
       }}
     >
       {props.children}

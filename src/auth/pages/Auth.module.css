@@ -13,3 +13,15 @@
   align-content: center;
   flex-wrap: wrap;
 }
+
+.form__buttons--toggle-login-state {
+  background: none;
+  color: #001f44;
+  font-weight: bold;
+  border: none;
+  padding: 0;
+  margin: 0;
+  margin-top: -8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}

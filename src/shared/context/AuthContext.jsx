@@ -1,20 +1,47 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React from 'react';
+import React, { useState } from 'react';
 
 const AuthContext = React.createContext({
-  login: () => {},
-  logout: () => {},
+  isloggedIn: false,
+  loginHandler: (email, password) => {},
+  logoutHandler: () => {},
+  signUpHandler: () => {},
 });
 
 export function AuthContextProvider(props) {
-  const login = () => {};
-  const logout = () => {};
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginHandler = (email, password) => {
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
+    return console.log('User logged in!!');
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    return console.log('User logged out!!');
+  };
+
+  const signUpHandler = (
+    name,
+    imageUrl,
+    linkedinUrl,
+    country,
+    email,
+    password,
+    description
+  ) => {
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
+    return console.log('User logged in!!');
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        login,
-        logout,
+        loginHandler,
+        logoutHandler,
       }}
     >
       {props.children}

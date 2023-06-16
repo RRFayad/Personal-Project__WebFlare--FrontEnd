@@ -29,6 +29,7 @@ const useFormValidation = (...initialInputs) => {
 
   const [inputsStates, dispatch] = useReducer(reducer, initialInputsStates);
   const [formIsValid, setFormIsValid] = useState(false);
+  console.log(inputsStates);
 
   const inputValidationChangeHandler = (inputIsValid, fieldName) =>
     inputIsValid

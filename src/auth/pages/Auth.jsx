@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
@@ -17,13 +17,27 @@ import {
 import classes from './Auth.module.css';
 
 function Auth() {
+  const [userHasAccount, setUserHasAccount] = useState(true);
+  const [formFields, setFormFields] = useState(['email', 'password']);
+  const toggleUserHasAccount = () => {
+    setUserHasAccount((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    return userHasAccount
+      ? setFormFields(['name', 'email'])
+      : setFormFields([
+          'name',
+          'country',
+          'linkedinUrl',
+          'email',
+          'password',
+          'description',
+        ]);
+  }, [userHasAccount]);
+
   const [formIsValid, inputValidationChangeHandler] = useFormValidation(
-    'name',
-    'country',
-    'linkedinUrl',
-    'e-mail',
-    'password',
-    'description'
+    ...formFields
   );
   return (
     <>
@@ -31,42 +45,50 @@ function Auth() {
       <main className={classes.content}>
         <Form>
           <div className={classes.form__inputs}>
-            <FormInput
-              labelValue="Full Name"
-              HTMLElement="input"
-              type="text"
-              name="name"
-              validation={fullNameValidator}
-              onValidationChange={inputValidationChangeHandler}
-              errorMessage="Please insert your Full Name"
-            />
-            <FormInput
-              labelValue="Image URL"
-              HTMLElement="input"
-              type="url"
-              name="name"
-              validation={urlValidator}
-              onValidationChange={inputValidationChangeHandler}
-              errorMessage="Please a valid url"
-            />
-            <FormInput
-              labelValue="Linkedin Account"
-              HTMLElement="input"
-              type="url"
-              name="linkedin"
-              validation={urlValidator}
-              onValidationChange={inputValidationChangeHandler}
-              errorMessage="Please insert your linkedin account URL"
-            />
-            <FormInput
-              labelValue="Country"
-              HTMLElement="input"
-              type="text"
-              name="country"
-              validation={minLengthValidator}
-              onValidationChange={inputValidationChangeHandler}
-              errorMessage="Please insert a valid country"
-            />
+            {!userHasAccount && (
+              <FormInput
+                labelValue="Full Name"
+                HTMLElement="input"
+                type="text"
+                name="name"
+                validation={fullNameValidator}
+                onValidationChange={inputValidationChangeHandler}
+                errorMessage="Please insert your Full Name"
+              />
+            )}
+            {!userHasAccount && (
+              <FormInput
+                labelValue="Image URL"
+                HTMLElement="input"
+                type="url"
+                name="image"
+                validation={urlValidator}
+                onValidationChange={inputValidationChangeHandler}
+                errorMessage="Please a valid url"
+              />
+            )}
+            {!userHasAccount && (
+              <FormInput
+                labelValue="Linkedin Account"
+                HTMLElement="input"
+                type="url"
+                name="linkedinUrl"
+                validation={urlValidator}
+                onValidationChange={inputValidationChangeHandler}
+                errorMessage="Please insert your linkedin account URL"
+              />
+            )}
+            {!userHasAccount && (
+              <FormInput
+                labelValue="Country"
+                HTMLElement="input"
+                type="text"
+                name="country"
+                validation={minLengthValidator}
+                onValidationChange={inputValidationChangeHandler}
+                errorMessage="Please insert a valid country"
+              />
+            )}
             <FormInput
               labelValue="E-mail"
               HTMLElement="input"
@@ -85,19 +107,32 @@ function Auth() {
               onValidationChange={inputValidationChangeHandler}
               errorMessage="Password must contain at least: 6 to 20 characters, Uppercase, Lowercase, Number and a Special Character "
             />
-            <FormInput
-              labelValue="Your personal and professional description"
-              HTMLElement="textarea"
-              type="text"
-              name="description"
-              validation={minLengthValidator(6)}
-              onValidationChange={inputValidationChangeHandler}
-              errorMessage="Description must contain at least 6 characters"
-            />
+            {!userHasAccount && (
+              <FormInput
+                labelValue="Your personal and professional description"
+                HTMLElement="textarea"
+                type="text"
+                name="description"
+                validation={(value) => minLengthValidator(value, 6)}
+                onValidationChange={inputValidationChangeHandler}
+                errorMessage="Description must contain at least 6 characters"
+              />
+            )}
           </div>
           <div className={classes.form__buttons}>
-            <FormButton>Login</FormButton>
+            <FormButton disabled={!formIsValid}>
+              {userHasAccount ? 'Login' : 'Sign Up'}
+            </FormButton>
           </div>
+          <button
+            className={classes['form__buttons--toggle-login-state']}
+            type="button"
+            onClick={toggleUserHasAccount}
+          >
+            {userHasAccount
+              ? "Don't have an account? Click here!"
+              : 'Got an account already? Click here!'}
+          </button>
         </Form>
       </main>
       <Footer />
