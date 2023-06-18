@@ -3,8 +3,6 @@
 import { useReducer, useState, useEffect } from 'react';
 
 const reducer = (state, action) => {
-  const newState = state;
-
   switch (action.type) {
     case 'VALIDATE_INPUT':
       return {
@@ -12,17 +10,6 @@ const reducer = (state, action) => {
         [action.payload]: true,
       };
     case 'INVALIDATE_INPUT':
-      return {
-        ...state,
-
-        [action.payload]: false,
-      };
-    case 'DELETE_INPUT':
-      delete newState.action.payload;
-      return {
-        ...newState,
-      };
-    case 'SET_INPUT':
       return {
         ...state,
         [action.payload]: false,
@@ -34,12 +21,11 @@ const reducer = (state, action) => {
   }
 };
 
-const useFormValidation = (...initialInputs) => {
+const useFormValidation = () => {
   const [inputsStates, dispatch] = useReducer(reducer, {});
   const [formIsValid, setFormIsValid] = useState(false);
 
   const setFormData = (inputs) => {
-    // dispatch({ type: 'DELETE_INPUTS' });
     let newState = {};
     for (const input of inputs) {
       const inputStateKey = `${input}IsValid`;
@@ -70,7 +56,7 @@ const useFormValidation = (...initialInputs) => {
   };
 
   useEffect(() => {
-    console.log(inputsStates);
+    // console.log(inputsStates);
     setFormIsValid(() =>
       Object.values(inputsStates).every((isValid) => isValid)
     );

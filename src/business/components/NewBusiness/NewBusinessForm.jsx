@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import DataContext from '../../../shared/context/DummyDataContext';
 import Form from '../../../shared/ui-ux/Form';
@@ -16,16 +17,22 @@ import classes from './NewBusinessForm.module.css';
 
 function NewBusinessForm() {
   const { businessTypesOptions, nichesOptions } = useContext(DataContext);
+  const history = useHistory();
 
-  const [formIsValid, inputValidationChangeHandler] = useFormValidation(
-    'title',
-    'image',
-    'age',
-    'revenue',
-    'profit',
-    'price',
-    'description'
-  );
+  const [formIsValid, inputValidationChangeHandler, setFormData] =
+    useFormValidation();
+
+  useEffect(() => {
+    setFormData([
+      'title',
+      'image',
+      'age',
+      'revenue',
+      'profit',
+      'price',
+      'description',
+    ]);
+  }, []);
 
   return (
     <Form>
@@ -106,7 +113,7 @@ function NewBusinessForm() {
         />
       </div>
       <div className={classes.form__buttons}>
-        <FormButton caution onClick={() => console.log('cancel')}>
+        <FormButton caution onClick={() => history.goBack()}>
           Cancel
         </FormButton>
         <FormButton

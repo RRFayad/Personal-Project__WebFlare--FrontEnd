@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import Form from '../../../shared/ui-ux/Form';
@@ -16,10 +16,12 @@ import classes from './NewOfferForm.module.css';
 function NewOfferForm() {
   const history = useHistory();
 
-  const [formIsValid, inputValidationChangeHandler] = useFormValidation(
-    'value',
-    'description'
-  );
+  const [formIsValid, inputValidationChangeHandler, setFormData] =
+    useFormValidation();
+
+  useEffect(() => {
+    setFormData(['value', 'description']);
+  }, []);
 
   return (
     <Form>

@@ -22,8 +22,6 @@ function Auth() {
   const loginInputs = ['email', 'password'];
   const signUpInputs = ['name', 'country', 'email', 'password', 'description'];
 
-  const [formFields, setFormFields] = useState(loginInputs);
-
   const toggleUserHasAccount = () => {
     setUserHasAccount((prevState) => !prevState);
   };
