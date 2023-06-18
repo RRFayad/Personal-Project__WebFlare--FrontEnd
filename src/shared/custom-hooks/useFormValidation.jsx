@@ -1,6 +1,10 @@
-import React, { useReducer, useState, useEffect } from 'react';
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
+import { useReducer, useState, useEffect } from 'react';
 
 const reducer = (state, action) => {
+  const newState = state;
+
   switch (action.type) {
     case 'VALIDATE_INPUT':
       return {
@@ -13,38 +17,66 @@ const reducer = (state, action) => {
 
         [action.payload]: false,
       };
+    case 'DELETE_INPUT':
+      delete newState.action.payload;
+      return {
+        ...newState,
+      };
+    case 'SET_INPUT':
+      return {
+        ...state,
+        [action.payload]: false,
+      };
+    case 'SET_FORM_DATA':
+      return action.payload;
     default:
       return state;
   }
 };
 
 const useFormValidation = (...initialInputs) => {
-  const initialInputsStates = {};
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const input of initialInputs) {
-    const inputKey = `${input}IsValid`;
-    initialInputsStates[inputKey] = false;
-  }
-
-  const [inputsStates, dispatch] = useReducer(reducer, initialInputsStates);
+  const [inputsStates, dispatch] = useReducer(reducer, {});
   const [formIsValid, setFormIsValid] = useState(false);
-  console.log(inputsStates);
 
-  const inputValidationChangeHandler = (inputIsValid, fieldName) =>
-    inputIsValid
-      ? dispatch({ type: 'VALIDATE_INPUT', payload: `${fieldName}IsValid` })
-      : dispatch({ type: 'INVALIDATE_INPUT', payload: `${fieldName}IsValid` });
+  const setFormData = (inputs) => {
+    // dispatch({ type: 'DELETE_INPUTS' });
+    let newState = {};
+    for (const input of inputs) {
+      const inputStateKey = `${input}IsValid`;
+      if (inputsStates.hasOwnProperty(inputStateKey)) {
+        newState = {
+          ...newState,
+          [inputStateKey]: inputsStates[inputStateKey],
+        };
+      }
+      if (!inputsStates.hasOwnProperty(inputStateKey)) {
+        newState = { ...newState, [inputStateKey]: false };
+      }
+    }
+    dispatch({ type: 'SET_FORM_DATA', payload: newState });
+  };
+
+  const inputValidationChangeHandler = (inputIsValid, fieldName) => {
+    const inputStateKey = `${fieldName}IsValid`;
+
+    if (inputsStates.hasOwnProperty(inputStateKey)) {
+      inputIsValid
+        ? dispatch({ type: 'VALIDATE_INPUT', payload: inputStateKey })
+        : dispatch({
+            type: 'INVALIDATE_INPUT',
+            payload: `${fieldName}IsValid`,
+          });
+    }
+  };
 
   useEffect(() => {
+    console.log(inputsStates);
     setFormIsValid(() =>
       Object.values(inputsStates).every((isValid) => isValid)
     );
   }, [inputsStates]);
 
-  return [formIsValid, inputValidationChangeHandler];
-
-  // const [formState, dispatch] = useReducer(reducer, initialInputsStates);
+  return [formIsValid, inputValidationChangeHandler, setFormData];
 };
 
 export default useFormValidation;

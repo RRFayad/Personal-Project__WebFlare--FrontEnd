@@ -18,27 +18,24 @@ import classes from './Auth.module.css';
 
 function Auth() {
   const [userHasAccount, setUserHasAccount] = useState(true);
-  const [formFields, setFormFields] = useState(['email', 'password']);
+
+  const loginInputs = ['email', 'password'];
+  const signUpInputs = ['name', 'country', 'email', 'password', 'description'];
+
+  const [formFields, setFormFields] = useState(loginInputs);
+
   const toggleUserHasAccount = () => {
     setUserHasAccount((prevState) => !prevState);
   };
 
+  // I should work in this setFormData, to be able to update my form validation when toggling from login and signup
+  const [formIsValid, inputValidationChangeHandler, setFormData] =
+    useFormValidation();
+
   useEffect(() => {
-    return userHasAccount
-      ? setFormFields(['name', 'email'])
-      : setFormFields([
-          'name',
-          'country',
-          'linkedinUrl',
-          'email',
-          'password',
-          'description',
-        ]);
+    userHasAccount ? setFormData(loginInputs) : setFormData(signUpInputs);
   }, [userHasAccount]);
 
-  const [formIsValid, inputValidationChangeHandler] = useFormValidation(
-    ...formFields
-  );
   return (
     <>
       <Navbar />
