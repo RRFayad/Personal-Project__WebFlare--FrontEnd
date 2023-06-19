@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
+import AuthContext from '../../shared/context/AuthContext';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';
@@ -17,6 +19,9 @@ import {
 import classes from './Auth.module.css';
 
 function Auth() {
+  const history = useHistory();
+  const { loginHandler, signUpHandler } = useContext(AuthContext);
+
   const [userHasAccount, setUserHasAccount] = useState(true);
 
   const loginInputs = ['email', 'password'];
@@ -115,9 +120,28 @@ function Auth() {
             )}
           </div>
           <div className={classes.form__buttons}>
-            <FormButton disabled={!formIsValid}>
-              {userHasAccount ? 'Login' : 'Sign Up'}
-            </FormButton>
+            {userHasAccount && (
+              <FormButton
+                disabled={!formIsValid}
+                onClick={() => {
+                  loginHandler;
+                  history.push('/');
+                }}
+              >
+                Login
+              </FormButton>
+            )}
+            {!userHasAccount && (
+              <FormButton
+                disabled={!formIsValid}
+                onClick={() => {
+                  signUpHandler;
+                  history.push('/');
+                }}
+              >
+                Sign Up
+              </FormButton>
+            )}
           </div>
           <button
             className={classes['form__buttons--toggle-login-state']}

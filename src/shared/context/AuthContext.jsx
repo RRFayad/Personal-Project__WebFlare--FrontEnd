@@ -34,7 +34,7 @@ export function AuthContextProvider(props) {
   ) => {
     localStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
-    return console.log('User logged in!!');
+    return console.log('User signed up!!');
   };
 
   return (
@@ -42,6 +42,7 @@ export function AuthContextProvider(props) {
       value={{
         loginHandler,
         logoutHandler,
+        signUpHandler,
       }}
     >
       {props.children}
