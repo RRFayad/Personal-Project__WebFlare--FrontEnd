@@ -25,10 +25,20 @@
   margin: 4px 16px;
   justify-content: space-between;
   overflow: hidden;
+  height: 100%;
+}
+
+.details__image-container {
+  /* display: inline-block; */
+  /* background-color: yellow; */
+  width: 30vw;
+  height: 100%;
 }
 
 .details__image {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 .details__info {
   display: flex;
@@ -109,7 +119,8 @@
     flex-direction: column;
   }
 
-  .details__image {
+  .details__image-container {
+    margin-top: 8px;
     height: 60%;
     width: 100%;
   }

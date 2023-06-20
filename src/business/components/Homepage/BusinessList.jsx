@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import DataContext from '../../../shared/context/DummyDataContext';
+import DataContext from '../../../shared/context/DataContext';
 import BusinessItem from './BusinessItem';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import classes from './BusinessList.module.css';

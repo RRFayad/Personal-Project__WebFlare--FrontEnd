@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import DataContext from '../../../shared/context/DummyDataContext';
+import DataContext from '../../../shared/context/DataContext';
 import AuthContext from '../../../shared/context/AuthContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 

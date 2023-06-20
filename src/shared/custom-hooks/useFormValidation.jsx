@@ -2,27 +2,10 @@
 /* eslint-disable no-restricted-syntax */
 import { useReducer, useState, useEffect } from 'react';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'VALIDATE_INPUT':
-      return {
-        ...state,
-        [action.payload]: true,
-      };
-    case 'INVALIDATE_INPUT':
-      return {
-        ...state,
-        [action.payload]: false,
-      };
-    case 'SET_FORM_DATA':
-      return action.payload;
-    default:
-      return state;
-  }
-};
+import formValidationReducer from './formValidationReducer';
 
 const useFormValidation = () => {
-  const [inputsStates, dispatch] = useReducer(reducer, {});
+  const [inputsStates, dispatch] = useReducer(formValidationReducer, {});
   const [formIsValid, setFormIsValid] = useState(false);
 
   const setFormData = (inputs) => {

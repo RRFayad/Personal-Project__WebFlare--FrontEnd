@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import DataContext from '../../../shared/context/DummyDataContext';
+import DataContext from '../../../shared/context/DataContext';
 import classes from './Sidebar.module.css';
 
 function SideBar() {
@@ -13,7 +13,15 @@ function SideBar() {
         <div className={classes.sidebar__checkboxes}>
           {businessTypesOptions.map((item) => (
             <label htmlFor={item} key={item}>
-              <input type="checkbox" id={item} name={item} />
+              <input
+                type="checkbox"
+                id={item}
+                name={item}
+                onChange={(event) => {
+                  console.log(event.target.checked);
+                  console.log(typeof item);
+                }}
+              />
               {item}
             </label>
           ))}

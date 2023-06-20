@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { DataContextProvider } from './shared/context/DummyDataContext';
+import { DataContextProvider } from './shared/context/DataContext';
 import { AuthContextProvider } from './shared/context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

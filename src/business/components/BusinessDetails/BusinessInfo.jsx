@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useParams } from 'react-router-dom';
 
-import DataContext from '../../../shared/context/DummyDataContext';
+import DataContext from '../../../shared/context/DataContext';
 import Backdrop from '../../../shared/ui-ux/Backdrop';
 import OfferModal from './OfferModal';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';

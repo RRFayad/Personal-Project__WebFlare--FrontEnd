@@ -3,7 +3,9 @@ import classes from './Footer.module.css';
 function Footer() {
   return (
     <footer className={classes.footer}>
-      <p>Contact Me</p>
+      <a href="https://api.whatsapp.com/send?phone=5511992861954&text=">
+        Contact Me
+      </a>
       <p>RRFayad ©</p>
     </footer>
   );

@@ -12,7 +12,9 @@
   z-index: 1;
 }
 
-.footer p {
+.footer p,
+.footer a {
+  text-decoration: none;
   color: white;
   margin: 0 48px;
   font-size: 1rem;
