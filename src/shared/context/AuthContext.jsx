@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AuthContext = React.createContext({
-  isloggedIn: false,
+  isLoggedIn: false,
   loginHandler: (email, password) => {},
   logoutHandler: () => {},
   signUpHandler: () => {},
@@ -10,6 +10,12 @@ const AuthContext = React.createContext({
 
 export function AuthContextProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    localStorage.getItem('isLoggedIn')
+      ? setIsLoggedIn(true)
+      : setIsLoggedIn(false);
+  });
 
   const loginHandler = (email, password) => {
     localStorage.setItem('isLoggedIn', 'true');
@@ -43,6 +49,7 @@ export function AuthContextProvider(props) {
         loginHandler,
         logoutHandler,
         signUpHandler,
+        isLoggedIn,
       }}
     >
       {props.children}

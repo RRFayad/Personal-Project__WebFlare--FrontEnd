@@ -124,8 +124,8 @@ function Auth() {
               <FormButton
                 disabled={!formIsValid}
                 onClick={() => {
-                  loginHandler;
-                  history.push('/');
+                  loginHandler();
+                  history.goBack();
                 }}
               >
                 Login
@@ -135,8 +135,8 @@ function Auth() {
               <FormButton
                 disabled={!formIsValid}
                 onClick={() => {
-                  signUpHandler;
-                  history.push('/');
+                  signUpHandler();
+                  history.goBack();
                 }}
               >
                 Sign Up

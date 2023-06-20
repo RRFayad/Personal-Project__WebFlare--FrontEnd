@@ -24,10 +24,10 @@ function BusinessItem(props) {
 
   return (
     <li className={classes.details}>
-      <h2 className={classes.details__title}>{props.business.title}</h2>
       <div className={classes.details__container}>
         <img src={imageUrl} alt={title} className={classes.details__image} />
         <div className={`${classes.details__info}`}>
+          <h2 className={classes.details__title}>{props.business.title}</h2>
           <dl className={classes.details__items}>
             <div className={`${classes.details__item}`}>
               <dt>Type</dt>

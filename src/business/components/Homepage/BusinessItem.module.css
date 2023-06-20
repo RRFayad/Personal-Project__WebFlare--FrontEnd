@@ -1,7 +1,7 @@
 .details {
   height: min(40vh, 280px);
   width: 75vw;
-  padding-bottom: 16px;
+  /* padding-bottom: 16px; */
   margin: auto;
   margin-bottom: 48px;
   background-color: #f9f9f9;
@@ -77,7 +77,7 @@
   border-radius: 25px;
   border: #0058ff;
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
   right: 10px;
   cursor: pointer;
 }
@@ -91,12 +91,12 @@
   color: white;
 }
 
-@media (max-width: 1200px) and (min-width: 768px) {
+/* @media (max-width: 1200px) and (min-width: 768px) {
   .details__item--optional {
     display: none;
   }
-}
-@media (max-width: 768px) {
+} */
+@media (max-width: 1200px) {
   .details {
     height: min(75vh, 520px);
     padding-bottom: 8px;

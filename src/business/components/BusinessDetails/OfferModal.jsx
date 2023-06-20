@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import DataContext from '../../../shared/context/DummyDataContext';
+import AuthContext from '../../../shared/context/AuthContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 
 import classes from './OfferModal.module.css';
 
 function OfferModal(props) {
+  const { isLoggedIn } = useContext(AuthContext);
   const { businessesList, usersList } = useContext(DataContext);
   const history = useHistory();
 
@@ -78,9 +80,11 @@ function OfferModal(props) {
         <button
           type="button"
           className={classes.modal__button}
-          onClick={() =>
-            history.push(`${history.location.pathname}/create-offer`)
-          }
+          onClick={() => {
+            isLoggedIn
+              ? history.push(`${history.location.pathname}/create-offer`)
+              : history.push('/auth');
+          }}
         >
           Make Offer
         </button>
