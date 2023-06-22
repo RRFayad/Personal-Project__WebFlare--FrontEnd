@@ -2,3 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
+.business-list--no-items {
+  text-align: center;
+}

@@ -21,7 +21,6 @@ import './App.css';
 
 function App() {
   const { isLoggedIn } = useContext(AuthContext);
-  console.log(isLoggedIn);
   return (
     <Router>
       <Switch>

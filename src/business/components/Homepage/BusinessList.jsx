@@ -9,19 +9,25 @@ function BusinessList() {
   const { businessesList, usersList } = useContext(DataContext);
 
   return (
-    <ul className={`${classes['business-list']}`}>
-      {businessesList.length > 0 ? (
-        businessesList.map((item) => (
-          <BusinessItem
-            business={item}
-            key={item.id}
-            formatCurrency={formatCurrency}
-          />
-        ))
+    <>
+      {businessesList.length === 0 ? (
+        <h1 className={classes['business-list--no-items']}>
+          No Business Found!
+        </h1>
       ) : (
-        <h1>No Business Found!</h1>
+        businessesList.length > 0 && (
+          <ul className={`${classes['business-list']}`}>
+            {businessesList.map((item) => (
+              <BusinessItem
+                business={item}
+                key={item.id}
+                formatCurrency={formatCurrency}
+              />
+            ))}
+          </ul>
+        )
       )}
-    </ul>
+    </>
   );
 }
 
