@@ -15,49 +15,73 @@ const DataContext = React.createContext({
   nichesOptions: [],
 });
 
-// const businessesListReducer = (state, action) => {
-//   if (action.type === 'TYPE_FILTER') {
-//     return;
-//   }
-//   if (action.type === 'SEARCH_FILTER') {
-//     ///
-//   }
-//   if (action.type === 'PRICE_FILTER') {
-//     ///
-//   }
-//   if (action.type === 'PROFIT_FILTER') {
-//     ///
-//   }
-// };
+const filtersReducer = (state, action) => {
+  if (action.type === 'TYPE_FILTER') {
+    // payloads: {filter, filterNewState}
+    return action.payload.filterNewState
+      ? { ...state, typeFilter: [...state.typeFilter, action.payload.filter] }
+      : {
+          ...state,
+          typeFilter: [...state.typeFilter].filter(
+            (typeFilter) => typeFilter !== action.payload.filter
+          ),
+        };
+  }
+  if (action.type === 'SEARCH_FILTER') {
+    ///
+  }
+  if (action.type === 'PRICE_FILTER') {
+    ///
+  }
+  if (action.type === 'PROFIT_FILTER') {
+    ///
+  }
+  return state;
+};
 
 export function DataContextProvider(props) {
   const allBusinesses = DUMMY_BUSINESSES;
   const usersList = DUMMY_USERS;
 
-  const [businessesList, setBusinessesList] = useState(allBusinesses);
-  const [businessTypeFilters, setBusinessTypeFilters] = useState(
-    businessTypesOptions.map((type) => {
-      return { [type]: false };
-    })
-  );
-
-  const filterStateHandler = (filter, newState) => {
-    setBusinessTypeFilters((state) =>
-      state.map((item) => {
-        return Object.keys(item).toString() === filter
-          ? { [filter]: newState }
-          : item;
-      })
-    );
+  const filtersInitializer = {
+    typeFilter: [],
+    searchFilter: '',
+    priceFilter: {
+      min: 0,
+      max: Infinity,
+    },
+    profitFilter: {
+      min: 0,
+      max: Infinity,
+    },
   };
 
-  useEffect(() => {
-    const filters = businessTypeFilters.filter((item) => {
-      return Object.values(item)[0];
-    });
+  const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);
 
-    console.log(filters);
-  }, [businessTypeFilters]);
+  const [businessesList, setBusinessesList] = useState(allBusinesses);
+
+  // const filterStateHandler = (filter, newState) => {
+  //   setBusinessTypeFilters((state) => {
+  //     return newState
+  //       ? [...state, filter]
+  //       : [...state].filter((typeFilter) => typeFilter !== filter);
+  //   });
+  // };
+
+  useEffect(() => {
+    setBusinessesList((state) => {
+      // business type logic
+      if (filters.typeFilter.length === 0) {
+        return allBusinesses;
+      }
+      return allBusinesses.filter((business) =>
+        filters.typeFilter.includes(business.type)
+      );
+      // business search logic
+      // business price logic
+      // business profit logic
+    });
+  }, [filters]);
 
   return (
     <DataContext.Provider
@@ -66,7 +90,7 @@ export function DataContextProvider(props) {
         usersList,
         businessTypesOptions,
         nichesOptions,
-        filterStateHandler,
+        filterHandler: dispatch,
       }}
     >
       {props.children}

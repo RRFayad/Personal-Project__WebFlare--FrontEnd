@@ -4,7 +4,7 @@ import DataContext from '../../../shared/context/DataContext';
 import classes from './Sidebar.module.css';
 
 function SideBar() {
-  const { businessTypesOptions, filterStateHandler } = useContext(DataContext);
+  const { businessTypesOptions, filterHandler } = useContext(DataContext);
   return (
     <aside className={classes.sidebar}>
       <p>1-10 of 20 results</p>
@@ -18,7 +18,13 @@ function SideBar() {
                 id={item}
                 name={item}
                 onChange={(event) => {
-                  filterStateHandler(item, event.target.checked);
+                  filterHandler({
+                    type: 'TYPE_FILTER',
+                    payload: {
+                      filter: item,
+                      filterNewState: event.target.checked,
+                    },
+                  });
                 }}
               />
               {item}
