@@ -6,7 +6,7 @@ export const businessTypesOptions = [
   'MarketPlace',
   'SaaS',
   'Services',
-  'TikTok Profile',
+  'Tik Tok Profile',
   'Others',
 ];
 

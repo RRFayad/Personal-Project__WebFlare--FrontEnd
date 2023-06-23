@@ -17,7 +17,7 @@ const DataContext = React.createContext({
 
 const filtersReducer = (state, action) => {
   if (action.type === 'TYPE_FILTER') {
-    // payloads: {filter, filterNewState}
+    // payload: {filter, filterNewState}
     return action.payload.filterNewState
       ? { ...state, typeFilter: [...state.typeFilter, action.payload.filter] }
       : {
@@ -28,13 +28,17 @@ const filtersReducer = (state, action) => {
         };
   }
   if (action.type === 'SEARCH_FILTER') {
-    ///
+    // payload: {value}
+    return {
+      ...state,
+      searchFilter: action.payload.value.toLowerCase().trim(),
+    };
   }
   if (action.type === 'PRICE_FILTER') {
-    ///
+    // payload: {minValue, maxValue}
   }
   if (action.type === 'PROFIT_FILTER') {
-    ///
+    // payload: {minValue, maxValue}
   }
   return state;
 };
@@ -69,17 +73,35 @@ export function DataContextProvider(props) {
   // };
 
   useEffect(() => {
-    setBusinessesList((state) => {
+    let businesses = [];
+    console.log(allBusinesses);
+    setBusinessesList(() => {
       // business type logic
       if (filters.typeFilter.length === 0) {
-        return allBusinesses;
+        businesses = allBusinesses;
       }
-      return allBusinesses.filter((business) =>
-        filters.typeFilter.includes(business.type)
-      );
+      if (filters.typeFilter.length > 0) {
+        businesses = allBusinesses.filter((business) =>
+          filters.typeFilter.includes(business.type)
+        );
+      }
       // business search logic
+      if (filters.searchFilter !== '') {
+        businesses = businesses.filter(
+          (business) =>
+            business.title
+              .trim()
+              .toLowerCase()
+              .includes(filters.searchFilter) ||
+            business.description
+              .trim()
+              .toLowerCase()
+              .includes(filters.searchFilter)
+        );
+      }
       // business price logic
       // business profit logic
+      return businesses;
     });
   }, [filters]);
 

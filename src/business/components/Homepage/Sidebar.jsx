@@ -4,10 +4,13 @@ import DataContext from '../../../shared/context/DataContext';
 import classes from './Sidebar.module.css';
 
 function SideBar() {
-  const { businessTypesOptions, filterHandler } = useContext(DataContext);
+  const { businessTypesOptions, filterHandler, businessesList } =
+    useContext(DataContext);
   return (
     <aside className={classes.sidebar}>
-      <p>1-10 of 20 results</p>
+      <p>
+        1 - {businessesList.length} of {businessesList.length} results
+      </p>
 
       <div className={classes.sidebar__items}>
         <div className={classes.sidebar__checkboxes}>
