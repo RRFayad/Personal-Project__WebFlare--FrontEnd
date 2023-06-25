@@ -16,7 +16,7 @@ const DataContext = React.createContext({
 });
 
 const filtersReducer = (state, action) => {
-  if (action.type === 'TYPE_FILTER') {
+  if (action.type === 'SET_TYPE_FILTER') {
     // payload: {filter, filterNewState}
     return action.payload.filterNewState
       ? { ...state, typeFilter: [...state.typeFilter, action.payload.filter] }
@@ -27,18 +27,32 @@ const filtersReducer = (state, action) => {
           ),
         };
   }
-  if (action.type === 'SEARCH_FILTER') {
+  if (action.type === 'SET_SEARCH_FILTER') {
     // payload: {value}
     return {
       ...state,
       searchFilter: action.payload.value.toLowerCase().trim(),
     };
   }
-  if (action.type === 'PRICE_FILTER') {
+  if (action.type === 'SET_PRICE_FILTER') {
     // payload: {minValue, maxValue}
+    return {
+      ...state,
+      priceFilter: {
+        min: action.payload.minValue,
+        max: action.payload.maxValue,
+      },
+    };
   }
-  if (action.type === 'PROFIT_FILTER') {
+  if (action.type === 'SET_PROFIT_FILTER') {
     // payload: {minValue, maxValue}
+    return {
+      ...state,
+      profitFilter: {
+        min: action.payload.minValue,
+        max: action.payload.maxValue,
+      },
+    };
   }
   return state;
 };
@@ -74,9 +88,8 @@ export function DataContextProvider(props) {
 
   useEffect(() => {
     let businesses = [];
-    console.log(allBusinesses);
     setBusinessesList(() => {
-      // business type logic
+      // business type filter logic
       if (filters.typeFilter.length === 0) {
         businesses = allBusinesses;
       }
@@ -85,7 +98,7 @@ export function DataContextProvider(props) {
           filters.typeFilter.includes(business.type)
         );
       }
-      // business search logic
+      // business search filter logic
       if (filters.searchFilter !== '') {
         businesses = businesses.filter(
           (business) =>
@@ -99,8 +112,22 @@ export function DataContextProvider(props) {
               .includes(filters.searchFilter)
         );
       }
-      // business price logic
-      // business profit logic
+      // business price filter logic
+      if (filters.priceFilter.min > 0 || filters.priceFilter.max < Infinity) {
+        businesses = businesses.filter(
+          (business) =>
+            business.askingPrice >= filters.priceFilter.min &&
+            business.askingPrice <= filters.priceFilter.max
+        );
+      }
+      // business profit filter logic
+      if (filters.profitFilter.min > 0 || filters.profitFilter.max < Infinity) {
+        businesses = businesses.filter(
+          (business) =>
+            business.monthlyProfit >= filters.profitFilter.min &&
+            business.monthlyProfit <= filters.profitFilter.max
+        );
+      }
       return businesses;
     });
   }, [filters]);

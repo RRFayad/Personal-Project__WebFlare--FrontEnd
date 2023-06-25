@@ -16,7 +16,7 @@ function MainContent() {
           name="search"
           onChange={(event) => {
             filterHandler({
-              type: 'SEARCH_FILTER',
+              type: 'SET_SEARCH_FILTER',
               payload: { value: event.target.value },
             });
           }}
