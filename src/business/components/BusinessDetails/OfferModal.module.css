@@ -100,6 +100,7 @@
 }
 
 .modal__footer {
+  background-color: white;
   height: 72px;
   display: flex;
   justify-content: space-around;
@@ -139,11 +140,11 @@
   color: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 450px) {
   .modal {
-    height: 90vh;
+    height: 85vh;
     width: 90vw;
-    top: 5vh;
+    top: 8px;
     left: 5vw;
   }
   .modal__user-info {
@@ -157,6 +158,14 @@
 
   .modal__footer {
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    height: 15vh;
+    padding: 0;
+  }
+
+  .modal__button {
+    height: 2rem;
+    margin: 0;
   }
 }

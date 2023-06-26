@@ -22,7 +22,7 @@
 .details__container {
   /* background-color: yellow; */
   display: flex;
-  margin: 4px 16px;
+  margin: 4px 16px 4px 4px;
   justify-content: space-between;
   overflow: hidden;
   height: 100%;

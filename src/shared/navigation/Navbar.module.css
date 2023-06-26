@@ -13,6 +13,8 @@
 
 .nav-bar__sandwich-menu {
   display: none;
+  background-color: #001f44;
+  border: none;
 }
 .nav-bar__logo {
   margin: 0 0 0 32px;

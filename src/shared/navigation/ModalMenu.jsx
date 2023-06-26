@@ -1,14 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React from 'react';
 
-import AuthContext from '../context/AuthContext';
+import classes from './ModalMenu.module.css';
 
-import classes from './Navbar.module.css';
-
-function Navbar() {
-  const { logoutHandler, isLoggedIn } = useContext(AuthContext);
-  const [modalMenuIsShown, setModalMenuIsShown] = useState(false);
-
+function ModalMenu() {
   return (
     <nav className={`${classes['nav-bar']}`}>
       <button
@@ -59,4 +53,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default ModalMenu;

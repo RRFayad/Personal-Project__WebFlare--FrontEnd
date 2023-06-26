@@ -13,7 +13,7 @@ function SideBar() {
   const maxProfitRef = useRef(Infinity);
 
   const filterValueChangeHandler = (event) => {
-    if (event.target.id === 'min-price' || 'max-price') {
+    if (event.target.id === 'min-price' || event.target.id === 'max-price') {
       filterHandler({
         type: 'SET_PRICE_FILTER',
         payload: {
@@ -22,7 +22,7 @@ function SideBar() {
         },
       });
     }
-    if (event.target.id === 'min-profit' || 'max-profit') {
+    if (event.target.id === 'min-profit' || event.target.id === 'max-profit') {
       filterHandler({
         type: 'SET_PROFIT_FILTER',
         payload: {
