@@ -1,55 +1,85 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ReactDOM from 'react-dom';
+import { NavLink, Link } from 'react-router-dom';
 
+import AuthContext from '../context/AuthContext';
 import classes from './ModalMenu.module.css';
 
 function ModalMenu() {
-  return (
-    <nav className={`${classes['nav-bar']}`}>
-      <button
-        type="button"
-        className={`${classes['nav-bar__sandwich-menu']}`}
-        onClick={() => setModalMenuIsShown((state) => !state)}
-      >
-        <span />
-        <span />
-        <span className={`${classes['nav-bar__sandwich-bar--last']}`} />
-      </button>
-      <Link to="/" className={`${classes['nav-bar__logo']}`}>
-        <h2>WEBFLARE</h2>
-      </Link>
-      <ul className={`${classes['nav-bar__links']}`}>
-        {isLoggedIn && (
-          <li className={`${classes['nav-bar__item']}`}>
-            <NavLink to="/users/:uid/my-business" exact>
-              My Assets
-            </NavLink>
-          </li>
-        )}
-        {isLoggedIn && (
-          <li className={`${classes['nav-bar__item']}`}>
-            <NavLink to="/users/:uid/create-business" exact>
-              Add Business
-            </NavLink>
-          </li>
-        )}
-        {isLoggedIn && (
-          <li className={`${classes['nav-bar__item']}`}>
-            <NavLink to="/" exact onClick={logoutHandler}>
-              Logout
-            </NavLink>
-          </li>
-        )}
-        {!isLoggedIn && (
-          <li
-            className={`${classes['nav-bar__item']} ${classes['nav-bar__item--cta']}`}
-          >
-            <NavLink to="/auth" exact>
-              Login
-            </NavLink>
-          </li>
-        )}
-      </ul>
-    </nav>
+  const { logoutHandler, isLoggedIn } = useContext(AuthContext);
+
+  return ReactDOM.createPortal(
+    <aside className={`${classes['modal-menu']}`}>
+      <header className={`${classes['modal-menu__header']}`}>
+        <button type="button">
+          <Link to="/">
+            <h2 className={`${classes['nav-bar__title']}`}>WEBFLARE</h2>
+          </Link>
+        </button>
+      </header>
+      <main className={`${classes['modal-menu__main']}`}>
+        <ul className={`${classes['modal-menu__links']}`}>
+          {isLoggedIn && (
+            <div className={`${classes['modal-menu__links--nav-links']}`}>
+              <li className={`${classes['modal-menu__link']}`}>
+                <button type="button">
+                  <NavLink to="/" exact>
+                    HomePage
+                  </NavLink>
+                </button>
+              </li>
+
+              <li className={`${classes['modal-menu__link']}`}>
+                <button type="button">
+                  <NavLink to="/users/:uid/my-business" exact>
+                    My Assets
+                  </NavLink>
+                </button>
+              </li>
+
+              <li className={`${classes['modal-menu__link']}`}>
+                <button type="button">
+                  <NavLink to="/users/:uid/create-business" exact>
+                    Add Business
+                  </NavLink>
+                </button>
+              </li>
+            </div>
+          )}
+          {isLoggedIn && (
+            <li className={`${classes['modal-menu__link']}`}>
+              <button type="button" onClick={logoutHandler}>
+                <NavLink to="/" exact>
+                  Logout
+                </NavLink>
+              </button>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li
+              className={`${classes['modal-menu__link']} ${classes['modal-menu__link--cta']}`}
+            >
+              <button type="button">
+                <NavLink to="/auth" exact>
+                  Login
+                </NavLink>
+              </button>
+            </li>
+          )}
+        </ul>
+      </main>
+      <footer className={classes['modal-menu__footer']}>
+        <a
+          href="https://api.whatsapp.com/send?phone=5511992861954&text="
+          target="_blank"
+          rel="noreferrer"
+        >
+          Contact Me
+        </a>
+        <p>RRFayad ©</p>
+      </footer>
+    </aside>,
+    document.querySelector('#modal')
   );
 }
 

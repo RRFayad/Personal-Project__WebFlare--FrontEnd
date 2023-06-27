@@ -30,7 +30,7 @@
   align-items: center;
 }
 
-.nav-bar__item a {
+.nav-bar__link a {
   margin: 16px 12px;
   padding: 0 8px;
   color: white;
@@ -40,7 +40,7 @@
   /* font-weight: bold; */
 }
 
-.nav-bar__item--cta a {
+.nav-bar__link--cta a {
   margin: 16px 16px;
   display: block;
   background-color: #0058ff;
@@ -50,13 +50,13 @@
   text-align: center;
 }
 
-.nav-bar__item:not(.nav-bar__item--cta):hover,
-.nav-bar__item:not(.nav-bar__item--cta):active {
+.nav-bar__link:not(.nav-bar__link--cta):hover,
+.nav-bar__link:not(.nav-bar__link--cta):active {
   border-bottom: 4px solid #0058ff;
 }
 
-.nav-bar__item--cta a:hover,
-.nav-bar__item--cta a:active {
+.nav-bar__link--cta a:hover,
+.nav-bar__link--cta a:active {
   background-color: white;
   color: #0058ff;
 }

@@ -21,14 +21,10 @@ function BusinessInfo() {
 
   return (
     <>
-      {modalIsShown &&
-        ReactDOM.createPortal(
-          <>
-            <Backdrop onClick={toggleModalHandler} />
-            <OfferModal business={business} onClick={toggleModalHandler} />
-          </>,
-          document.querySelector('#backdrop')
-        )}
+      {modalIsShown && <Backdrop onClick={toggleModalHandler} />}
+      {modalIsShown && (
+        <OfferModal business={business} onClick={toggleModalHandler} />
+      )}
       <main className={classes.content}>
         <div className={classes.content__container}>
           <div className={`${classes['content__info-container--top']}`}>

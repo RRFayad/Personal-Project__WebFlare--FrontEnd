@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import DataContext from '../../../shared/context/DataContext';
@@ -35,7 +36,7 @@ function OfferModal(props) {
     }
   });
 
-  return (
+  return ReactDOM.createPortal(
     <div className={classes.modal}>
       <header className={classes.modal__header}>
         <h2>{title}</h2>
@@ -95,7 +96,8 @@ function OfferModal(props) {
           But it now for {formatCurrency(askingPrice)}
         </button>
       </footer>
-    </div>
+    </div>,
+    document.querySelector('#modal')
   );
 }
 
