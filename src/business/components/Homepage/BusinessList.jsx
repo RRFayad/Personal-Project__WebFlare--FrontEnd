@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 
 import DataContext from '../../../shared/context/DataContext';
-import BusinessItem from './BusinessItem';
-import { formatCurrency } from '../../../shared/util/validators-and-formatters';
+import BusinessItemCard from '../../../shared/ui-ux/BusinessItemCard';
 import classes from './BusinessList.module.css';
 
 function BusinessList() {
@@ -18,11 +17,7 @@ function BusinessList() {
         businessesList.length > 0 && (
           <ul className={`${classes['business-list']}`}>
             {businessesList.map((item) => (
-              <BusinessItem
-                business={item}
-                key={item.id}
-                formatCurrency={formatCurrency}
-              />
+              <BusinessItemCard business={item} key={item.id} />
             ))}
           </ul>
         )

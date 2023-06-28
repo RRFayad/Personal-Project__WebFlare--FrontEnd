@@ -20,7 +20,7 @@ import AuthContext from './shared/context/AuthContext';
 import './App.css';
 
 function App() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, userId } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
@@ -37,11 +37,11 @@ function App() {
         <Route path="/users/:uid" exact>
           <UserDetails />
         </Route>
-        <Route path="/users/:uid/create-business" exact>
+        <Route path={`/users/${userId}/create-business`} exact>
           {isLoggedIn && <NewBusiness />}
           {!isLoggedIn && <Redirect to="/" />}
         </Route>
-        <Route path="/users/:uid/my-business" exact>
+        <Route path={`/users/${userId}/my-business`} exact>
           {isLoggedIn && <UsersBusiness />}
           {!isLoggedIn && <Redirect to="/" />}
         </Route>

@@ -22,7 +22,7 @@
 .details__container {
   /* background-color: yellow; */
   display: flex;
-  margin: 4px 16px 4px 4px;
+  margin: 4px;
   justify-content: space-between;
   overflow: hidden;
   height: 100%;
@@ -96,11 +96,6 @@
   background-color: #003fb4;
 }
 
-.details button a {
-  text-decoration: none;
-  color: white;
-}
-
 /* @media (max-width: 1200px) and (min-width: 768px) {
   .details__item--optional {
     display: none;
@@ -108,7 +103,7 @@
 } */
 @media (max-width: 1200px) {
   .details {
-    height: min(75vh, 520px);
+    height: min(80vh, 520px);
     padding-bottom: 8px;
     margin: auto;
     margin-bottom: 32px;

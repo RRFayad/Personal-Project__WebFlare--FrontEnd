@@ -1,8 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import classes from './BusinessItem.module.css';
+import { formatCurrency } from '../util/validators-and-formatters';
+import classes from './BusinessItemCard.module.css';
 
-function BusinessItem(props) {
+function BusinessItemCard(props) {
+  const history = useHistory();
   const {
     age,
     askingPrice,
@@ -49,23 +52,23 @@ function BusinessItem(props) {
               className={`${classes.details__item} ${classes['details__item--optional']}`}
             >
               <dt>Monthly Net Profit</dt>
-              <dd>{props.formatCurrency(monthlyProfit)}</dd>
+              <dd>{formatCurrency(monthlyProfit)}</dd>
             </div>
             <div className={classes.details__item}>
               <dt>Asking Price</dt>
               <dd className={classes.details__price}>
-                {props.formatCurrency(askingPrice)}
+                {formatCurrency(askingPrice)}
               </dd>
             </div>
           </dl>
           <p className={classes.details__description}>{description}</p>
         </div>
       </div>
-      <button type="button">
-        <a href={`/business/${id}`}>View Details</a>
+      <button type="button" onClick={() => history.push(`/business/${id}`)}>
+        View Details
       </button>
     </li>
   );
 }
 
-export default BusinessItem;
+export default BusinessItemCard;
