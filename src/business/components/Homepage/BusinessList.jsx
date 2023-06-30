@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import DataContext from '../../../shared/context/DataContext';
-import BusinessItemCard from '../../../shared/ui-ux/BusinessItemCard';
+import BusinessItemCard from './BusinessItemCard';
 import classes from './BusinessList.module.css';
 
 function BusinessList() {

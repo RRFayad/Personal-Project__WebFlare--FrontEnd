@@ -8,7 +8,7 @@ import Backdrop from '../ui-ux/Backdrop';
 import classes from './Navbar.module.css';
 
 function Navbar() {
-  const { logoutHandler, isLoggedIn, userId } = useContext(AuthContext);
+  const { logoutHandler, isLoggedIn, userData } = useContext(AuthContext);
   const [modalMenuIsShown, setModalMenuIsShown] = useState(false);
 
   return (
@@ -35,14 +35,14 @@ function Navbar() {
         <ul className={`${classes['nav-bar__links']}`}>
           {isLoggedIn && (
             <li className={`${classes['nav-bar__link']}`}>
-              <NavLink to={`/users/${userId}/my-business`} exact>
-                My Assets
+              <NavLink to={`/users/${userData.id}/profile`} exact>
+                My Profile
               </NavLink>
             </li>
           )}
           {isLoggedIn && (
             <li className={`${classes['nav-bar__link']}`}>
-              <NavLink to={`/users/${userId}/create-business`} exact>
+              <NavLink to={`/users/${userData.id}/create-business`} exact>
                 Add Business
               </NavLink>
             </li>

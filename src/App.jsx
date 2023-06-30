@@ -9,7 +9,7 @@ import {
 import Homepage from './business/pages/Homepage';
 import BusinessDetails from './business/pages/BusinessDetails';
 import NewOffer from './business/pages/NewOffer';
-import UsersBusiness from './users/pages/UsersBusiness';
+import Profile from './users/pages/Profile';
 import UserDetails from './users/pages/UserDetails';
 import Auth from './auth/pages/Auth';
 import NewBusiness from './business/pages/NewBusiness';
@@ -20,7 +20,7 @@ import AuthContext from './shared/context/AuthContext';
 import './App.css';
 
 function App() {
-  const { isLoggedIn, userId } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
@@ -37,12 +37,12 @@ function App() {
         <Route path="/users/:uid" exact>
           <UserDetails />
         </Route>
-        <Route path={`/users/${userId}/create-business`} exact>
+        <Route path="/users/:uid/create-business" exact>
           {isLoggedIn && <NewBusiness />}
           {!isLoggedIn && <Redirect to="/" />}
         </Route>
-        <Route path={`/users/${userId}/my-business`} exact>
-          {isLoggedIn && <UsersBusiness />}
+        <Route path="/users/:uid/profile" exact>
+          {isLoggedIn && <Profile />}
           {!isLoggedIn && <Redirect to="/" />}
         </Route>
         <Route path="/auth" exact>

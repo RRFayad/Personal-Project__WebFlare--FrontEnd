@@ -63,13 +63,9 @@
   margin: 0;
 }
 
-.details__price {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
 .details__description {
   width: 100%;
+  margin-bottom: 16px;
 
   text-align: justify;
   display: -webkit-box;

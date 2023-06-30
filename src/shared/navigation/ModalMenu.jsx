@@ -31,8 +31,8 @@ function ModalMenu() {
 
               <li className={`${classes['modal-menu__link']}`}>
                 <button type="button">
-                  <NavLink to="/users/:uid/my-business" exact>
-                    My Assets
+                  <NavLink to="/users/:uid/profile" exact>
+                    My Profile
                   </NavLink>
                 </button>
               </li>

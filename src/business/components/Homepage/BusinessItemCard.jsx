@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import { formatCurrency } from '../util/validators-and-formatters';
+import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import classes from './BusinessItemCard.module.css';
 
 function BusinessItemCard(props) {

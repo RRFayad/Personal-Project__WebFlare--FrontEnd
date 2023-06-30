@@ -13,6 +13,7 @@ const DataContext = React.createContext({
   usersList: [],
   businessTypesOptions: [],
   nichesOptions: [],
+  allBusinesses: [],
 });
 
 const filtersReducer = (state, action) => {
@@ -78,14 +79,6 @@ export function DataContextProvider(props) {
 
   const [businessesList, setBusinessesList] = useState(allBusinesses);
 
-  // const filterStateHandler = (filter, newState) => {
-  //   setBusinessTypeFilters((state) => {
-  //     return newState
-  //       ? [...state, filter]
-  //       : [...state].filter((typeFilter) => typeFilter !== filter);
-  //   });
-  // };
-
   useEffect(() => {
     let businesses = [];
     setBusinessesList(() => {
@@ -136,10 +129,11 @@ export function DataContextProvider(props) {
     <DataContext.Provider
       value={{
         businessesList,
-        usersList,
         businessTypesOptions,
+        usersList,
         nichesOptions,
         filterHandler: dispatch,
+        allBusinesses,
       }}
     >
       {props.children}

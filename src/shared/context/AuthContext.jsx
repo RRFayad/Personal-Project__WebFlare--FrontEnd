@@ -1,35 +1,39 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useEffect, useState } from 'react';
 
+import { DUMMY_USERS } from '../util/data';
+
 const AuthContext = React.createContext({
   isLoggedIn: false,
   loginHandler: (email, password) => {},
   logoutHandler: () => {},
   signUpHandler: () => {},
   userId: '',
+  userData: {},
 });
 
 export function AuthContextProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    localStorage.getItem('isLoggedIn')
-      ? setIsLoggedIn(true)
-      : setIsLoggedIn(false);
-    setUserId(localStorage.getItem('userId') || null);
+    localStorage.getItem('userId') ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    setUserData(
+      DUMMY_USERS.find((user) => user.id === localStorage.getItem('userId')) ||
+        null
+    );
   });
 
   const loginHandler = (email, password) => {
+    // Hard Coded - Update after backend
     setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true');
-    setUserId('0001'); // Hard Coded - Update after backend
-    localStorage.setItem('userId', '0001'); // Hard Coded - Update after backend
+    setUserData(DUMMY_USERS.find((user) => user.id === '0001'));
+    localStorage.setItem('userId', '0001');
     return console.log('User logged in!!');
   };
 
   const logoutHandler = () => {
-    localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userId');
     setIsLoggedIn(false);
     setUserId(null);
@@ -58,6 +62,7 @@ export function AuthContextProvider(props) {
         signUpHandler,
         isLoggedIn,
         userId,
+        userData,
       }}
     >
       {props.children}
