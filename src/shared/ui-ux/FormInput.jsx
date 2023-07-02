@@ -15,6 +15,7 @@ function FormInput(props) {
     errorMessage, // the message to be shown if it's not valid
     onValidationChange, // Created to pass the validity 1 level up
     formatter,
+    defaultValue,
   } = props;
 
   const [isValid, setIsValid] = useState(false);
@@ -24,11 +25,16 @@ function FormInput(props) {
   let element;
   const controlClass = !isValid && isTouched ? 'invalid' : null;
 
+  useEffect(() => {
+    if (defaultValue) {
+      setIsValid(true);
+    }
+  }, []);
+
   // Without the useEffect it would pass the 'delayed' state (as useEffect will work when componentDidUpdate, and without it, before the component update)
-  useEffect(
-    () => onValidationChange && onValidationChange(isValid, name),
-    [isValid]
-  );
+  useEffect(() => {
+    onValidationChange && onValidationChange(isValid, name);
+  }, [isValid]);
 
   const changeHandler = () => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
@@ -48,6 +54,7 @@ function FormInput(props) {
             onChange={changeHandler}
             ref={inputRef}
             className={`${classes.input} ${classes[controlClass]}`}
+            defaultValue={defaultValue}
           />
         </label>
         {!isValid && isTouched && (
@@ -87,6 +94,7 @@ function FormInput(props) {
             onChange={changeHandler}
             ref={inputRef}
             className={`${classes.textarea} ${classes[controlClass]}`}
+            defaultValue={defaultValue}
           />
         </label>
         {!isValid && isTouched && (

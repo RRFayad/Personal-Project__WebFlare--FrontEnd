@@ -8,6 +8,7 @@ const AuthContext = React.createContext({
   loginHandler: (email, password) => {},
   logoutHandler: () => {},
   signUpHandler: () => {},
+  updateProfileHandler: () => {},
   userId: '',
   userData: {},
 });
@@ -38,6 +39,10 @@ export function AuthContextProvider(props) {
     setIsLoggedIn(false);
     setUserId(null);
     return console.log('User logged out!!');
+  };
+
+  const updateProfileHandler = () => {
+    return console.log('Profile Updated!!');
   };
 
   const signUpHandler = (

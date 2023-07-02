@@ -14,6 +14,7 @@ import UserDetails from './users/pages/UserDetails';
 import Auth from './auth/pages/Auth';
 import NewBusiness from './business/pages/NewBusiness';
 import SuccessPage from './business/pages/SuccessPage';
+import EditProfile from './users/pages/EditProfile';
 
 import AuthContext from './shared/context/AuthContext';
 
@@ -48,6 +49,10 @@ function App() {
         <Route path="/auth" exact>
           {isLoggedIn && <Redirect to="/" />}
           {!isLoggedIn && <Auth />}
+        </Route>
+        <Route path="/users/:uid/edit-profile" exact>
+          {!isLoggedIn && <Redirect to="/" />}
+          {isLoggedIn && <EditProfile />}
         </Route>
         <Route path="/success" exact>
           <SuccessPage />

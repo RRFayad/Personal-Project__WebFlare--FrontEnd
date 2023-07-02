@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
@@ -10,10 +11,9 @@ import BusinessItemCard from '../../business/components/Homepage/BusinessItemCar
 import classes from './Profile.module.css';
 
 function Profile() {
+  const history = useHistory();
   const { businessesList } = useContext(DataContext);
   const { userData } = useContext(AuthContext);
-
-  console.log(businessesList);
 
   return (
     <>
@@ -21,7 +21,7 @@ function Profile() {
 
       <main className={classes.main}>
         <h1 className={classes['user-info__title']}>Personal Info:</h1>
-        <div className={classes['user-info__container']}>
+        <div className={classes['user-info__card']}>
           <div className={classes['user-info__details']}>
             <img src={userData.imageUrl} alt={userData.name} />
             <div className={classes.container}>
@@ -44,6 +44,13 @@ function Profile() {
               <p className={classes.description}>{userData.description}</p>
             </div>
           </div>
+          <button
+            type="button"
+            className={classes['user-info__button']}
+            onClick={() => history.push(`/users/${userData.id}/edit-profile`)}
+          >
+            Edit Profile
+          </button>
         </div>
         <hr />
         {businessesList.length === 0 ? (
