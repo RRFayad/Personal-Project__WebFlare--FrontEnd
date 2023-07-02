@@ -83,7 +83,7 @@ function BusinessForm() {
           defaultValue={businessToBeEdittedId && businessToBeEditted.niche}
         />
         <FormInput
-          labelValue="Age of the Business"
+          labelValue="Age of the Business (in years)"
           HTMLElement="input"
           type="number"
           name="age"

@@ -70,7 +70,10 @@ function BusinessInfo() {
                   <div className={classes.content__KPI}>
                     <dt>Profit Margin</dt>
                     <dd>
-                      {(business.monthlyProfit / business.monthlyRevenue) * 100}
+                      {(
+                        (business.monthlyProfit / business.monthlyRevenue) *
+                        100
+                      ).toFixed(2)}
                       %
                     </dd>
                   </div>

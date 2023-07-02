@@ -59,8 +59,9 @@ function App() {
           {!isLoggedIn && <Redirect to="/" />}
           {isLoggedIn && <EditProfile />}
         </Route>
-        <Route path="/success" exact>
-          <SuccessPage />
+        <Route path="/success/:event" exact>
+          {!isLoggedIn && <Redirect to="/" />}
+          {isLoggedIn && <SuccessPage />}
         </Route>
         <Redirect to="/" />
       </Switch>

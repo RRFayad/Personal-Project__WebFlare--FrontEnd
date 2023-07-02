@@ -36,7 +36,6 @@ function FormInput(props) {
 
   const changeHandler = () => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
-    console.log(validation(inputRef.current.value));
   };
 
   if (HTMLElement === 'input') {

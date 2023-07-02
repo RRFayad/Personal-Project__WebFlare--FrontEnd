@@ -55,7 +55,7 @@ function NewOfferForm() {
           onClick={() => {
             // eslint-disable-next-line
             console.log('Offer Sent!!');
-            history.push(`/success`);
+            history.push(`/success/offer-sent`);
           }}
         >
           Send Offer

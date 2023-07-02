@@ -56,6 +56,8 @@ export function AuthContextProvider(props) {
   ) => {
     localStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
+    setUserData(DUMMY_USERS.find((user) => user.id === '0001'));
+    localStorage.setItem('userId', '0001');
     return console.log('User signed up!!');
   };
 

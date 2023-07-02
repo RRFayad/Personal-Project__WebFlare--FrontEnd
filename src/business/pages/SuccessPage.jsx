@@ -1,13 +1,24 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
 import classes from './SucessPage.module.css';
 
-function SuccessPage() {
+function SuccessPage(props) {
+  const successEvent = useParams();
   const history = useHistory();
 
+  const [message, setMessage] = useState('');
+
   useEffect(() => {
-    setTimeout(() => history.replace('/'), 3000);
+    setTimeout(() => history.replace('/'), 5000);
+    if (successEvent.event === 'offer-sent') {
+      setMessage('Offer sent sucessfully! The owner will be in touch soon!');
+    }
+    if (successEvent.event === 'purchase') {
+      setMessage(
+        'Congratulations on your new acquisition! Our team will get in touch soon!'
+      );
+    }
   }, []);
   return (
     <main className={classes.container}>
@@ -16,10 +27,7 @@ function SuccessPage() {
           <i className={classes.checkmark}>✓</i>
         </div>
         <h1>Success</h1>
-        <p>
-          Offer sent sucessfully!
-          <br /> The owner will be in touch soon!
-        </p>
+        <p>{message}</p>
       </div>
     </main>
   );

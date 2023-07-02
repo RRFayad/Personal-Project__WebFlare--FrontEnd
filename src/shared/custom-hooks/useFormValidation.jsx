@@ -39,7 +39,7 @@ const useFormValidation = () => {
   };
 
   useEffect(() => {
-    console.log(inputsStates);
+    // console.log(inputsStates);
     setFormIsValid(() =>
       Object.values(inputsStates).every((isValid) => isValid)
     );

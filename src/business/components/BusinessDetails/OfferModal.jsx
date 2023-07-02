@@ -94,6 +94,7 @@ function OfferModal(props) {
             <button
               type="button"
               className={`${classes.modal__button} ${classes['modal__button--cta']}`}
+              onClick={() => history.push(`/success/purchase`)}
             >
               Buy it now for {formatCurrency(askingPrice)}
             </button>
