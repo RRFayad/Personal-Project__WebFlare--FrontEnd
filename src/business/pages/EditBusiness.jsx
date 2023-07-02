@@ -4,7 +4,7 @@ import Footer from '../../shared/navigation/Footer';
 import classes from './NewBusiness.module.css';
 import BusinessForm from '../components/NewBusiness/BusinessForm';
 
-function NewBusiness() {
+function EditBusiness() {
   return (
     <>
       <Navbar />
@@ -16,4 +16,4 @@ function NewBusiness() {
   );
 }
 
-export default NewBusiness;
+export default EditBusiness;

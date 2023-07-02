@@ -6,7 +6,7 @@ import AuthContext from '../context/AuthContext';
 import classes from './ModalMenu.module.css';
 
 function ModalMenu() {
-  const { logoutHandler, isLoggedIn } = useContext(AuthContext);
+  const { logoutHandler, isLoggedIn, userData } = useContext(AuthContext);
 
   return ReactDOM.createPortal(
     <aside className={`${classes['modal-menu']}`}>
@@ -31,7 +31,7 @@ function ModalMenu() {
 
               <li className={`${classes['modal-menu__link']}`}>
                 <button type="button">
-                  <NavLink to="/users/:uid/profile" exact>
+                  <NavLink to={`/users//${userData.id}/profile`} exact>
                     My Profile
                   </NavLink>
                 </button>
@@ -39,7 +39,7 @@ function ModalMenu() {
 
               <li className={`${classes['modal-menu__link']}`}>
                 <button type="button">
-                  <NavLink to="/users/:uid/create-business" exact>
+                  <NavLink to={`/users/${userData.id}/create-business`} exact>
                     Add Business
                   </NavLink>
                 </button>

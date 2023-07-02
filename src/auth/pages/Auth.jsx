@@ -31,7 +31,6 @@ function Auth() {
     setUserHasAccount((prevState) => !prevState);
   };
 
-  // I should work in this setFormData, to be able to update my form validation when toggling from login and signup
   const [formIsValid, inputValidationChangeHandler, setFormData] =
     useFormValidation();
 

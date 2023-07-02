@@ -25,7 +25,6 @@ function EditProfile() {
   const profileInputs = ['name', 'country', 'email', 'description'];
   const passwordInputs = ['password', 'new-password'];
 
-  // I should work in this setFormData, to be able to update my form validation when toggling from login and signup
   const [formIsValid, inputValidationChangeHandler, setFormData] =
     useFormValidation();
   const [passwordIsBeingChanged, setPasswordIsBeingChanged] = useState(false);
@@ -148,8 +147,8 @@ function EditProfile() {
             onClick={() => setPasswordIsBeingChanged((state) => !state)}
           >
             {!passwordIsBeingChanged
-              ? 'Want to change your password? Click here!'
-              : 'Want to change only user information? Click here!'}
+              ? 'CLICK HERE TO UPDATE YOUR PASSWORD'
+              : 'CLICK HERE TO UPDATE YOUR PERSONAL INFO'}
           </button>
         </Form>
       </main>

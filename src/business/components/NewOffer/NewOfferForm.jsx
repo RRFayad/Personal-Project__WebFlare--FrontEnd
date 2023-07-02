@@ -34,6 +34,7 @@ function NewOfferForm() {
           validation={integerInputValidator}
           onValidationChange={inputValidationChangeHandler}
           errorMessage="Please insert a integer and positive number"
+          placeholder="XXX.XX"
         />
 
         <FormInput

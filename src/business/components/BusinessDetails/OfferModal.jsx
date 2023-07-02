@@ -9,7 +9,7 @@ import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import classes from './OfferModal.module.css';
 
 function OfferModal(props) {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, userData } = useContext(AuthContext);
   const { businessesList, usersList } = useContext(DataContext);
   const history = useHistory();
 
@@ -78,23 +78,40 @@ function OfferModal(props) {
       </main>
       <hr />
       <footer className={classes.modal__footer}>
-        <button
-          type="button"
-          className={classes.modal__button}
-          onClick={() => {
-            isLoggedIn
-              ? history.push(`${history.location.pathname}/create-offer`)
-              : history.push('/auth');
-          }}
-        >
-          Make Offer
-        </button>
-        <button
-          type="button"
-          className={`${classes.modal__button} ${classes['modal__button--cta']}`}
-        >
-          But it now for {formatCurrency(askingPrice)}
-        </button>
+        {(!isLoggedIn || userData.id !== ownerId) && (
+          <>
+            <button
+              type="button"
+              className={classes.modal__button}
+              onClick={() => {
+                isLoggedIn
+                  ? history.push(`${history.location.pathname}/create-offer`)
+                  : history.push('/auth');
+              }}
+            >
+              Make Offer
+            </button>
+            <button
+              type="button"
+              className={`${classes.modal__button} ${classes['modal__button--cta']}`}
+            >
+              Buy it now for {formatCurrency(askingPrice)}
+            </button>
+          </>
+        )}
+        {isLoggedIn && userData.id === ownerId && (
+          <button
+            type="button"
+            className={`${classes.modal__button} ${classes['modal__button--cta']}`}
+            onClick={() =>
+              history.push(
+                `/users/${userData.id}/edit-business/${props.business.id}`
+              )
+            }
+          >
+            EDIT BUSINESS INFO
+          </button>
+        )}
       </footer>
     </div>,
     document.querySelector('#modal')

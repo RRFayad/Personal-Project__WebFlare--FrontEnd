@@ -6,7 +6,6 @@ function FormInput(props) {
   const {
     labelValue, // What I want to show in the label
     HTMLElement, // Which HTML tag I want to return
-    content, // Content's value (inside the tag)
     validation, // Validation method
     type, // input type
     options, // array of options (for <select> <option>)
@@ -14,7 +13,6 @@ function FormInput(props) {
     name, // will be the name & id of each input
     errorMessage, // the message to be shown if it's not valid
     onValidationChange, // Created to pass the validity 1 level up
-    formatter,
     defaultValue,
   } = props;
 
@@ -38,6 +36,7 @@ function FormInput(props) {
 
   const changeHandler = () => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
+    console.log(validation(inputRef.current.value));
   };
 
   if (HTMLElement === 'input') {
@@ -54,6 +53,7 @@ function FormInput(props) {
             onChange={changeHandler}
             ref={inputRef}
             className={`${classes.input} ${classes[controlClass]}`}
+            placeholder={placeholder}
             defaultValue={defaultValue}
           />
         </label>
@@ -95,6 +95,7 @@ function FormInput(props) {
             ref={inputRef}
             className={`${classes.textarea} ${classes[controlClass]}`}
             defaultValue={defaultValue}
+            placeholder={placeholder}
           />
         </label>
         {!isValid && isTouched && (

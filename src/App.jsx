@@ -13,6 +13,7 @@ import Profile from './users/pages/Profile';
 import UserDetails from './users/pages/UserDetails';
 import Auth from './auth/pages/Auth';
 import NewBusiness from './business/pages/NewBusiness';
+import EditBusiness from './business/pages/EditBusiness';
 import SuccessPage from './business/pages/SuccessPage';
 import EditProfile from './users/pages/EditProfile';
 
@@ -40,6 +41,10 @@ function App() {
         </Route>
         <Route path="/users/:uid/create-business" exact>
           {isLoggedIn && <NewBusiness />}
+          {!isLoggedIn && <Redirect to="/" />}
+        </Route>
+        <Route path="/users/:uid/edit-business/:bid" exact>
+          {isLoggedIn && <EditBusiness />}
           {!isLoggedIn && <Redirect to="/" />}
         </Route>
         <Route path="/users/:uid/profile" exact>

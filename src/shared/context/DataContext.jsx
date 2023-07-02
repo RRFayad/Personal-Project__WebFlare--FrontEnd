@@ -14,6 +14,8 @@ const DataContext = React.createContext({
   businessTypesOptions: [],
   nichesOptions: [],
   allBusinesses: [],
+  addNewBusiness: () => {},
+  updateBusiness: () => {},
 });
 
 const filtersReducer = (state, action) => {
@@ -79,6 +81,7 @@ export function DataContextProvider(props) {
 
   const [businessesList, setBusinessesList] = useState(allBusinesses);
 
+  // Filters Logic
   useEffect(() => {
     let businesses = [];
     setBusinessesList(() => {
@@ -102,7 +105,8 @@ export function DataContextProvider(props) {
             business.description
               .trim()
               .toLowerCase()
-              .includes(filters.searchFilter)
+              .includes(filters.searchFilter) ||
+            business.type.trim().toLowerCase().includes(filters.searchFilter)
         );
       }
       // business price filter logic
@@ -125,6 +129,13 @@ export function DataContextProvider(props) {
     });
   }, [filters]);
 
+  const addNewBusiness = () => {
+    return console.log('New Business Created!');
+  };
+  const updateBusiness = () => {
+    return console.log('Business Info Updated!');
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -134,6 +145,8 @@ export function DataContextProvider(props) {
         nichesOptions,
         filterHandler: dispatch,
         allBusinesses,
+        addNewBusiness,
+        updateBusiness,
       }}
     >
       {props.children}

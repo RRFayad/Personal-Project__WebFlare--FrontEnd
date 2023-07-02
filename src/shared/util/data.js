@@ -140,7 +140,7 @@ export const DUMMY_USERS = [
     id: '0002',
     name: 'User2',
     imageUrl:
-      'https://scontent.cdninstagram.com/v/t51.2885-19/41397872_334752217276729_4998797390820409344_n.jpg?stp=dst-jpg_s150x150&_nc_ht=scontent.cdninstagram.com&_nc_cat=101&_nc_ohc=20HSGGQ-TmMAX8nVNCa&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfCNXnblIHLna0to_fO_4sq1qHsNfCk9Pbvq3j8Iv65S2A&oe=6495BC78&_nc_sid=df044f',
+      'https://scontent.fcgh7-1.fna.fbcdn.net/v/t1.6435-9/46882033_2167690989948400_5943887528212824064_n.jpg?_nc_cat=100&cb=99be929b-3346023f&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHPiT65MEyNkzv0A0mKlzzioNg9qA5fcIug2D2oDl9wi5rJQE4chjVs9SjD-RiiZ55xQPUzNlIM_HKwpXofIDx3&_nc_ohc=v3wQBd4y24UAX87VMKC&_nc_ht=scontent.fcgh7-1.fna&oh=00_AfA8aPNT8-e5pADTytVDVM4KyGZq8GRk2rVhTaigk7Z-4g&oe=64C922A3',
     country: 'Brazil',
     linkedinUrl: 'https://www.linkedin.com/in/rfayad/',
     email: 'test2@test.com',

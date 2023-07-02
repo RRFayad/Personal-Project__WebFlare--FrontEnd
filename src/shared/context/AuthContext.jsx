@@ -68,6 +68,7 @@ export function AuthContextProvider(props) {
         isLoggedIn,
         userId,
         userData,
+        updateProfileHandler,
       }}
     >
       {props.children}
