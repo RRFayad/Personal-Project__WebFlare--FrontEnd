@@ -26,10 +26,11 @@
 }
 
 .sidebar__checkboxes {
-  margin-top: 32px;
+  margin-top: 16px;
 }
 
-.sidebar__checkboxes label {
+.sidebar__checkboxes label,
+.sidebar__user-filter {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
@@ -38,7 +39,8 @@
   cursor: pointer;
 }
 
-.sidebar__checkboxes input {
+.sidebar__checkboxes input,
+.sidebar__user-filter input {
   cursor: pointer;
   height: 16px;
   width: 16px;

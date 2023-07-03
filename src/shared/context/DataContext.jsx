@@ -57,6 +57,13 @@ const filtersReducer = (state, action) => {
       },
     };
   }
+  if (action.type === 'SET_USER_FILTER') {
+    // payload: {id}
+    return {
+      ...state,
+      userFilter: { id: action.payload.id },
+    };
+  }
   return state;
 };
 
@@ -75,6 +82,9 @@ export function DataContextProvider(props) {
       min: 0,
       max: Infinity,
     },
+    userFilter: {
+      id: null,
+    },
   };
 
   const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);
@@ -84,6 +94,7 @@ export function DataContextProvider(props) {
   // Filters Logic
   useEffect(() => {
     let businesses = [];
+
     setBusinessesList(() => {
       // business type filter logic
       if (filters.typeFilter.length === 0) {
@@ -123,6 +134,12 @@ export function DataContextProvider(props) {
           (business) =>
             business.monthlyProfit >= filters.profitFilter.min &&
             business.monthlyProfit <= filters.profitFilter.max
+        );
+      }
+      // user filter logic
+      if (filters.userFilter.id) {
+        businesses = businesses.filter(
+          (business) => business.ownerId !== filters.userFilter.id
         );
       }
       return businesses;
