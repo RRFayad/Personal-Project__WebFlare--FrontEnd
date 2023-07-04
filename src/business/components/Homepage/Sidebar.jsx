@@ -43,8 +43,8 @@ function SideBar() {
 
       <div className={classes.sidebar__items}>
         <label
-          htmlFor="user-business-filter"
-          key="user-business-filter"
+          htmlFor="user-filter"
+          key="user-filter"
           className={classes['sidebar__user-filter']}
         >
           <input

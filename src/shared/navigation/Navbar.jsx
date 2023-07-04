@@ -15,7 +15,7 @@ function Navbar() {
     <>
       {modalMenuIsShown && (
         <>
-          <ModalMenu />
+          <ModalMenu onClick={() => setModalMenuIsShown((state) => !state)} />
           <Backdrop onClick={() => setModalMenuIsShown((state) => !state)} />
         </>
       )}
@@ -34,25 +34,28 @@ function Navbar() {
         </Link>
         <ul className={`${classes['nav-bar__links']}`}>
           {isLoggedIn && (
-            <li className={`${classes['nav-bar__link']}`}>
-              <NavLink to={`/users/${userData.id}/profile`} exact>
-                My Profile
-              </NavLink>
-            </li>
-          )}
-          {isLoggedIn && (
-            <li className={`${classes['nav-bar__link']}`}>
-              <NavLink to={`/users/${userData.id}/create-business`} exact>
-                Add Business
-              </NavLink>
-            </li>
-          )}
-          {isLoggedIn && (
-            <li className={`${classes['nav-bar__link']}`}>
-              <NavLink to="/" exact onClick={logoutHandler}>
-                Logout
-              </NavLink>
-            </li>
+            <>
+              <li className={`${classes['nav-bar__link']}`}>
+                <NavLink to={`/users/${userData.id}/profile`} exact>
+                  My Profile
+                </NavLink>
+              </li>
+              <li className={`${classes['nav-bar__link']}`}>
+                <NavLink to={`/users/${userData.id}/create-business`} exact>
+                  My Offers
+                </NavLink>
+              </li>
+              <li className={`${classes['nav-bar__link']}`}>
+                <NavLink to={`/users/${userData.id}/create-business`} exact>
+                  Add Business
+                </NavLink>
+              </li>
+              <li className={`${classes['nav-bar__link']}`}>
+                <NavLink to="/" exact onClick={logoutHandler}>
+                  Logout
+                </NavLink>
+              </li>
+            </>
           )}
           {!isLoggedIn && (
             <li

@@ -29,8 +29,8 @@ export function AuthContextProvider(props) {
   const loginHandler = (email, password) => {
     // Hard Coded - Update after backend
     setIsLoggedIn(true);
-    setUserData(DUMMY_USERS.find((user) => user.id === '0001'));
-    localStorage.setItem('userId', '0001');
+    setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
+    localStorage.setItem('userId', 'U0001');
     return console.log('User logged in!!');
   };
 
@@ -56,8 +56,8 @@ export function AuthContextProvider(props) {
   ) => {
     localStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
-    setUserData(DUMMY_USERS.find((user) => user.id === '0001'));
-    localStorage.setItem('userId', '0001');
+    setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
+    localStorage.setItem('userId', 'U0001');
     return console.log('User signed up!!');
   };
 

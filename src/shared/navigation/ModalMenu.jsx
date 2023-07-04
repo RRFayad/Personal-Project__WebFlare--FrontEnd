@@ -5,13 +5,13 @@ import { NavLink, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import classes from './ModalMenu.module.css';
 
-function ModalMenu() {
+function ModalMenu(props) {
   const { logoutHandler, isLoggedIn, userData } = useContext(AuthContext);
 
   return ReactDOM.createPortal(
     <aside className={`${classes['modal-menu']}`}>
       <header className={`${classes['modal-menu__header']}`}>
-        <button type="button">
+        <button type="button" onClick={props.onClick}>
           <Link to="/">
             <h2 className={`${classes['nav-bar__title']}`}>WEBFLARE</h2>
           </Link>
@@ -20,40 +20,40 @@ function ModalMenu() {
       <main className={`${classes['modal-menu__main']}`}>
         <ul className={`${classes['modal-menu__links']}`}>
           {isLoggedIn && (
-            <div className={`${classes['modal-menu__links--nav-links']}`}>
+            <>
+              <div className={`${classes['modal-menu__links--nav-links']}`}>
+                <li className={`${classes['modal-menu__link']}`}>
+                  <button type="button" onClick={props.onClick}>
+                    <NavLink to="/" exact>
+                      HomePage
+                    </NavLink>
+                  </button>
+                </li>
+
+                <li className={`${classes['modal-menu__link']}`}>
+                  <button type="button" onClick={props.onClick}>
+                    <NavLink to={`/users/${userData.id}/profile`} exact>
+                      My Profile
+                    </NavLink>
+                  </button>
+                </li>
+
+                <li className={`${classes['modal-menu__link']}`}>
+                  <button type="button" onClick={props.onClick}>
+                    <NavLink to={`/users/${userData.id}/create-business`} exact>
+                      Add Business
+                    </NavLink>
+                  </button>
+                </li>
+              </div>
               <li className={`${classes['modal-menu__link']}`}>
-                <button type="button">
+                <button type="button" onClick={logoutHandler}>
                   <NavLink to="/" exact>
-                    HomePage
+                    Logout
                   </NavLink>
                 </button>
               </li>
-
-              <li className={`${classes['modal-menu__link']}`}>
-                <button type="button">
-                  <NavLink to={`/users//${userData.id}/profile`} exact>
-                    My Profile
-                  </NavLink>
-                </button>
-              </li>
-
-              <li className={`${classes['modal-menu__link']}`}>
-                <button type="button">
-                  <NavLink to={`/users/${userData.id}/create-business`} exact>
-                    Add Business
-                  </NavLink>
-                </button>
-              </li>
-            </div>
-          )}
-          {isLoggedIn && (
-            <li className={`${classes['modal-menu__link']}`}>
-              <button type="button" onClick={logoutHandler}>
-                <NavLink to="/" exact>
-                  Logout
-                </NavLink>
-              </button>
-            </li>
+            </>
           )}
           {!isLoggedIn && (
             <li

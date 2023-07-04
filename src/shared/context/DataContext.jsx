@@ -6,16 +6,18 @@ import {
   nichesOptions,
   DUMMY_BUSINESSES,
   DUMMY_USERS,
+  DUMMY_OFFERS,
 } from '../util/data';
 
 const DataContext = React.createContext({
-  businessesList: [],
-  usersList: [],
-  businessTypesOptions: [],
-  nichesOptions: [],
   allBusinesses: [],
+  businessesList: [],
   addNewBusiness: () => {},
   updateBusiness: () => {},
+  businessTypesOptions: [],
+  nichesOptions: [],
+  usersList: [],
+  offersList: [],
 });
 
 const filtersReducer = (state, action) => {
@@ -70,6 +72,7 @@ const filtersReducer = (state, action) => {
 export function DataContextProvider(props) {
   const allBusinesses = DUMMY_BUSINESSES;
   const usersList = DUMMY_USERS;
+  const offersList = DUMMY_OFFERS;
 
   const filtersInitializer = {
     typeFilter: [],
@@ -156,14 +159,15 @@ export function DataContextProvider(props) {
   return (
     <DataContext.Provider
       value={{
-        businessesList,
-        businessTypesOptions,
-        usersList,
-        nichesOptions,
-        filterHandler: dispatch,
         allBusinesses,
+        businessesList,
         addNewBusiness,
         updateBusiness,
+        businessTypesOptions,
+        nichesOptions,
+        filterHandler: dispatch,
+        usersList,
+        offersList,
       }}
     >
       {props.children}
