@@ -2,15 +2,15 @@ import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import DataContext from '../../../shared/context/DataContext';
+import DataContext from '../../../shared/context/BusinessContext';
 import AuthContext from '../../../shared/context/AuthContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 
 import classes from './OfferModal.module.css';
 
 function OfferModal(props) {
-  const { isLoggedIn, userData } = useContext(AuthContext);
-  const { businessesList, usersList } = useContext(DataContext);
+  const { isLoggedIn, userData, usersList } = useContext(AuthContext);
+  const { businessesList } = useContext(DataContext);
   const history = useHistory();
 
   const {

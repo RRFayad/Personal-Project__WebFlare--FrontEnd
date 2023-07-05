@@ -11,9 +11,12 @@ const AuthContext = React.createContext({
   updateProfileHandler: () => {},
   userId: '',
   userData: {},
+  usersList: [],
 });
 
 export function AuthContextProvider(props) {
+  const usersList = DUMMY_USERS;
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -71,6 +74,7 @@ export function AuthContextProvider(props) {
         userId,
         userData,
         updateProfileHandler,
+        usersList,
       }}
     >
       {props.children}

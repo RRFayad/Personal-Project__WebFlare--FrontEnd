@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import DataContext from '../../../shared/context/DataContext';
+import DataContext from '../../../shared/context/BusinessContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';

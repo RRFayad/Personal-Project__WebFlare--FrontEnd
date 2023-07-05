@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from 'react';
 
-import DataContext from '../../../shared/context/DataContext';
+import DataContext from '../../../shared/context/BusinessContext';
 import AuthContext from '../../../shared/context/AuthContext';
 import classes from './Sidebar.module.css';
 

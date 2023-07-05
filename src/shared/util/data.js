@@ -1,36 +1,3 @@
-export const businessTypesOptions = [
-  'App / SaaS',
-  'Blog / Content',
-  'E-Commerce',
-  'Forum',
-  'IG Profile',
-  'MarketPlace',
-  'Services',
-  'Tik Tok Profile',
-  'Others',
-];
-
-export const nichesOptions = [
-  'Arts',
-  'Automotive',
-  'Beauty',
-  'Education',
-  'Entertainment / Games',
-  'Fashion',
-  'Food',
-  'Health',
-  'Home & Garden',
-  'Hobbies',
-  'Make Money Online',
-  'Music',
-  'Pet',
-  'Photography',
-  'Real State',
-  'Sports',
-  'Technology',
-  'Others',
-];
-
 export const DUMMY_BUSINESSES = [
   {
     id: 'B0001',
@@ -45,6 +12,7 @@ export const DUMMY_BUSINESSES = [
     description:
       'Mussum Ipsum, cacilds vidis litro abertis. Sapien in monti palavris qui num significa nadis i pareci latim.Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo!Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Praesent vel viverra nisi. Mauris aliquet nunc non turpis scelerisque, eget.',
     ownerId: 'U0001',
+    status: 'active',
   },
   {
     id: 'B0002',
@@ -60,6 +28,7 @@ export const DUMMY_BUSINESSES = [
     description:
       'Mussum Ipsum, cacilds vidis litro abertis. Sapien in monti palavris qui num significa nadis i pareci latim.Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo!Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.Praesent vel viverra nisi. Mauris aliquet nunc non turpis scelerisque, eget.',
     ownerId: 'U0002',
+    status: 'active',
   },
   {
     id: 'B0003',
@@ -75,6 +44,7 @@ export const DUMMY_BUSINESSES = [
     description:
       'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
     ownerId: 'U0001',
+    status: 'active',
   },
   {
     id: 'B0004',
@@ -89,6 +59,7 @@ export const DUMMY_BUSINESSES = [
     description:
       'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
     ownerId: 'U0002',
+    status: 'active',
   },
   {
     id: 'B0005',
@@ -104,6 +75,7 @@ export const DUMMY_BUSINESSES = [
     description:
       'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
     ownerId: 'U0001',
+    status: 'active',
   },
   {
     id: 'B0006',
@@ -120,6 +92,7 @@ export const DUMMY_BUSINESSES = [
     description:
       'This is a e-commerce created using Shopify, that has some own products, but also make upsells via dropshipping model',
     ownerId: 'U0002',
+    status: 'active',
   },
 ];
 
@@ -152,13 +125,14 @@ export const DUMMY_USERS = [
 ];
 
 export const DUMMY_OFFERS = [
+  // status: waiting, accepted, denied
   [
     {
       id: 'O0001',
       sender: 'U0001',
       businessId: 'B0002',
       offerValue: 1000,
-      activeStatus: true,
+      status: 'waiting',
       message: 'Message 1',
       date: '2023-07-03T23:28:22.228Z',
       expirationDate: '2023-10-03T23:28:22.228Z',
@@ -168,7 +142,7 @@ export const DUMMY_OFFERS = [
       sender: 'U0001',
       businessId: 'B0004',
       offerValue: 2000,
-      activeStatus: false,
+      status: 'waiting',
       message: 'Message 2',
       date: '2023-07-03T23:28:22.228Z',
       expirationDate: '2023-10-03T23:28:22.228Z',
@@ -178,7 +152,7 @@ export const DUMMY_OFFERS = [
       sender: 'U0001',
       businessId: 'B0006',
       offerValue: 3000,
-      activeStatus: true,
+      status: 'waiting',
       message: 'Message 3',
       date: '2023-07-03T23:28:22.228Z',
       expirationDate: '2023-10-03T23:28:22.228Z',
@@ -188,7 +162,7 @@ export const DUMMY_OFFERS = [
       sender: 'U0002',
       businessId: 'B0001',
       offerValue: 4000,
-      activeStatus: false,
+      status: 'waiting',
       message: 'Message 4',
       date: '2023-07-03T23:28:22.228Z',
       expirationDate: '2023-10-03T23:28:22.228Z',
@@ -198,7 +172,7 @@ export const DUMMY_OFFERS = [
       sender: 'U0002',
       businessId: 'B0003',
       offerValue: 5000,
-      activeStatus: true,
+      status: 'waiting',
       message: 'Message 5',
       date: '2023-07-03T23:28:22.228Z',
       expirationDate: '2023-10-03T23:28:22.228Z',
@@ -208,7 +182,7 @@ export const DUMMY_OFFERS = [
       sender: 'U0002',
       businessId: 'B0005',
       offerValue: 6000,
-      activeStatus: false,
+      status: 'waiting',
       message: 'Message 6',
       date: '2023-07-03T23:28:22.228Z',
       expirationDate: '2023-10-03T23:28:22.228Z',

@@ -4,16 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { DataContextProvider } from './shared/context/DataContext';
+import { BusinessContextProvider } from './shared/context/BusinessContext';
 import { AuthContextProvider } from './shared/context/AuthContext';
+import { OffersContextProvider } from './shared/context/OffersContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <DataContextProvider>
-        <App />
-      </DataContextProvider>
+      <BusinessContextProvider>
+        <OffersContextProvider>
+          <App />
+        </OffersContextProvider>
+      </BusinessContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

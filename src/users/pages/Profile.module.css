@@ -1,3 +1,7 @@
+.main {
+  min-height: calc(100vh - 64px - 40px); /*Fromm nav and footer heghts*/
+}
+
 .user-info__title,
 .businesses-list__title {
   text-align: center;
@@ -29,7 +33,11 @@
 
 .user-info__details {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  /* background-color: yellow; */
 }
 
 .item {

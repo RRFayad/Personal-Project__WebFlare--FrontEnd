@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 
-import DataContext from '../../../shared/context/DataContext';
+import DataContext from '../../../shared/context/BusinessContext';
 import BusinessItemCard from './BusinessItemCard';
 import classes from './BusinessList.module.css';
 
 function BusinessList() {
-  const { businessesList, usersList } = useContext(DataContext);
+  const { businessesList } = useContext(DataContext);
 
   return (
     <>

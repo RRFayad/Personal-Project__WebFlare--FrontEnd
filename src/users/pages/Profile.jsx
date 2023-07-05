@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
-import DataContext from '../../shared/context/DataContext';
+import DataContext from '../../shared/context/BusinessContext';
 import AuthContext from '../../shared/context/AuthContext';
 import BusinessItemCard from '../../business/components/Homepage/BusinessItemCard';
 

@@ -1,77 +1,24 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useEffect, useReducer, useState } from 'react';
 
-import {
-  businessTypesOptions,
-  nichesOptions,
-  DUMMY_BUSINESSES,
-  DUMMY_USERS,
-  DUMMY_OFFERS,
-} from '../util/data';
+import filtersReducer from './business-filters-reducer';
+import { businessTypesOptions, nichesOptions } from '../util/parameters';
+import { DUMMY_BUSINESSES, DUMMY_USERS, DUMMY_OFFERS } from '../util/data';
 
-const DataContext = React.createContext({
+const BusinessContext = React.createContext({
+  // business parameters
+  businessTypesOptions: [],
+  nichesOptions: [],
+
+  // business data
   allBusinesses: [],
   businessesList: [],
   addNewBusiness: () => {},
   updateBusiness: () => {},
-  businessTypesOptions: [],
-  nichesOptions: [],
-  usersList: [],
-  offersList: [],
 });
 
-const filtersReducer = (state, action) => {
-  if (action.type === 'SET_TYPE_FILTER') {
-    // payload: {filter, filterNewState}
-    return action.payload.filterNewState
-      ? { ...state, typeFilter: [...state.typeFilter, action.payload.filter] }
-      : {
-          ...state,
-          typeFilter: [...state.typeFilter].filter(
-            (typeFilter) => typeFilter !== action.payload.filter
-          ),
-        };
-  }
-  if (action.type === 'SET_SEARCH_FILTER') {
-    // payload: {value}
-    return {
-      ...state,
-      searchFilter: action.payload.value.toLowerCase().trim(),
-    };
-  }
-  if (action.type === 'SET_PRICE_FILTER') {
-    // payload: {minValue, maxValue}
-    return {
-      ...state,
-      priceFilter: {
-        min: action.payload.minValue,
-        max: action.payload.maxValue,
-      },
-    };
-  }
-  if (action.type === 'SET_PROFIT_FILTER') {
-    // payload: {minValue, maxValue}
-    return {
-      ...state,
-      profitFilter: {
-        min: action.payload.minValue,
-        max: action.payload.maxValue,
-      },
-    };
-  }
-  if (action.type === 'SET_USER_FILTER') {
-    // payload: {id}
-    return {
-      ...state,
-      userFilter: { id: action.payload.id },
-    };
-  }
-  return state;
-};
-
-export function DataContextProvider(props) {
+export function BusinessContextProvider(props) {
   const allBusinesses = DUMMY_BUSINESSES;
-  const usersList = DUMMY_USERS;
   const offersList = DUMMY_OFFERS;
 
   const filtersInitializer = {
@@ -157,22 +104,23 @@ export function DataContextProvider(props) {
   };
 
   return (
-    <DataContext.Provider
+    <BusinessContext.Provider
       value={{
+        // business parameters
+        businessTypesOptions,
+        nichesOptions,
+
+        // business data
         allBusinesses,
         businessesList,
         addNewBusiness,
         updateBusiness,
-        businessTypesOptions,
-        nichesOptions,
         filterHandler: dispatch,
-        usersList,
-        offersList,
       }}
     >
       {props.children}
-    </DataContext.Provider>
+    </BusinessContext.Provider>
   );
 }
 
-export default DataContext;
+export default BusinessContext;

@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 
 import BusinessList from './BusinessList';
-import DataContext from '../../../shared/context/DataContext';
+import DataContext from '../../../shared/context/BusinessContext';
 import classes from './MainContent.module.css';
 
 function MainContent() {
