@@ -6,7 +6,8 @@ import DataContext from '../../../shared/context/BusinessContext';
 import classes from './MainContent.module.css';
 
 function MainContent() {
-  const { filterHandler } = useContext(DataContext);
+  const { businessesList, filterHandler } = useContext(DataContext);
+
   return (
     <main className={`${classes['main-content']}`}>
       <div className={`${classes['main-content__search-container']}`}>
@@ -22,7 +23,15 @@ function MainContent() {
           }}
         />
       </div>
-      <BusinessList />
+      {businessesList.length === 0 ? (
+        <h1 className={classes['business-list--no-items']}>
+          No Business Found!
+        </h1>
+      ) : (
+        businessesList.length > 0 && (
+          <BusinessList businessesList={businessesList} />
+        )
+      )}
     </main>
   );
 }
