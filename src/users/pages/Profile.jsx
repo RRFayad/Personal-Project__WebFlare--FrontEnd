@@ -14,10 +14,10 @@ import classes from './Profile.module.css';
 
 function Profile() {
   const history = useHistory();
-  const { businessesList } = useContext(DataContext);
+  const { allBusinesses } = useContext(DataContext);
   const { userData } = useContext(AuthContext);
 
-  const usersBusiness = businessesList.filter(
+  const usersBusiness = allBusinesses.filter(
     (item) => item.ownerId === userData.id
   );
 
@@ -33,7 +33,7 @@ function Profile() {
             No Business Found!
           </h1>
         )}
-        {usersBusiness.length >= 0 && (
+        {usersBusiness.length > 0 && (
           <>
             <h1 className={classes['businesses-list__title']}>
               Your Businesses:

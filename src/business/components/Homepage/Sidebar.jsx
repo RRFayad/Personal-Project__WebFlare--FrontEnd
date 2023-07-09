@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 
 import DataContext from '../../../shared/context/BusinessContext';
 import AuthContext from '../../../shared/context/AuthContext';
@@ -34,6 +34,14 @@ function SideBar() {
       });
     }
   };
+
+  useEffect(
+    () =>
+      filterHandler({
+        type: 'CLEAR_FILTER',
+      }),
+    []
+  );
 
   return (
     <aside className={classes.sidebar}>

@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useEffect, useReducer, useState } from 'react';
 
-import filtersReducer from './business-filters-reducer';
+import { filtersInitializer, filtersReducer } from './business-filters-reducer';
 import { businessTypesOptions, nichesOptions } from '../util/parameters';
-import { DUMMY_BUSINESSES, DUMMY_USERS, DUMMY_OFFERS } from '../util/data';
+import { DUMMY_BUSINESSES, DUMMY_OFFERS } from '../util/data';
 
 const BusinessContext = React.createContext({
   // business parameters
@@ -21,31 +21,16 @@ export function BusinessContextProvider(props) {
   const allBusinesses = DUMMY_BUSINESSES;
   const offersList = DUMMY_OFFERS;
 
-  const filtersInitializer = {
-    typeFilter: [],
-    searchFilter: '',
-    priceFilter: {
-      min: 0,
-      max: Infinity,
-    },
-    profitFilter: {
-      min: 0,
-      max: Infinity,
-    },
-    userFilter: {
-      id: null,
-    },
-  };
-
   const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);
 
-  const [businessesList, setBusinessesList] = useState(allBusinesses);
+  const [homePageBusinessesList, setHomePageBusinessesList] =
+    useState(allBusinesses);
 
   // Filters Logic
   useEffect(() => {
     let businesses = [];
 
-    setBusinessesList(() => {
+    setHomePageBusinessesList(() => {
       // business type filter logic
       if (filters.typeFilter.length === 0) {
         businesses = allBusinesses;
@@ -112,7 +97,7 @@ export function BusinessContextProvider(props) {
 
         // business data
         allBusinesses,
-        businessesList,
+        businessesList: homePageBusinessesList,
         addNewBusiness,
         updateBusiness,
         filterHandler: dispatch,

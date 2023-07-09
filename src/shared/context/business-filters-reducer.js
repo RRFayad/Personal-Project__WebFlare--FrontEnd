@@ -1,4 +1,20 @@
-const filtersReducer = (state, action) => {
+export const filtersInitializer = {
+  typeFilter: [],
+  searchFilter: '',
+  priceFilter: {
+    min: 0,
+    max: Infinity,
+  },
+  profitFilter: {
+    min: 0,
+    max: Infinity,
+  },
+  userFilter: {
+    id: null,
+  },
+};
+
+export const filtersReducer = (state, action) => {
   if (action.type === 'SET_TYPE_FILTER') {
     // payload: {filter, filterNewState}
     return action.payload.filterNewState
@@ -44,7 +60,8 @@ const filtersReducer = (state, action) => {
       userFilter: { id: action.payload.id },
     };
   }
+  if (action.type === 'CLEAR_FILTER') {
+    return filtersInitializer;
+  }
   return state;
 };
-
-export default filtersReducer;
