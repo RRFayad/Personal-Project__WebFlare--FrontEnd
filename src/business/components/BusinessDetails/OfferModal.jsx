@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
+
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import DataContext from '../../../shared/context/BusinessContext';
@@ -8,7 +9,7 @@ import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 
 import classes from './OfferModal.module.css';
 
-function OfferModal(props) {
+function OfferCard(props) {
   const { isLoggedIn, userData, usersList } = useContext(AuthContext);
   const { businessesList } = useContext(DataContext);
   const history = useHistory();
@@ -40,9 +41,11 @@ function OfferModal(props) {
     <div className={classes.modal}>
       <header className={classes.modal__header}>
         <h2>{title}</h2>
-        <button type="button" onClick={props.onClick}>
-          &times;
-        </button>
+        {props.onClick && (
+          <button type="button" onClick={props.onClick}>
+            &times;
+          </button>
+        )}
       </header>
       <main className={classes.modal__content}>
         <div className={classes['modal__user-info']}>
@@ -119,4 +122,4 @@ function OfferModal(props) {
   );
 }
 
-export default OfferModal;
+export default OfferCard;

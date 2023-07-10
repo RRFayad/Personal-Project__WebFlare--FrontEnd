@@ -16,6 +16,7 @@ import NewBusiness from './business/pages/NewBusiness';
 import EditBusiness from './business/pages/EditBusiness';
 import SuccessPage from './business/pages/SuccessPage';
 import EditProfile from './users/pages/EditProfile';
+import Offers from './offers/pages/Offers';
 
 import AuthContext from './shared/context/AuthContext';
 
@@ -58,6 +59,10 @@ function App() {
         <Route path="/users/:uid/edit-profile" exact>
           {!isLoggedIn && <Redirect to="/" />}
           {isLoggedIn && <EditProfile />}
+        </Route>
+        <Route path="/users/:uid/offers" exact>
+          {!isLoggedIn && <Redirect to="/" />}
+          {isLoggedIn && <Offers />}
         </Route>
         <Route path="/success/:event" exact>
           {!isLoggedIn && <Redirect to="/" />}

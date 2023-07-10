@@ -41,7 +41,7 @@ function Navbar() {
                 </NavLink>
               </li>
               <li className={`${classes['nav-bar__link']}`}>
-                <NavLink to={`/users/${userData.id}/create-business`} exact>
+                <NavLink to={`/users/${userData.id}/offers`} exact>
                   My Offers
                 </NavLink>
               </li>

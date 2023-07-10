@@ -1,0 +1,27 @@
+.main {
+  min-height: calc(100vh - 64px - 40px); /*Fromm nav and footer heghts*/
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.header__label {
+  margin-right: 16px;
+}
+
+.header__select {
+  align-self: center;
+  margin-left: 4px;
+}
+
+.header__select option {
+  text-align: center;
+}
