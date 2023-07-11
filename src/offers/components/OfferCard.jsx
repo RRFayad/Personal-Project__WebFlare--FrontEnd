@@ -22,20 +22,6 @@ function OfferCard(props) {
   console.log('business: ', business);
   console.log('sender: ', sender);
 
-  const {
-    age,
-    askingPrice,
-    description,
-    id,
-    imageUrl,
-    monthlyProfit,
-    monthlyRevenue,
-    niche,
-    ownerId,
-    title,
-    type,
-  } = business;
-
   return (
     // <p>aa</p>
     <li className={classes.card}>
@@ -66,7 +52,7 @@ function OfferCard(props) {
             <div className={classes.card__price}>
               <h4>Offered Price:</h4>
               <p className={classes['card__price--original-value']}>
-                {formatCurrency(askingPrice)}
+                {formatCurrency(business.askingPrice)}
               </p>
               <p className={classes['card__price--offered-value']}>
                 {formatCurrency(offer.offerValue)}

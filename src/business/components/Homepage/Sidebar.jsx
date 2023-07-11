@@ -7,7 +7,7 @@ import classes from './Sidebar.module.css';
 function SideBar() {
   const { businessTypesOptions, filterHandler, businessesList } =
     useContext(DataContext);
-  const { userData } = useContext(AuthContext);
+  const { userData, isLoggedIn } = useContext(AuthContext);
 
   const minPriceRef = useRef(0);
   const maxPriceRef = useRef(Infinity);
@@ -50,27 +50,29 @@ function SideBar() {
       </p>
 
       <div className={classes.sidebar__items}>
-        <label
-          htmlFor="user-filter"
-          key="user-filter"
-          className={classes['sidebar__user-filter']}
-        >
-          <input
-            type="checkbox"
-            id="user-filter"
-            name="user-filter"
-            onChange={(event) => {
-              // console.log(event.target.checked ? userData.id : null);
-              filterHandler({
-                type: 'SET_USER_FILTER',
-                payload: {
-                  id: event.target.checked ? userData.id : null,
-                },
-              });
-            }}
-          />
-          Hide My Assets
-        </label>
+        {isLoggedIn && (
+          <label
+            htmlFor="user-filter"
+            key="user-filter"
+            className={classes['sidebar__user-filter']}
+          >
+            <input
+              type="checkbox"
+              id="user-filter"
+              name="user-filter"
+              onChange={(event) => {
+                // console.log(event.target.checked ? userData.id : null);
+                filterHandler({
+                  type: 'SET_USER_FILTER',
+                  payload: {
+                    id: event.target.checked ? userData.id : null,
+                  },
+                });
+              }}
+            />
+            Hide My Assets
+          </label>
+        )}
         <div className={classes.sidebar__checkboxes}>
           {businessTypesOptions.map((item) => (
             <label htmlFor={item} key={item}>

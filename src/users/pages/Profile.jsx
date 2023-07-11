@@ -17,9 +17,11 @@ function Profile() {
   const { allBusinesses } = useContext(DataContext);
   const { userData } = useContext(AuthContext);
 
-  const usersBusiness = allBusinesses.find(
+  const usersBusiness = allBusinesses.filter(
     (item) => item.ownerId === userData.id
   );
+
+  console.log(usersBusiness);
 
   return (
     <>

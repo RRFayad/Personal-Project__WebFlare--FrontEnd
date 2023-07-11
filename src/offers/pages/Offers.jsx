@@ -7,6 +7,7 @@ import AuthContext from '../../shared/context/AuthContext';
 import BusinessContext from '../../shared/context/BusinessContext';
 import OffersContext from '../../shared/context/OffersContext';
 import OfferCard from '../components/OfferCard';
+import OffersList from '../components/OffersList';
 
 import classes from './Offers.module.css';
 
@@ -65,7 +66,7 @@ function Offers() {
         {filteredOffers.length === 0 && (
           <h1 className={classes['main--no-list']}>There Are No Offers Yet!</h1>
         )}
-        {filteredOffers.length > 0 && <OfferCard offer={filteredOffers[0]} />}
+        {filteredOffers.length > 0 && <OffersList offers={filteredOffers} />}
       </main>
       <Footer />
     </>
