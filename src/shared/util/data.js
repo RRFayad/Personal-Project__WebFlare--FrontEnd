@@ -133,7 +133,8 @@ export const DUMMY_OFFERS = [
     businessId: 'B0002',
     offerValue: 1000,
     status: 'active',
-    message: 'Message 1',
+    message:
+      'Hi there! I want to buy this blog for this price because I believe in lorem ipsum',
     date: '2023-07-03T23:28:22.228Z',
     expirationDate: '2023-10-03T23:28:22.228Z',
   },
@@ -163,7 +164,8 @@ export const DUMMY_OFFERS = [
     businessId: 'B0001',
     offerValue: 4000,
     status: 'active',
-    message: 'Message 4',
+    message:
+      'Hi there! I want to buy this blog for this price because I believe in lorem ipsum',
     date: '2023-07-03T23:28:22.228Z',
     expirationDate: '2023-10-03T23:28:22.228Z',
   },

@@ -24,15 +24,9 @@ function Offers() {
   );
 
   const [filter, setFilter] = useState('All Offers');
-  const [filteredOffers, setFilteredOffers] = useState([
-    ...sentOffers,
-    ...receivedOffers,
-  ]);
+  const [filteredOffers, setFilteredOffers] = useState(receivedOffers);
 
   const changeFilterHandler = (filterText) => {
-    if (filterText === 'All Offers') {
-      setFilteredOffers([...sentOffers, ...receivedOffers]);
-    }
     if (filterText === 'Received Offers') {
       setFilteredOffers(receivedOffers);
     }
@@ -61,7 +55,6 @@ function Offers() {
               );
             }}
           >
-            <option>All Offers</option>
             <option>Received Offers</option>
             <option>Sent Offers</option>
           </select>
@@ -69,7 +62,10 @@ function Offers() {
       </header>
       <hr />
       <main className={classes.main}>
-        <OfferCard offer={filteredOffers[0]} />
+        {filteredOffers.length === 0 && (
+          <h1 className={classes['main--no-list']}>There Are No Offers Yet!</h1>
+        )}
+        {filteredOffers.length > 0 && <OfferCard offer={filteredOffers[0]} />}
       </main>
       <Footer />
     </>

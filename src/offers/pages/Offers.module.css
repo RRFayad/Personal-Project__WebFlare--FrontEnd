@@ -1,11 +1,8 @@
-.main {
-  min-height: calc(100vh - 64px - 40px); /*Fromm nav and footer heghts*/
-}
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .header__title {
@@ -15,6 +12,8 @@
 
 .header__label {
   margin-right: 16px;
+  position: absolute;
+  right: 0;
 }
 
 .header__select {
@@ -24,4 +23,21 @@
 
 .header__select option {
   text-align: center;
+}
+
+.main {
+  min-height: calc(100vh - 64px - 40px); /*Fromm nav and footer heghts*/
+}
+
+.main--no-list {
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .header__title {
+    margin-bottom: 32px;
+  }
+  .header__label {
+    bottom: 0;
+  }
 }

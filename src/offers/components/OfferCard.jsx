@@ -18,9 +18,9 @@ function OfferCard(props) {
     (b) => b.id === offer.businessId
   );
 
-  console.log(offer);
-  console.log(business);
-  console.log(sender);
+  console.log('offer: ', offer);
+  console.log('business: ', business);
+  console.log('sender: ', sender);
 
   const {
     age,
@@ -38,14 +38,9 @@ function OfferCard(props) {
 
   return (
     // <p>aa</p>
-    <div className={classes.card}>
+    <li className={classes.card}>
       <header className={classes.card__header}>
-        <h2>{title}</h2>
-        {props.onClick && (
-          <button type="button" onClick={props.onClick}>
-            &times;
-          </button>
-        )}
+        <h2>{business.title}</h2>
       </header>
       <main className={classes.card__content}>
         <div className={classes['card__user-info']}>
@@ -67,10 +62,15 @@ function OfferCard(props) {
                 <dd>{sender.country}</dd>
               </div>
             </dl>
-            <p className={classes.card__description}>{sender.description}</p>
+            <p className={classes.card__description}>{offer.message}</p>
             <div className={classes.card__price}>
-              <h4>Asking Price:</h4>
-              <p>{formatCurrency(askingPrice)}</p>
+              <h4>Offered Price:</h4>
+              <p className={classes['card__price--original-value']}>
+                {formatCurrency(askingPrice)}
+              </p>
+              <p className={classes['card__price--offered-value']}>
+                {formatCurrency(offer.offerValue)}
+              </p>
             </div>
           </div>
         </div>
@@ -78,16 +78,16 @@ function OfferCard(props) {
       <hr />
       <footer className={classes.card__footer}>
         <button type="button" className={classes.card__button}>
-          Make Offer
+          Deny Offer
         </button>
         <button
           type="button"
           className={`${classes.card__button} ${classes['card__button--cta']}`}
         >
-          Buy it now for {formatCurrency(askingPrice)}
+          Accept Offer
         </button>
       </footer>
-    </div>
+    </li>
   );
 }
 
