@@ -23,6 +23,7 @@
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   object-fit: cover;
+  object-position: 50% 20%;
 }
 
 .content__info-container hr {

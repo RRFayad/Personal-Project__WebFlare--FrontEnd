@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import BusinessContext from '../../shared/context/BusinessContext';
 import AuthContext from '../../shared/context/AuthContext';
@@ -7,6 +8,7 @@ import { formatCurrency } from '../../shared/util/validators-and-formatters';
 import classes from './OfferCard.module.css';
 
 function OfferCard(props) {
+  const history = useHistory();
   const { offer } = props;
 
   const userId = useContext(AuthContext).userData.id;
@@ -100,6 +102,7 @@ function OfferCard(props) {
           <button
             type="button"
             className={`${classes.card__button} ${classes['card__button--cta']}`}
+            onClick={() => history.push(`/business/${business.id}`)}
           >
             View Business Details
           </button>
