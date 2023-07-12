@@ -23,7 +23,9 @@ function UserCard() {
             <div className={classes.item}>
               <dt>Linkedin:</dt>
               <dd>
-                <a href={userData.linkedinUrl}>{userData.linkedinUrl}</a>
+                <a href={userData.linkedinUrl} target="_blank" rel="noreferrer">
+                  {userData.linkedinUrl}
+                </a>
               </dd>
             </div>
             <div className={classes.item}>

@@ -23,6 +23,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-left: calc((100% - 480px) / 4);
 }
 
 .card__content img {
@@ -136,6 +137,7 @@
   .card__user-info {
     flex-direction: column;
     font-size: 0.9rem;
+    padding-left: 0px;
   }
 
   .card__price p {

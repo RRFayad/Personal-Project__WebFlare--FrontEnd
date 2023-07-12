@@ -9,7 +9,6 @@ const AuthContext = React.createContext({
   logoutHandler: () => {},
   signUpHandler: () => {},
   updateProfileHandler: () => {},
-  userId: '',
   userData: {},
   usersList: [],
 });
@@ -18,7 +17,6 @@ export function AuthContextProvider(props) {
   const usersList = DUMMY_USERS;
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(null);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -40,7 +38,7 @@ export function AuthContextProvider(props) {
   const logoutHandler = () => {
     localStorage.removeItem('userId');
     setIsLoggedIn(false);
-    setUserId(null);
+    setUserData(null);
     return console.log('User logged out!!');
   };
 
@@ -71,7 +69,6 @@ export function AuthContextProvider(props) {
         logoutHandler,
         signUpHandler,
         isLoggedIn,
-        userId,
         userData,
         updateProfileHandler,
         usersList,

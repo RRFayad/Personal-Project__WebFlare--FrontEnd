@@ -8,44 +8,63 @@ import classes from './OfferCard.module.css';
 
 function OfferCard(props) {
   const { offer } = props;
-  const senderId = offer.sender;
 
-  const sender = useContext(AuthContext).usersList.find(
-    (user) => user.id === senderId
-  );
+  const userId = useContext(AuthContext).userData.id;
 
   const business = useContext(BusinessContext).allBusinesses.find(
     (b) => b.id === offer.businessId
   );
 
-  console.log('offer: ', offer);
-  console.log('business: ', business);
-  console.log('sender: ', sender);
+  const senderId = offer.sender;
+
+  const offerSender = useContext(AuthContext).usersList.find(
+    (user) => user.id === senderId
+  );
+
+  const offerReceiver = useContext(AuthContext).usersList.find(
+    (user) => user.id === business.ownerId
+  );
+
+  const stakeholder = userId === offerSender.id ? offerReceiver : offerSender;
+
+  // console.log(stakeholder);
+
+  // console.log('offer: ', offer);
+  // console.log('business: ', business);
+  // console.log('sender: ', sender);
+
+  // console.log(senderId);
 
   return (
     // <p>aa</p>
-    <li className={classes.card}>
+    <li className={classes.card} key={offer.id}>
       <header className={classes.card__header}>
         <h2>{business.title}</h2>
       </header>
       <main className={classes.card__content}>
         <div className={classes['card__user-info']}>
-          <img src={sender.imageUrl} alt={sender.name} />
+          <img src={stakeholder.imageUrl} alt={stakeholder.name} />
           <div className={classes.card__container}>
             <dl className={classes.card__items}>
               <div className={classes.card__item}>
-                <dt>Sender:</dt>
-                <dd>{sender.name}</dd>
+                <dt>{userId !== senderId ? 'Sender:' : 'Sent to:'}</dt>
+                <dd>{stakeholder.name}</dd>
               </div>
               <div className={classes.card__item}>
                 <dt>Linkedin:</dt>
                 <dd>
-                  <a href={sender.linkedinUrl}>{sender.linkedinUrl}</a>
+                  <a
+                    href={stakeholder.linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {stakeholder.linkedinUrl}
+                  </a>
                 </dd>
               </div>
               <div className={classes.card__item}>
                 <dt>Country:</dt>
-                <dd>{sender.country}</dd>
+                <dd>{stakeholder.country}</dd>
               </div>
             </dl>
             <p className={classes.card__description}>{offer.message}</p>
@@ -63,15 +82,28 @@ function OfferCard(props) {
       </main>
       <hr />
       <footer className={classes.card__footer}>
-        <button type="button" className={classes.card__button}>
-          Deny Offer
-        </button>
-        <button
-          type="button"
-          className={`${classes.card__button} ${classes['card__button--cta']}`}
-        >
-          Accept Offer
-        </button>
+        {userId !== senderId && (
+          <>
+            <button type="button" className={classes.card__button}>
+              Deny Offer
+            </button>
+            <button
+              type="button"
+              className={`${classes.card__button} ${classes['card__button--cta']}`}
+            >
+              Accept Offer
+            </button>
+          </>
+        )}
+
+        {userId === senderId && (
+          <button
+            type="button"
+            className={`${classes.card__button} ${classes['card__button--cta']}`}
+          >
+            View Business Details
+          </button>
+        )}
       </footer>
     </li>
   );
