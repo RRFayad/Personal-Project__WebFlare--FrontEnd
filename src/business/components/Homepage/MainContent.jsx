@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import BusinessList from './BusinessList';
 import DataContext from '../../../shared/context/BusinessContext';
@@ -7,6 +7,7 @@ import classes from './MainContent.module.css';
 
 function MainContent() {
   const { businessesList, filterHandler } = useContext(DataContext);
+  const [filterModalIsShown, setFilterModalIsShown] = useState(false);
 
   return (
     <main className={`${classes['main-content']}`}>
@@ -22,6 +23,13 @@ function MainContent() {
             });
           }}
         />
+        <button
+          type="button"
+          className={classes['main-content__filter-button']}
+          onClick={() => setFilterModalIsShown((state) => !state)}
+        >
+          a
+        </button>
       </div>
       {businessesList.length === 0 ? (
         <h1 className={classes['business-list--no-items']}>

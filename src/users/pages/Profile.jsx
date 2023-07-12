@@ -21,8 +21,6 @@ function Profile() {
     (item) => item.ownerId === userData.id
   );
 
-  console.log(usersBusiness);
-
   return (
     <>
       <Navbar />

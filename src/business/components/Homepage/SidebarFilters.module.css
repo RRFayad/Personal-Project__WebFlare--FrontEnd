@@ -1,0 +1,22 @@
+.sidebar__checkboxes label,
+.sidebar__user-filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sidebar__checkboxes input,
+.sidebar__user-filter input {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
+  margin-left: 4px;
+}
+
+.sidebar__checkboxes {
+  margin-top: 16px;
+}

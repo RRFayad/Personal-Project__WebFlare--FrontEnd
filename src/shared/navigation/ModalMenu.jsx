@@ -37,7 +37,13 @@ function ModalMenu(props) {
                     </NavLink>
                   </button>
                 </li>
-
+                <li className={`${classes['modal-menu__link']}`}>
+                  <button type="button" onClick={props.onClick}>
+                    <NavLink to={`/users/${userData.id}/offers`} exact>
+                      My Offers
+                    </NavLink>
+                  </button>
+                </li>
                 <li className={`${classes['modal-menu__link']}`}>
                   <button type="button" onClick={props.onClick}>
                     <NavLink to={`/users/${userData.id}/create-business`} exact>

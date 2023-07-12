@@ -1,12 +1,14 @@
 import React, { useRef, useContext, useEffect } from 'react';
 
-import DataContext from '../../../shared/context/BusinessContext';
 import AuthContext from '../../../shared/context/AuthContext';
+import BusinessContext from '../../../shared/context/BusinessContext';
+import SidebarFilters from './SidebarFilters';
+
 import classes from './Sidebar.module.css';
 
 function SideBar() {
   const { businessTypesOptions, filterHandler, businessesList } =
-    useContext(DataContext);
+    useContext(BusinessContext);
   const { userData, isLoggedIn } = useContext(AuthContext);
 
   const minPriceRef = useRef(0);
@@ -50,50 +52,7 @@ function SideBar() {
       </p>
 
       <div className={classes.sidebar__items}>
-        {isLoggedIn && (
-          <label
-            htmlFor="user-filter"
-            key="user-filter"
-            className={classes['sidebar__user-filter']}
-          >
-            <input
-              type="checkbox"
-              id="user-filter"
-              name="user-filter"
-              onChange={(event) => {
-                // console.log(event.target.checked ? userData.id : null);
-                filterHandler({
-                  type: 'SET_USER_FILTER',
-                  payload: {
-                    id: event.target.checked ? userData.id : null,
-                  },
-                });
-              }}
-            />
-            Hide My Assets
-          </label>
-        )}
-        <div className={classes.sidebar__checkboxes}>
-          {businessTypesOptions.map((item) => (
-            <label htmlFor={item} key={item}>
-              <input
-                type="checkbox"
-                id={item}
-                name={item}
-                onChange={(event) => {
-                  filterHandler({
-                    type: 'SET_TYPE_FILTER',
-                    payload: {
-                      filter: item,
-                      filterNewState: event.target.checked,
-                    },
-                  });
-                }}
-              />
-              {item}
-            </label>
-          ))}
-        </div>
+        <SidebarFilters />
         <div className={`${classes['price-filter']}`}>
           <p>Asking Price</p>
           <div className={`${classes['price-filter__container']}`}>

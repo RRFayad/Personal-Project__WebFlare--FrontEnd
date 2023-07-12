@@ -11,13 +11,31 @@
   text-align: center;
 }
 
+.main-content__search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.main-content__filter-button {
+  height: 28px;
+  width: min(10vw, 36px);
+  position: absolute;
+  right: 3.6vw;
+  background-color: #0058ff;
+  border: #0058ff;
+  color: white;
+  border-radius: 4px;
+  display: none;
+}
+
 .main-content__search-container input {
   display: block;
   font-size: 1rem;
   width: 80%;
   height: 32px;
   margin: auto;
-  margin-bottom: 1.5rem;
   border-radius: 45px;
   border: 0.2px solid #001f44;
   padding-left: 8px;
@@ -27,8 +45,13 @@
 
 @media (max-width: 768px) {
   .main-content {
-    padding-bottom: 0px;
+    padding: 0;
+    padding-top: 24px;
     margin-left: 0;
     width: 100vw;
+  }
+
+  .main-content__filter-button {
+    display: block;
   }
 }
