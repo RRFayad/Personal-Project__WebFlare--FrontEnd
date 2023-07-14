@@ -7,9 +7,7 @@ import SidebarFilters from './SidebarFilters';
 import classes from './Sidebar.module.css';
 
 function SideBar() {
-  const { businessTypesOptions, filterHandler, businessesList } =
-    useContext(BusinessContext);
-  const { userData, isLoggedIn } = useContext(AuthContext);
+  const { filterHandler, businessesList } = useContext(BusinessContext);
 
   const minPriceRef = useRef(0);
   const maxPriceRef = useRef(Infinity);
@@ -37,19 +35,15 @@ function SideBar() {
     }
   };
 
-  useEffect(
-    () =>
-      filterHandler({
-        type: 'CLEAR_FILTER',
-      }),
-    []
-  );
-
   return (
     <aside className={classes.sidebar}>
-      <p>
-        1 - {businessesList.length} of {businessesList.length} results
-      </p>
+      {businessesList.length ? (
+        <p>
+          1 - {businessesList.length} of {businessesList.length} results
+        </p>
+      ) : (
+        <p>No results</p>
+      )}
 
       <div className={classes.sidebar__items}>
         <SidebarFilters />

@@ -101,7 +101,7 @@ export const DUMMY_USERS = [
     id: 'U0001',
     name: 'User1',
     imageUrl:
-      'https://media.licdn.com/dms/image/C4E03AQH5HDkBly2nqg/profile-displayphoto-shrink_800_800/0/1655491533997?e=1689206400&v=beta&t=IJLCYRNDorVrUIW0of5ofS8kK13CjuLcKUN3gqtnZn0',
+      'https://media.licdn.com/dms/image/C4E03AQH5HDkBly2nqg/profile-displayphoto-shrink_400_400/0/1655491533997?e=1694649600&v=beta&t=hKzgqpQire3Sh4ziEO3SSbyxB8LGAytPzR7oUUPCzbc',
     country: 'Brazil',
     linkedinUrl: 'https://www.linkedin.com/in/rfayad/',
     email: 'test1@test.com',

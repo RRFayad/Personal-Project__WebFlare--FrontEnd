@@ -20,12 +20,11 @@
 
 .main-content__filter-button {
   height: 28px;
-  width: min(10vw, 36px);
+  width: 6vw;
   position: absolute;
-  right: 3.6vw;
   background-color: #0058ff;
   border: #0058ff;
-  color: white;
+  color: rgb(236, 236, 236);
   border-radius: 4px;
   display: none;
 }
@@ -52,6 +51,7 @@
   }
 
   .main-content__filter-button {
-    display: block;
+    display: inline-block;
+    right: 2vw;
   }
 }
