@@ -4,53 +4,80 @@ import { useReducer, useState, useEffect } from 'react';
 
 import formValidationReducer from './formValidationReducer';
 
+const formValidationReducerv2 = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_INPUT':
+      // console.log(action);
+      // console.log({ [action.payload]: { ...action.payload } });
+      return { ...state, ...action.payload };
+
+    case 'VALIDATE_INPUT':
+      // payload: {input}
+      return {
+        ...state,
+        [action.payload]: {
+          ...state[action.payload],
+          isValid: true,
+        },
+      };
+    case 'INVALIDATE_INPUT':
+      // payload: {input}
+      return {
+        ...state,
+        [action.payload]: {
+          ...state[action.payload],
+          isValid: false,
+        },
+      };
+    case 'SET_FORM_DATA':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const useFormValidation = () => {
-  const [inputsStates, dispatch] = useReducer(formValidationReducer, {});
+  const [formData, dispatch] = useReducer(formValidationReducerv2, {});
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const setFormData = (inputs) => {
-    // receiving an inputs array
+  const setFormInputs = (inputs) => {
     // console.log(inputs);
     let newState = {};
-    // const inputsList = Object.keys(inputs);
     for (const input of inputs) {
       // console.log(input);
-      const inputStateKey = `${input}IsValid`;
-      if (inputsStates.hasOwnProperty(inputStateKey)) {
+      const inputState = {
+        isValid: false,
+        value: null,
+      };
+      if (formData.hasOwnProperty(input)) {
         newState = {
           ...newState,
-          [inputStateKey]: inputsStates[inputStateKey],
+          [input]: { ...formData[input], isValid: true },
         };
       }
-      if (!inputsStates.hasOwnProperty(inputStateKey)) {
-        newState = { ...newState, [inputStateKey]: false };
+      if (!formData.hasOwnProperty(input)) {
+        newState = { ...newState, [input]: inputState };
       }
-      // console.log(input, newState);
+      // console.log(newState);
     }
     dispatch({ type: 'SET_FORM_DATA', payload: newState });
   };
 
-  const inputValidationChangeHandler = (inputIsValid, fieldName) => {
-    const inputStateKey = `${fieldName}IsValid`;
-
-    if (inputsStates.hasOwnProperty(inputStateKey)) {
-      inputIsValid
-        ? dispatch({ type: 'VALIDATE_INPUT', payload: inputStateKey })
-        : dispatch({
-            type: 'INVALIDATE_INPUT',
-            payload: `${fieldName}IsValid`,
-          });
-    }
+  const inputChangeHandler = (inputName, inputIsValid, inputValue) => {
+    dispatch({
+      type: 'UPDATE_INPUT',
+      payload: { [inputName]: { isValid: inputIsValid, value: inputValue } },
+    });
   };
 
   useEffect(() => {
-    console.log(inputsStates);
+    console.log(formData);
     setFormIsValid(() =>
-      Object.values(inputsStates).every((isValid) => isValid)
+      Object.values(formData).every((inputState) => inputState.isValid)
     );
-  }, [inputsStates]);
+  }, [formData]);
 
-  return [formIsValid, inputValidationChangeHandler, setFormData];
+  return [formIsValid, inputChangeHandler, setFormInputs, formData];
 };
 
 export default useFormValidation;

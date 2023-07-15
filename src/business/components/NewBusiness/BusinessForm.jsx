@@ -15,18 +15,6 @@ import {
 
 import classes from './BusinessForm.module.css';
 
-const formInputs = {
-  title: { required: true },
-  image: { required: true },
-  type: { required: false },
-  niche: { required: false },
-  age: { required: true },
-  revenue: { required: true },
-  profit: { required: true },
-  price: { required: true },
-  description: { required: true },
-};
-
 function BusinessForm() {
   const {
     businessTypesOptions,
@@ -42,11 +30,11 @@ function BusinessForm() {
     (business) => business.id === businessToBeEdittedId
   );
 
-  const [formIsValid, inputValidationChangeHandler, setFormData] =
+  const [formIsValid, inputChangeHandler, setFormInputs, formData] =
     useFormValidation();
 
   useEffect(() => {
-    setFormData([
+    setFormInputs([
       'title',
       'image',
       'type',
@@ -68,7 +56,7 @@ function BusinessForm() {
           name="title"
           type="text"
           validation={minLengthValidator}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Title must have at least 3 Characters"
           defaultValue={businessToBeEdittedId && businessToBeEditted.title}
         />
@@ -78,7 +66,7 @@ function BusinessForm() {
           name="image"
           type="text"
           validation={urlValidator}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Please enter a valid URL"
           defaultValue={businessToBeEdittedId && businessToBeEditted.imageUrl}
         />
@@ -86,37 +74,39 @@ function BusinessForm() {
           labelValue="Type Of Business"
           HTMLElement="select"
           name="type"
-          onValidationChange={inputValidationChangeHandler}
-          errorMessage="Please select the type of your business"
           options={businessTypesOptions}
+          validation={null}
+          onInputChange={inputChangeHandler}
+          errorMessage="Please select the type of your business"
           defaultValue={businessToBeEdittedId && businessToBeEditted.type}
         />
         <FormInput
           labelValue="Niche"
           HTMLElement="select"
           name="niche"
-          onValidationChange={inputValidationChangeHandler}
-          errorMessage="Please select your business' niche"
           options={nichesOptions}
+          validation={null}
+          onInputChange={inputChangeHandler}
+          errorMessage="Please select your business' niche"
           defaultValue={businessToBeEdittedId && businessToBeEditted.niche}
         />
         <FormInput
           labelValue="Age of the Business (in years)"
           HTMLElement="input"
-          type="number"
           name="age"
+          type="number"
           validation={integerInputValidator}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Please insert a integer and positive number"
           defaultValue={businessToBeEdittedId && businessToBeEditted.age}
         />
         <FormInput
           labelValue="Monthly Revenue"
           HTMLElement="input"
-          type="number"
           name="revenue"
+          type="number"
           validation={(value) => integerInputValidator(value)}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Please insert a integer and positive number"
           defaultValue={
             businessToBeEdittedId && businessToBeEditted.monthlyRevenue
@@ -125,10 +115,10 @@ function BusinessForm() {
         <FormInput
           labelValue="Monthly Profit"
           HTMLElement="input"
-          type="number"
           name="profit"
+          type="number"
           validation={(value) => integerInputValidator(value)}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Please insert a integer and positive number"
           defaultValue={
             businessToBeEdittedId && businessToBeEditted.monthlyProfit
@@ -137,10 +127,10 @@ function BusinessForm() {
         <FormInput
           labelValue="Asking Price"
           HTMLElement="input"
-          type="number"
           name="price"
+          type="number"
           validation={(value) => integerInputValidator(value)}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Please insert a integer and positive number"
           defaultValue={
             businessToBeEdittedId && businessToBeEditted.askingPrice
@@ -151,7 +141,7 @@ function BusinessForm() {
           HTMLElement="textarea"
           name="description"
           validation={(value) => minLengthValidator(value, 6)}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Description must contain at least 6 characters"
           defaultValue={
             businessToBeEdittedId && businessToBeEditted.description

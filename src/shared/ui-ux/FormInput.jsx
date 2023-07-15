@@ -12,7 +12,7 @@ function FormInput(props) {
     placeholder, // input's placeholder
     name, // will be the name & id of each input
     errorMessage, // the message to be shown if it's not valid
-    onValidationChange, // Created to pass the validity 1 level up
+    onInputChange, // Created to pass the validity and data 1 level up
     defaultValue,
   } = props;
 
@@ -24,18 +24,20 @@ function FormInput(props) {
   const controlClass = !isValid && isTouched ? 'invalid' : null;
 
   useEffect(() => {
+    // For editing forms, they will start with their validity as true
     if (defaultValue) {
       setIsValid(true);
     }
   }, []);
 
-  // Without the useEffect it would pass the 'delayed' validity state (as useEffect will work when componentDidUpdate, and without it, before the component update)
+  // This useEffect exists for passing the updated validity state (as useEffect will work when componentDidUpdate, and without it, before the component update)
   useEffect(() => {
-    onValidationChange && onValidationChange(isValid, name);
+    onInputChange(name, isValid, inputRef.current.value);
   }, [isValid]);
 
-  const changeHandler = () => {
+  const changeHandler = (e) => {
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
+    onInputChange(name, isValid, e.target.value);
   };
 
   if (HTMLElement === 'input') {
@@ -71,16 +73,14 @@ function FormInput(props) {
           <select
             name={name}
             id={name}
-            className={classes.select}
+            className={`${classes.select} ${classes[controlClass]}`}
             ref={inputRef}
             onFocus={() => setIsTouched(false)}
             onBlur={() => setIsTouched(true)}
             onChange={changeHandler}
-            defaultValue={defaultValue || ''}
+            defaultValue={defaultValue}
           >
-            <option value="" disabled selected hidden>
-              Select an option
-            </option>
+            <option hidden>Select an option</option>
             {options.map((item) => (
               <option key={item} className={classes.option}>
                 {item}
