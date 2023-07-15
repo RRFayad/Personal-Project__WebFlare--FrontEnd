@@ -29,7 +29,7 @@ function FormInput(props) {
     }
   }, []);
 
-  // Without the useEffect it would pass the 'delayed' state (as useEffect will work when componentDidUpdate, and without it, before the component update)
+  // Without the useEffect it would pass the 'delayed' validity state (as useEffect will work when componentDidUpdate, and without it, before the component update)
   useEffect(() => {
     onValidationChange && onValidationChange(isValid, name);
   }, [isValid]);
@@ -65,16 +65,33 @@ function FormInput(props) {
 
   if (HTMLElement === 'select') {
     element = (
-      <label htmlFor={name} className={classes.label}>
-        {labelValue}
-        <select name={name} id={name} className={classes.select}>
-          {options.map((item) => (
-            <option key={item} value="" className={classes.option}>
-              {item}
+      <>
+        <label htmlFor={name} className={classes.label}>
+          {labelValue}
+          <select
+            name={name}
+            id={name}
+            className={classes.select}
+            ref={inputRef}
+            onFocus={() => setIsTouched(false)}
+            onBlur={() => setIsTouched(true)}
+            onChange={changeHandler}
+            defaultValue={defaultValue || ''}
+          >
+            <option value="" disabled selected hidden>
+              Select an option
             </option>
-          ))}
-        </select>
-      </label>
+            {options.map((item) => (
+              <option key={item} className={classes.option}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </label>
+        {!isValid && isTouched && (
+          <p className={classes['error-message']}>{errorMessage}</p>
+        )}
+      </>
     );
   }
 

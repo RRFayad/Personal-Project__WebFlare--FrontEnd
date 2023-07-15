@@ -84,8 +84,8 @@ export function BusinessContextProvider(props) {
   const addNewBusiness = () => {
     return console.log('New Business Created!');
   };
-  const updateBusiness = () => {
-    return console.log('Business Info Updated!');
+  const updateBusiness = (businessData) => {
+    return console.log(':/');
   };
 
   return (

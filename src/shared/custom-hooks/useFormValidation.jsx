@@ -9,8 +9,12 @@ const useFormValidation = () => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const setFormData = (inputs) => {
+    // receiving an inputs array
+    // console.log(inputs);
     let newState = {};
+    // const inputsList = Object.keys(inputs);
     for (const input of inputs) {
+      // console.log(input);
       const inputStateKey = `${input}IsValid`;
       if (inputsStates.hasOwnProperty(inputStateKey)) {
         newState = {
@@ -21,6 +25,7 @@ const useFormValidation = () => {
       if (!inputsStates.hasOwnProperty(inputStateKey)) {
         newState = { ...newState, [inputStateKey]: false };
       }
+      // console.log(input, newState);
     }
     dispatch({ type: 'SET_FORM_DATA', payload: newState });
   };
@@ -39,7 +44,7 @@ const useFormValidation = () => {
   };
 
   useEffect(() => {
-    // console.log(inputsStates);
+    console.log(inputsStates);
     setFormIsValid(() =>
       Object.values(inputsStates).every((isValid) => isValid)
     );

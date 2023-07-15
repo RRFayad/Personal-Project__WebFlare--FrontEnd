@@ -15,6 +15,18 @@ import {
 
 import classes from './BusinessForm.module.css';
 
+const formInputs = {
+  title: { required: true },
+  image: { required: true },
+  type: { required: false },
+  niche: { required: false },
+  age: { required: true },
+  revenue: { required: true },
+  profit: { required: true },
+  price: { required: true },
+  description: { required: true },
+};
+
 function BusinessForm() {
   const {
     businessTypesOptions,
@@ -25,7 +37,7 @@ function BusinessForm() {
   } = useContext(DataContext);
   const history = useHistory();
 
-  const { uid: userId, bid: businessToBeEdittedId } = useParams();
+  const { bid: businessToBeEdittedId } = useParams();
   const businessToBeEditted = allBusinesses.find(
     (business) => business.id === businessToBeEdittedId
   );
@@ -37,6 +49,8 @@ function BusinessForm() {
     setFormData([
       'title',
       'image',
+      'type',
+      'niche',
       'age',
       'revenue',
       'profit',
@@ -72,6 +86,8 @@ function BusinessForm() {
           labelValue="Type Of Business"
           HTMLElement="select"
           name="type"
+          onValidationChange={inputValidationChangeHandler}
+          errorMessage="Please select the type of your business"
           options={businessTypesOptions}
           defaultValue={businessToBeEdittedId && businessToBeEditted.type}
         />
@@ -79,6 +95,8 @@ function BusinessForm() {
           labelValue="Niche"
           HTMLElement="select"
           name="niche"
+          onValidationChange={inputValidationChangeHandler}
+          errorMessage="Please select your business' niche"
           options={nichesOptions}
           defaultValue={businessToBeEdittedId && businessToBeEditted.niche}
         />
