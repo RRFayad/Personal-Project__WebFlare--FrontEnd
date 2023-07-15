@@ -7,7 +7,7 @@ import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';
 import FormInput from '../../shared/ui-ux/FormInput';
 import FormButton from '../../shared/ui-ux/FormButton';
-import useFormValidation from '../../shared/custom-hooks/useFormValidation';
+import useForm from '../../shared/custom-hooks/useForm';
 import {
   minLengthValidator,
   fullNameValidator,
@@ -22,17 +22,16 @@ function EditProfile() {
   const history = useHistory();
   const { userData, updateProfileHandler } = useContext(AuthContext);
 
-  const profileInputs = ['name', 'country', 'email', 'description'];
+  const profileInputs = ['name', 'image', 'country', 'email', 'description'];
   const passwordInputs = ['password', 'new-password'];
 
-  const [formIsValid, inputValidationChangeHandler, setFormData] =
-    useFormValidation();
+  const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
   const [passwordIsBeingChanged, setPasswordIsBeingChanged] = useState(false);
 
   useEffect(() => {
     passwordIsBeingChanged
-      ? setFormData(passwordInputs)
-      : setFormData(profileInputs);
+      ? setFormInputs(passwordInputs)
+      : setFormInputs(profileInputs);
   }, [passwordIsBeingChanged]);
 
   return (
@@ -49,7 +48,7 @@ function EditProfile() {
                   type="text"
                   name="name"
                   validation={fullNameValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Please insert your Full Name"
                   defaultValue={userData.name}
                 />
@@ -59,7 +58,7 @@ function EditProfile() {
                   type="url"
                   name="image"
                   validation={urlValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Please a valid url"
                   defaultValue={userData.imageUrl}
                 />
@@ -69,7 +68,7 @@ function EditProfile() {
                   type="url"
                   name="linkedinUrl"
                   validation={urlValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Please insert your linkedin account URL"
                   defaultValue={userData.linkedinUrl}
                 />
@@ -80,7 +79,7 @@ function EditProfile() {
                   type="text"
                   name="country"
                   validation={minLengthValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Please insert a valid country"
                   defaultValue={userData.country}
                 />
@@ -91,7 +90,7 @@ function EditProfile() {
                   type="email"
                   name="email"
                   validation={emailValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Please insert a valid e-mail"
                   defaultValue={userData.email}
                 />
@@ -101,7 +100,7 @@ function EditProfile() {
                   type="text"
                   name="description"
                   validation={(value) => minLengthValidator(value, 6)}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Description must contain at least 6 characters"
                   defaultValue={userData.description}
                 />
@@ -115,7 +114,7 @@ function EditProfile() {
                   type="password"
                   name="password"
                   validation={passwordValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Password must contain at least: 6 to 20 characters, Uppercase, Lowercase, Number and a Special Character "
                 />
                 <FormInput
@@ -124,7 +123,7 @@ function EditProfile() {
                   type="password"
                   name="new-password"
                   validation={passwordValidator}
-                  onValidationChange={inputValidationChangeHandler}
+                  onInputChange={inputChangeHandler}
                   errorMessage="Password must contain at least: 6 to 20 characters, Uppercase, Lowercase, Number and a Special Character "
                 />
               </>

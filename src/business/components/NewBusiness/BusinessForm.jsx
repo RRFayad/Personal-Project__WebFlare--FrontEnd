@@ -5,7 +5,7 @@ import DataContext from '../../../shared/context/BusinessContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
-import useFormValidation from '../../../shared/custom-hooks/useFormValidation';
+import useForm from '../../../shared/custom-hooks/useForm';
 
 import {
   minLengthValidator,
@@ -30,8 +30,7 @@ function BusinessForm() {
     (business) => business.id === businessToBeEdittedId
   );
 
-  const [formIsValid, inputChangeHandler, setFormInputs, formData] =
-    useFormValidation();
+  const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
 
   useEffect(() => {
     setFormInputs([

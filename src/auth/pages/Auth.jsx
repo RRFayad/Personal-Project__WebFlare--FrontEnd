@@ -7,7 +7,7 @@ import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';
 import FormInput from '../../shared/ui-ux/FormInput';
 import FormButton from '../../shared/ui-ux/FormButton';
-import useFormValidation from '../../shared/custom-hooks/useFormValidation';
+import useForm from '../../shared/custom-hooks/useForm';
 import {
   minLengthValidator,
   fullNameValidator,
@@ -38,8 +38,7 @@ function Auth() {
     setUserHasAccount((prevState) => !prevState);
   };
 
-  const [formIsValid, inputChangeHandler, setFormInputs, formData] =
-    useFormValidation();
+  const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
 
   useEffect(() => {
     userHasAccount ? setFormInputs(loginInputs) : setFormInputs(signUpInputs);

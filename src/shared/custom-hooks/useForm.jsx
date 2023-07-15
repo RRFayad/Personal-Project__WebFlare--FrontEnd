@@ -2,33 +2,11 @@
 /* eslint-disable no-restricted-syntax */
 import { useReducer, useState, useEffect } from 'react';
 
-import formValidationReducer from './formValidationReducer';
-
-const formValidationReducerv2 = (state, action) => {
+const formDataReducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_INPUT':
-      // console.log(action);
-      // console.log({ [action.payload]: { ...action.payload } });
       return { ...state, ...action.payload };
 
-    case 'VALIDATE_INPUT':
-      // payload: {input}
-      return {
-        ...state,
-        [action.payload]: {
-          ...state[action.payload],
-          isValid: true,
-        },
-      };
-    case 'INVALIDATE_INPUT':
-      // payload: {input}
-      return {
-        ...state,
-        [action.payload]: {
-          ...state[action.payload],
-          isValid: false,
-        },
-      };
     case 'SET_FORM_DATA':
       return action.payload;
     default:
@@ -36,15 +14,13 @@ const formValidationReducerv2 = (state, action) => {
   }
 };
 
-const useFormValidation = () => {
-  const [formData, dispatch] = useReducer(formValidationReducerv2, {});
+const useForm = () => {
+  const [formData, dispatch] = useReducer(formDataReducer, {});
   const [formIsValid, setFormIsValid] = useState(false);
 
   const setFormInputs = (inputs) => {
-    // console.log(inputs);
     let newState = {};
     for (const input of inputs) {
-      // console.log(input);
       const inputState = {
         isValid: false,
         value: null,
@@ -71,7 +47,7 @@ const useFormValidation = () => {
   };
 
   useEffect(() => {
-    console.log(formData);
+    // console.log(formData);
     setFormIsValid(() =>
       Object.values(formData).every((inputState) => inputState.isValid)
     );
@@ -80,4 +56,4 @@ const useFormValidation = () => {
   return [formIsValid, inputChangeHandler, setFormInputs, formData];
 };
 
-export default useFormValidation;
+export default useForm;

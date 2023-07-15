@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
-import useFormValidation from '../../../shared/custom-hooks/useFormValidation';
+import useForm from '../../../shared/custom-hooks/useForm';
 
 import {
   minLengthValidator,
@@ -16,11 +16,10 @@ import classes from './NewOfferForm.module.css';
 function NewOfferForm() {
   const history = useHistory();
 
-  const [formIsValid, inputValidationChangeHandler, setFormData] =
-    useFormValidation();
+  const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
 
   useEffect(() => {
-    setFormData(['value', 'description']);
+    setFormInputs(['value', 'description']);
   }, []);
 
   return (
@@ -32,7 +31,7 @@ function NewOfferForm() {
           type="number"
           name="value"
           validation={integerInputValidator}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Please insert a integer and positive number"
           placeholder="XXX.XX"
         />
@@ -42,7 +41,7 @@ function NewOfferForm() {
           HTMLElement="textarea"
           name="description"
           validation={(value) => minLengthValidator(value, 6)}
-          onValidationChange={inputValidationChangeHandler}
+          onInputChange={inputChangeHandler}
           errorMessage="Description must contain at least 6 characters"
         />
       </div>
