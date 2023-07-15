@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
+import AuthContext from '../../../shared/context/AuthContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import classes from './BusinessItemCard.module.css';
 
 function BusinessItemCard(props) {
   const history = useHistory();
+  const path = history.location.pathname;
+
+  const { userData } = useContext(AuthContext);
+
   const {
     age,
     askingPrice,
@@ -64,9 +69,20 @@ function BusinessItemCard(props) {
           <p className={classes.details__description}>{description}</p>
         </div>
       </div>
-      <button type="button" onClick={() => history.push(`/business/${id}`)}>
-        View Details
-      </button>
+      {path.slice(-8) === '/profile' ? (
+        <button
+          type="button"
+          onClick={() =>
+            history.push(`/users/${userData.id}/edit-business/${id}`)
+          }
+        >
+          Edit Details
+        </button>
+      ) : (
+        <button type="button" onClick={() => history.push(`/business/${id}`)}>
+          View Details
+        </button>
+      )}
     </li>
   );
 }
