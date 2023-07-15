@@ -25,17 +25,24 @@ function Auth() {
   const [userHasAccount, setUserHasAccount] = useState(true);
 
   const loginInputs = ['email', 'password'];
-  const signUpInputs = ['name', 'country', 'email', 'password', 'description'];
+  const signUpInputs = [
+    'name',
+    'image',
+    'country',
+    'email',
+    'password',
+    'description',
+  ];
 
   const toggleUserHasAccount = () => {
     setUserHasAccount((prevState) => !prevState);
   };
 
-  const [formIsValid, inputValidationChangeHandler, setFormData] =
+  const [formIsValid, inputChangeHandler, setFormInputs, formData] =
     useFormValidation();
 
   useEffect(() => {
-    userHasAccount ? setFormData(loginInputs) : setFormData(signUpInputs);
+    userHasAccount ? setFormInputs(loginInputs) : setFormInputs(signUpInputs);
   }, [userHasAccount]);
 
   return (
@@ -48,10 +55,10 @@ function Auth() {
               <FormInput
                 labelValue="Full Name"
                 HTMLElement="input"
-                type="text"
                 name="name"
+                type="text"
                 validation={fullNameValidator}
-                onValidationChange={inputValidationChangeHandler}
+                onInputChange={inputChangeHandler}
                 errorMessage="Please insert your Full Name"
               />
             )}
@@ -62,7 +69,7 @@ function Auth() {
                 type="url"
                 name="image"
                 validation={urlValidator}
-                onValidationChange={inputValidationChangeHandler}
+                onInputChange={inputChangeHandler}
                 errorMessage="Please a valid url"
               />
             )}
@@ -73,7 +80,7 @@ function Auth() {
                 type="url"
                 name="linkedinUrl"
                 validation={urlValidator}
-                onValidationChange={inputValidationChangeHandler}
+                onInputChange={inputChangeHandler}
                 errorMessage="Please insert your linkedin account URL"
               />
             )}
@@ -84,7 +91,7 @@ function Auth() {
                 type="text"
                 name="country"
                 validation={minLengthValidator}
-                onValidationChange={inputValidationChangeHandler}
+                onInputChange={inputChangeHandler}
                 errorMessage="Please insert a valid country"
               />
             )}
@@ -94,7 +101,7 @@ function Auth() {
               type="email"
               name="email"
               validation={emailValidator}
-              onValidationChange={inputValidationChangeHandler}
+              onInputChange={inputChangeHandler}
               errorMessage="Please insert a valid e-mail"
             />
             <FormInput
@@ -103,7 +110,7 @@ function Auth() {
               type="password"
               name="password"
               validation={passwordValidator}
-              onValidationChange={inputValidationChangeHandler}
+              onInputChange={inputChangeHandler}
               errorMessage="Password must contain at least: 6 to 20 characters, Uppercase, Lowercase, Number and a Special Character "
             />
             {!userHasAccount && (
@@ -113,7 +120,7 @@ function Auth() {
                 type="text"
                 name="description"
                 validation={(value) => minLengthValidator(value, 6)}
-                onValidationChange={inputValidationChangeHandler}
+                onInputChange={inputChangeHandler}
                 errorMessage="Description must contain at least 6 characters"
               />
             )}

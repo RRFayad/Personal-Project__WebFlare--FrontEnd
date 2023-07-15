@@ -52,7 +52,7 @@ const useFormValidation = () => {
       if (formData.hasOwnProperty(input)) {
         newState = {
           ...newState,
-          [input]: { ...formData[input], isValid: true },
+          [input]: { ...formData[input] },
         };
       }
       if (!formData.hasOwnProperty(input)) {
