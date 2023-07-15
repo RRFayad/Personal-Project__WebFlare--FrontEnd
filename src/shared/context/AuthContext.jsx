@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { DUMMY_USERS } from '../util/data';
+import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const AuthContext = React.createContext({
   isLoggedIn: false,
@@ -9,6 +10,7 @@ const AuthContext = React.createContext({
   logoutHandler: () => {},
   signUpHandler: () => {},
   updateProfileHandler: () => {},
+  updatePasswordHandler: () => {},
   userData: {},
   usersList: [],
 });
@@ -27,12 +29,13 @@ export function AuthContextProvider(props) {
     );
   });
 
-  const loginHandler = (email, password) => {
+  const loginHandler = (data) => {
+    const loggedUserData = formHookDataMapper(data);
     // Hard Coded - Update after backend
     setIsLoggedIn(true);
     setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
     localStorage.setItem('userId', 'U0001');
-    return console.log('User logged in!!');
+    return console.log(loggedUserData);
   };
 
   const logoutHandler = () => {
@@ -42,24 +45,24 @@ export function AuthContextProvider(props) {
     return console.log('User logged out!!');
   };
 
-  const updateProfileHandler = () => {
-    return console.log('Profile Updated!!');
+  const updateProfileHandler = (data) => {
+    const profileData = formHookDataMapper(data);
+    return console.log(profileData);
   };
 
-  const signUpHandler = (
-    name,
-    imageUrl,
-    linkedinUrl,
-    country,
-    email,
-    password,
-    description
-  ) => {
+  const updatePasswordHandler = (data) => {
+    const profileData = formHookDataMapper(data);
+    return console.log(profileData);
+  };
+
+  const signUpHandler = (data) => {
+    const newUserData = formHookDataMapper(data);
+
     localStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
     setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
     localStorage.setItem('userId', 'U0001');
-    return console.log('User signed up!!');
+    return console.log(newUserData);
   };
 
   return (
@@ -71,6 +74,7 @@ export function AuthContextProvider(props) {
         isLoggedIn,
         userData,
         updateProfileHandler,
+        updatePasswordHandler,
         usersList,
       }}
     >

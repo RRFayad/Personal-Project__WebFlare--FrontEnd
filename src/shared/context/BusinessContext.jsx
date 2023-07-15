@@ -4,6 +4,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { filtersInitializer, filtersReducer } from './business-filters-reducer';
 import { businessTypesOptions, nichesOptions } from '../util/parameters';
 import { DUMMY_BUSINESSES, DUMMY_OFFERS } from '../util/data';
+import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const BusinessContext = React.createContext({
   // business parameters
@@ -19,7 +20,6 @@ const BusinessContext = React.createContext({
 
 export function BusinessContextProvider(props) {
   const allBusinesses = DUMMY_BUSINESSES;
-  const offersList = DUMMY_OFFERS;
 
   const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);
 
@@ -81,11 +81,13 @@ export function BusinessContextProvider(props) {
     });
   }, [filters]);
 
-  const addNewBusiness = () => {
-    return console.log('New Business Created!');
+  const addNewBusiness = (data) => {
+    const businessData = formHookDataMapper(data);
+    return console.log(businessData);
   };
-  const updateBusiness = (businessData) => {
-    return console.log(':/');
+  const updateBusiness = (data) => {
+    const businessData = formHookDataMapper(data);
+    return console.log(businessData);
   };
 
   return (

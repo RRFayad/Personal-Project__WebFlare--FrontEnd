@@ -129,7 +129,7 @@ function Auth() {
               <FormButton
                 disabled={!formIsValid}
                 onClick={() => {
-                  loginHandler();
+                  loginHandler(formData);
                   history.goBack();
                 }}
               >
@@ -140,7 +140,7 @@ function Auth() {
               <FormButton
                 disabled={!formIsValid}
                 onClick={() => {
-                  signUpHandler();
+                  signUpHandler(formData);
                   history.goBack();
                 }}
               >

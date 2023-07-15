@@ -62,3 +62,12 @@ export const formatCurrency = (value) =>
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
+
+export const formHookDataMapper = (data) => {
+  let mappedData = {};
+  // eslint-disable-next-line guard-for-in, no-restricted-syntax
+  for (const [key, value] of Object.entries(data)) {
+    mappedData = { ...mappedData, [key]: value.value };
+  }
+  return mappedData;
+};

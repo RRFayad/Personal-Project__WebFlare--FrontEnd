@@ -20,7 +20,8 @@ import classes from './EditProfile.module.css';
 
 function EditProfile() {
   const history = useHistory();
-  const { userData, updateProfileHandler } = useContext(AuthContext);
+  const { userData, updateProfileHandler, updatePasswordHandler } =
+    useContext(AuthContext);
 
   const profileInputs = ['name', 'image', 'country', 'email', 'description'];
   const passwordInputs = ['password', 'new-password'];
@@ -130,15 +131,28 @@ function EditProfile() {
             )}
           </div>
           <div className={classes.form__buttons}>
-            <FormButton
-              disabled={!formIsValid}
-              onClick={() => {
-                updateProfileHandler();
-                history.goBack();
-              }}
-            >
-              Update Profile
-            </FormButton>
+            {!passwordIsBeingChanged && (
+              <FormButton
+                disabled={!formIsValid}
+                onClick={() => {
+                  updateProfileHandler(formData);
+                  history.goBack();
+                }}
+              >
+                Update Profile
+              </FormButton>
+            )}
+            {passwordIsBeingChanged && (
+              <FormButton
+                disabled={!formIsValid}
+                onClick={() => {
+                  updatePasswordHandler(formData);
+                  history.goBack();
+                }}
+              >
+                Update Profile
+              </FormButton>
+            )}
           </div>
           <button
             className={classes['form__buttons--toggle-login-state']}

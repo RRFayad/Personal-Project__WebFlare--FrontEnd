@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import DataContext from '../../../shared/context/BusinessContext';
+import BusinessContext from '../../../shared/context/BusinessContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
@@ -22,7 +22,7 @@ function BusinessForm() {
     allBusinesses,
     addNewBusiness,
     updateBusiness,
-  } = useContext(DataContext);
+  } = useContext(BusinessContext);
   const history = useHistory();
 
   const { bid: businessToBeEdittedId } = useParams();
@@ -149,12 +149,18 @@ function BusinessForm() {
       </div>
       <div className={classes.form__buttons}>
         {!businessToBeEdittedId && (
-          <FormButton disabled={!formIsValid} onClick={addNewBusiness}>
+          <FormButton
+            disabled={!formIsValid}
+            onClick={() => addNewBusiness(formData)}
+          >
             Create
           </FormButton>
         )}
         {businessToBeEdittedId && (
-          <FormButton disabled={!formIsValid} onClick={updateBusiness}>
+          <FormButton
+            disabled={!formIsValid}
+            onClick={() => updateBusiness(formData)}
+          >
             Update
           </FormButton>
         )}

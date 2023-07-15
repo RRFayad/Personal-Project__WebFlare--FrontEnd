@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
 import useForm from '../../../shared/custom-hooks/useForm';
+import OffersContext from '../../../shared/context/OffersContext';
 
 import {
   minLengthValidator,
@@ -15,6 +16,7 @@ import classes from './NewOfferForm.module.css';
 
 function NewOfferForm() {
   const history = useHistory();
+  const { sendOffer } = useContext(OffersContext);
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
 
@@ -53,7 +55,7 @@ function NewOfferForm() {
           disabled={!formIsValid}
           onClick={() => {
             // eslint-disable-next-line
-            console.log('Offer Sent!!');
+            sendOffer(formData);
             history.push(`/success/offer-sent`);
           }}
         >

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import BusinessContext from '../../shared/context/BusinessContext';
 import AuthContext from '../../shared/context/AuthContext';
+import OffersContext from '../../shared/context/OffersContext';
 import { formatCurrency } from '../../shared/util/validators-and-formatters';
 
 import classes from './OfferCard.module.css';
@@ -10,8 +11,7 @@ import classes from './OfferCard.module.css';
 function OfferCard(props) {
   const history = useHistory();
   const { offer } = props;
-
-  const userId = useContext(AuthContext).userData.id;
+  const { acceptOffer, denyOffer } = useContext(OffersContext);
 
   const business = useContext(BusinessContext).allBusinesses.find(
     (b) => b.id === offer.businessId
@@ -19,6 +19,7 @@ function OfferCard(props) {
 
   const senderId = offer.sender;
 
+  const userId = useContext(AuthContext).userData.id;
   const offerSender = useContext(AuthContext).usersList.find(
     (user) => user.id === senderId
   );
@@ -86,12 +87,17 @@ function OfferCard(props) {
       <footer className={classes.card__footer}>
         {userId !== senderId && (
           <>
-            <button type="button" className={classes.card__button}>
+            <button
+              type="button"
+              className={classes.card__button}
+              onClick={() => denyOffer(offer)}
+            >
               Deny Offer
             </button>
             <button
               type="button"
               className={`${classes.card__button} ${classes['card__button--cta']}`}
+              onClick={() => acceptOffer(offer)}
             >
               Accept Offer
             </button>

@@ -76,7 +76,7 @@ function BusinessItemCard(props) {
             history.push(`/users/${userData.id}/edit-business/${id}`)
           }
         >
-          Edit Details
+          Edit Business
         </button>
       ) : (
         <button type="button" onClick={() => history.push(`/business/${id}`)}>

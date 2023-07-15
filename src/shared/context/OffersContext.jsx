@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { DUMMY_OFFERS } from '../util/data';
+import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const OffersContext = React.createContext({
   offersList: [],
@@ -13,14 +14,15 @@ const OffersContext = React.createContext({
 export function OffersContextProvider(props) {
   const offersList = DUMMY_OFFERS;
 
-  const sendOffer = () => {
-    return console.log('Offer Sent!');
+  const sendOffer = (data) => {
+    const offerData = formHookDataMapper(data);
+    return console.log(offerData);
   };
-  const acceptOffer = () => {
-    return console.log('Offer Accepted!');
+  const acceptOffer = (offer) => {
+    return console.log(offer);
   };
-  const denyOffer = () => {
-    return console.log('Offer Rejected!');
+  const denyOffer = (offer) => {
+    return console.log(offer);
   };
 
   return (
