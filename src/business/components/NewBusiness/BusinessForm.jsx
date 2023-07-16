@@ -151,7 +151,10 @@ function BusinessForm() {
         {!businessToBeEdittedId && (
           <FormButton
             disabled={!formIsValid}
-            onClick={() => addNewBusiness(formData)}
+            onClick={() => {
+              addNewBusiness(formData);
+              history.push('/');
+            }}
           >
             Create
           </FormButton>
@@ -159,7 +162,10 @@ function BusinessForm() {
         {businessToBeEdittedId && (
           <FormButton
             disabled={!formIsValid}
-            onClick={() => updateBusiness(formData)}
+            onClick={() => {
+              updateBusiness(formData);
+              history.push('/');
+            }}
           >
             Update
           </FormButton>

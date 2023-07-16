@@ -142,7 +142,7 @@
 
 @media (max-width: 450px) {
   .modal {
-    height: 85vh;
+    height: 80vh;
     width: 90vw;
     top: 8px;
     left: 5vw;
@@ -160,7 +160,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 15vh;
+    height: 20vh;
     padding: 0;
   }
 
