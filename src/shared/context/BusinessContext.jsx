@@ -16,6 +16,7 @@ const BusinessContext = React.createContext({
   businessesList: [],
   addNewBusiness: () => {},
   updateBusiness: () => {},
+  deleteBusiness: () => {},
 });
 
 export function BusinessContextProvider(props) {
@@ -89,6 +90,10 @@ export function BusinessContextProvider(props) {
     const businessData = formHookDataMapper(data);
     return console.log(businessData);
   };
+  const deleteBusiness = (data) => {
+    const businessData = data;
+    return console.log(businessData);
+  };
 
   return (
     <BusinessContext.Provider
@@ -103,6 +108,7 @@ export function BusinessContextProvider(props) {
         addNewBusiness,
         updateBusiness,
         filterHandler: dispatch,
+        deleteBusiness,
       }}
     >
       {props.children}

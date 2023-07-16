@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
@@ -6,7 +6,6 @@ import Footer from '../../shared/navigation/Footer';
 import AuthContext from '../../shared/context/AuthContext';
 import BusinessContext from '../../shared/context/BusinessContext';
 import OffersContext from '../../shared/context/OffersContext';
-import OfferCard from '../components/OfferCard';
 import OffersList from '../components/OffersList';
 
 import classes from './Offers.module.css';

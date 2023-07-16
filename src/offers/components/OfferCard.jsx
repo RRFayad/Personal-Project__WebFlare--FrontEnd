@@ -30,16 +30,7 @@ function OfferCard(props) {
 
   const stakeholder = userId === offerSender.id ? offerReceiver : offerSender;
 
-  // console.log(stakeholder);
-
-  // console.log('offer: ', offer);
-  // console.log('business: ', business);
-  // console.log('sender: ', sender);
-
-  // console.log(senderId);
-
   return (
-    // <p>aa</p>
     <li className={classes.card} key={offer.id}>
       <header className={classes.card__header}>
         <h2>{business.title}</h2>

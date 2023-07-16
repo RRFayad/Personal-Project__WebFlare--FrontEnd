@@ -20,7 +20,7 @@
 
 .main-content__filter-button {
   height: 28px;
-  width: 6vw;
+  width: 25.5px;
   position: absolute;
   background-color: #0058ff;
   border: #0058ff;
@@ -52,6 +52,6 @@
 
   .main-content__filter-button {
     display: inline-block;
-    right: 2vw;
+    right: calc((10vw - 25px) / 2);
   }
 }

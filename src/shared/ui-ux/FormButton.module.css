@@ -4,7 +4,7 @@
   margin-top: 16px;
   border-radius: 8px;
   font-size: 1rem;
-  border: solid 1px #0058ff;
+  border: solid 1px #0041b9;
   cursor: pointer;
   background-color: #0058ff;
   color: white;
@@ -21,7 +21,6 @@
 
 .button:hover {
   background-color: #0041b9;
-  border: 2px solid #0058ff;
 }
 
 .button--caution:hover {
