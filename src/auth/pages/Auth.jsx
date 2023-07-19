@@ -125,28 +125,15 @@ function Auth() {
             )}
           </div>
           <div className={classes.form__buttons}>
-            {userHasAccount && (
-              <FormButton
-                disabled={!formIsValid}
-                onClick={() => {
-                  loginHandler(formData);
-                  history.goBack();
-                }}
-              >
-                Login
-              </FormButton>
-            )}
-            {!userHasAccount && (
-              <FormButton
-                disabled={!formIsValid}
-                onClick={() => {
-                  signUpHandler(formData);
-                  history.goBack();
-                }}
-              >
-                Sign Up
-              </FormButton>
-            )}
+            <FormButton
+              disabled={!formIsValid}
+              onClick={async () => {
+                const response = await loginHandler(userHasAccount, formData);
+                response.ok && history.goBack();
+              }}
+            >
+              {userHasAccount ? 'Login' : 'Sign Up'}
+            </FormButton>
           </div>
           <button
             className={classes['form__buttons--toggle-login-state']}
