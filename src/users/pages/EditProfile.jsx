@@ -24,7 +24,7 @@ function EditProfile() {
     useContext(AuthContext);
 
   const profileInputs = ['name', 'image', 'country', 'email', 'description'];
-  const passwordInputs = ['password', 'new-password'];
+  const passwordInputs = ['password', 'newPassword'];
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
   const [passwordIsBeingChanged, setPasswordIsBeingChanged] = useState(false);
@@ -122,7 +122,7 @@ function EditProfile() {
                   labelValue="New Password"
                   HTMLElement="input"
                   type="password"
-                  name="new-password"
+                  name="newPassword"
                   validation={passwordValidator}
                   onInputChange={inputChangeHandler}
                   errorMessage="Password must contain at least: 6 to 20 characters, Uppercase, Lowercase, Number and a Special Character "

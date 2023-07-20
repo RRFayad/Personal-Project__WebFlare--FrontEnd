@@ -119,9 +119,43 @@ export function AuthContextProvider(props) {
     await putUserData(profileData, userData.id);
   };
 
-  const updatePasswordHandler = (data) => {
+  const updatePasswordHandler = async (data) => {
     const profileData = formHookDataMapper(data);
-    return console.log(profileData);
+
+    const response = await fetch(url.changePassword, {
+      method: 'POST',
+      body: JSON.stringify({
+        idToken,
+        password: profileData.newPassword,
+        returnSecureToken: true,
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      const fetchedData = await response.json();
+      setIdToken(fetchedData.idToken);
+
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({
+          isLoggedIn: true,
+          userId: fetchedData.localId,
+          idToken: fetchedData.idToken,
+        })
+      );
+
+      return console.log('Password Updated Successfully!');
+    }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage = errorData.error.message
+        ? errorData.error.message
+        : 'Authentication Failed';
+      alert(errorMessage);
+    }
+    return console.log('Failed to Update Password!');
   };
 
   return (

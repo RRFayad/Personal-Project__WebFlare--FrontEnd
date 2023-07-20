@@ -27,6 +27,10 @@ export function BusinessContextProvider(props) {
   const [homePageBusinessesList, setHomePageBusinessesList] =
     useState(allBusinesses);
 
+  const url = {
+    businessesDB: `https://webflare-523f0-default-rtdb.firebaseio.com/businesses`,
+  };
+
   // Filters Logic
   useEffect(() => {
     let businesses = [];
