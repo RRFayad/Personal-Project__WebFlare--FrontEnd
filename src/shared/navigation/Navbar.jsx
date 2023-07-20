@@ -33,7 +33,7 @@ function Navbar() {
           <h2>WEBFLARE</h2>
         </Link>
         <ul className={`${classes['nav-bar__links']}`}>
-          {isLoggedIn && (
+          {userData && (
             <>
               <li className={`${classes['nav-bar__link']}`}>
                 <NavLink to={`/users/${userData.id}/profile`} exact>
@@ -41,16 +41,22 @@ function Navbar() {
                 </NavLink>
               </li>
               <li className={`${classes['nav-bar__link']}`}>
-                <NavLink to={`/users/${userData.id}/offers`} exact>
+                <NavLink
+                  to={userData.id && `/users/${userData.id}/offers`}
+                  exact
+                >
                   My Offers
                 </NavLink>
               </li>
               <li className={`${classes['nav-bar__link']}`}>
-                <NavLink to={`/users/${userData.id}/create-business`} exact>
+                <NavLink
+                  to={userData.id && `/users/${userData.id}/create-business`}
+                  exact
+                >
                   Add Business
                 </NavLink>
               </li>
-              <li className={`${classes['nav-bar__link']}`}>
+              <li className={userData.id && `${classes['nav-bar__link']}`}>
                 <NavLink to="/" exact onClick={logoutHandler}>
                   Logout
                 </NavLink>

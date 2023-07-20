@@ -18,7 +18,7 @@ export function AuthContextProvider(props) {
   const usersList = DUMMY_USERS;
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(undefined);
   const [idToken, setIdToken] = useState(null);
 
   const url = {
@@ -29,45 +29,34 @@ export function AuthContextProvider(props) {
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    userId ? setIsLoggedIn(true) : setIsLoggedIn(false);
-    userId && setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
-  });
+    const localUserData = JSON.parse(localStorage.getItem('userData'));
+    // console.log(localUserData);
+    if (localUserData) {
+      setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
+      setIsLoggedIn(localUserData.isLoggedIn);
+      setIdToken(localUserData.idToken);
+    }
+  }, [userData]);
 
   const logoutHandler = () => {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('idToken');
+    localStorage.removeItem('userData');
+    setIdToken(null);
     setIsLoggedIn(false);
     setUserData(null);
     return console.log('User logged out!!');
   };
 
-  const updateProfileHandler = (data) => {
-    const profileData = formHookDataMapper(data);
-    return console.log(profileData);
-  };
-
-  const updatePasswordHandler = (data) => {
-    const profileData = formHookDataMapper(data);
-    return console.log(profileData);
-  };
-
-  const postUserData = async (data) => {
-    await fetch(`${url.usersDB}.json`, {
-      method: 'POST',
-      body: JSON.stringify(data),
+  const putUserData = async (newUserData, userId) => {
+    await fetch(`${url.usersDB}/${userId}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(newUserData),
     });
   };
 
   const getUserData = async (userId) => {
-    console.log(userId);
-    const response = await fetch(
-      `${url.usersDB}/${'-N_fb0ZwxX_DjKaQYnF1'}/country.json`
-    );
-    if (response.ok) {
-      console.log(response);
-    }
+    const response = await fetch(`${url.usersDB}/${userId}.json`);
+    const fetchedData = await response.json();
+    return fetchedData;
   };
 
   const loginHandler = async (userHasAccount, formData) => {
@@ -88,23 +77,28 @@ export function AuthContextProvider(props) {
 
     if (response.ok) {
       const fetchedData = await response.json();
+      setIdToken(fetchedData.idToken);
+      setIsLoggedIn(true);
+
       if (userHasAccount) {
-        getUserData(fetchedData.localId);
-        fetchedData.localId &&
-          setUserData({ ...newUserData, id: fetchedData.localId });
-      }
-      if (!userHasAccount) {
-        await postUserData('POST', newUserData);
-        fetchedData.localId &&
-          // Create logic here to fetch user data
-          setUserData({ ...newUserData, id: fetchedData.localId });
+        const loggedUserData = await getUserData(fetchedData.localId);
+        setUserData({ ...loggedUserData, id: fetchedData.localId });
       }
 
-      fetchedData.idToken && setIdToken(fetchedData.idToken);
-      setIsLoggedIn(true);
-      localStorage.setItem('isLoggedIn', JSON.stringify(true));
-      localStorage.setItem('userId', JSON.stringify(fetchedData.localId));
-      localStorage.setItem('idToken', JSON.stringify(fetchedData.idToken));
+      if (!userHasAccount) {
+        await putUserData(newUserData, fetchedData.localId);
+        setUserData({ ...newUserData, id: fetchedData.localId });
+      }
+
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({
+          isLoggedIn: true,
+          userId: fetchedData.localId,
+          idToken: fetchedData.idToken,
+        })
+      );
+
       console.log(
         `User ${userHasAccount ? 'Logged In' : 'Signed Up'} Successfully!`
       );
@@ -118,6 +112,16 @@ export function AuthContextProvider(props) {
       alert(errorMessage);
     }
     return response;
+  };
+
+  const updateProfileHandler = async (data) => {
+    const profileData = formHookDataMapper(data);
+    await putUserData(profileData, userData.id);
+  };
+
+  const updatePasswordHandler = (data) => {
+    const profileData = formHookDataMapper(data);
+    return console.log(profileData);
   };
 
   return (
