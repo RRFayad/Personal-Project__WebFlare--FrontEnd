@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
+import AuthContext from '../../../shared/context/AuthContext';
 import BusinessContext from '../../../shared/context/BusinessContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
@@ -23,6 +24,7 @@ function BusinessForm() {
     addNewBusiness,
     updateBusiness,
   } = useContext(BusinessContext);
+  const { userData } = useContext(AuthContext);
   const history = useHistory();
 
   const { bid: businessToBeEdittedId } = useParams();
@@ -152,8 +154,8 @@ function BusinessForm() {
           <FormButton
             disabled={!formIsValid}
             onClick={() => {
-              addNewBusiness(formData);
-              history.push('/');
+              addNewBusiness(formData, userData.id);
+              // history.push('/');
             }}
           >
             Create
@@ -164,7 +166,7 @@ function BusinessForm() {
             disabled={!formIsValid}
             onClick={() => {
               updateBusiness(formData);
-              history.push('/');
+              // history.push('/');
             }}
           >
             Update

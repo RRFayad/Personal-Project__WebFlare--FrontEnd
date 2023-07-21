@@ -13,7 +13,7 @@ const BusinessContext = React.createContext({
 
   // business data
   allBusinesses: [],
-  businessesList: [],
+  homePageBusinessesList: [],
   addNewBusiness: () => {},
   updateBusiness: () => {},
   deleteBusiness: () => {},
@@ -86,10 +86,27 @@ export function BusinessContextProvider(props) {
     });
   }, [filters]);
 
-  const addNewBusiness = (data) => {
-    const businessData = formHookDataMapper(data);
-    return console.log(businessData);
+  const putBusinessData = async (businessData) => {
+    return fetch(`${url.businessesDB}/${businessData.id}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(businessData),
+    });
   };
+
+  const addNewBusiness = async (data, ownerId) => {
+    let businessData = formHookDataMapper(data);
+    businessData = { ...businessData, id: new Date().getTime(), ownerId };
+    const response = await putBusinessData(businessData);
+    console.log(response);
+    if (response.ok) {
+      return console.log('Business Added Successfully');
+    }
+    if (!response.ok) {
+      return alert(response.message);
+    }
+    return console.log('aaa');
+  };
+
   const updateBusiness = (data) => {
     const businessData = formHookDataMapper(data);
     return console.log(businessData);
