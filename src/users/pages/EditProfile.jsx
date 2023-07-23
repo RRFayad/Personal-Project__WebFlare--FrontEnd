@@ -23,7 +23,7 @@ function EditProfile() {
   const { userData, updateProfileHandler, updatePasswordHandler } =
     useContext(AuthContext);
 
-  const profileInputs = ['name', 'image', 'country', 'email', 'description'];
+  const profileInputs = ['name', 'imageUrl', 'country', 'email', 'description'];
   const passwordInputs = ['password', 'newPassword'];
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
@@ -57,7 +57,7 @@ function EditProfile() {
                   labelValue="Image URL"
                   HTMLElement="input"
                   type="url"
-                  name="image"
+                  name="imageUrl"
                   validation={urlValidator}
                   onInputChange={inputChangeHandler}
                   errorMessage="Please a valid url"

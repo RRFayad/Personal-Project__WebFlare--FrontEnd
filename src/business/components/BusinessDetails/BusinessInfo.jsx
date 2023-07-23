@@ -11,13 +11,14 @@ import classes from './BusinessInfo.module.css';
 
 function BusinessInfo() {
   const { bid } = useParams();
-  const { businessesList } = useContext(DataContext);
+  const { allBusinesses } = useContext(DataContext);
 
   const [modalIsShown, setModalIsShown] = useState(false);
 
   const toggleModalHandler = () => setModalIsShown((prevState) => !prevState);
 
-  const business = businessesList.find((item) => item.id === bid);
+  const business = allBusinesses.find((item) => item.id === bid);
+  // console.log(business);
 
   return (
     <>

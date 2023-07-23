@@ -32,12 +32,17 @@ function FormInput(props) {
 
   // This useEffect exists for passing the updated validity state (as useEffect will work when componentDidUpdate, and without it, before the component update)
   useEffect(() => {
-    onInputChange(name, isValid, inputRef.current.value);
+    const value =
+      type === 'number'
+        ? Number(inputRef.current.value)
+        : inputRef.current.value;
+    onInputChange(name, isValid, value);
   }, [isValid]);
 
   const changeHandler = (e) => {
+    const value = type === 'number' ? Number(e.target.value) : e.target.value;
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
-    onInputChange(name, isValid, e.target.value);
+    onInputChange(name, isValid, value);
   };
 
   if (HTMLElement === 'input') {

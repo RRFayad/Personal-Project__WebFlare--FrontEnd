@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { DUMMY_USERS } from '../util/data';
 import { formHookDataMapper } from '../util/validators-and-formatters';
@@ -15,8 +15,7 @@ const AuthContext = React.createContext({
 });
 
 export function AuthContextProvider(props) {
-  const usersList = DUMMY_USERS;
-
+  const [usersList, setUsersList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(undefined);
   const [idToken, setIdToken] = useState(null);
@@ -28,15 +27,36 @@ export function AuthContextProvider(props) {
     usersDB: `https://webflare-523f0-default-rtdb.firebaseio.com/users`,
   };
 
+  const getUserData = useCallback(async (userId) => {
+    const response = await fetch(`${url.usersDB}/${userId}.json`);
+    const fetchedData = (await response.json()) || {};
+    if (response.ok) {
+      return setUserData({ ...fetchedData, id: userId });
+    }
+    return alert(response.message);
+  }, []);
+
+  const fetchUsers = useCallback(async () => {
+    const response = await fetch(`${url.usersDB}.json`);
+    const fetchedData = (await response.json()) || {};
+    if (response.ok) {
+      return setUsersList(Object.values(fetchedData));
+      // return setAllBusinesses(DUMMY_BUSINESSES);
+    }
+    return alert(response.message);
+  }, []);
+
   useEffect(() => {
     const localUserData = JSON.parse(localStorage.getItem('userData'));
     // console.log(localUserData);
     if (localUserData) {
-      setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
+      // setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
+      getUserData(localUserData.userId);
       setIsLoggedIn(localUserData.isLoggedIn);
       setIdToken(localUserData.idToken);
     }
-  }, [userData]);
+    fetchUsers();
+  }, []);
 
   const logoutHandler = () => {
     localStorage.removeItem('userData');
@@ -49,14 +69,8 @@ export function AuthContextProvider(props) {
   const putUserData = async (newUserData, userId) => {
     await fetch(`${url.usersDB}/${userId}.json`, {
       method: 'PUT',
-      body: JSON.stringify(newUserData),
+      body: JSON.stringify({ ...newUserData, id: userId }),
     });
-  };
-
-  const getUserData = async (userId) => {
-    const response = await fetch(`${url.usersDB}/${userId}.json`);
-    const fetchedData = await response.json();
-    return fetchedData;
   };
 
   const loginHandler = async (userHasAccount, formData) => {
@@ -82,12 +96,10 @@ export function AuthContextProvider(props) {
 
       if (userHasAccount) {
         const loggedUserData = await getUserData(fetchedData.localId);
-        setUserData({ ...loggedUserData, id: fetchedData.localId });
       }
 
       if (!userHasAccount) {
         await putUserData(newUserData, fetchedData.localId);
-        setUserData({ ...newUserData, id: fetchedData.localId });
       }
 
       localStorage.setItem(
@@ -117,6 +129,7 @@ export function AuthContextProvider(props) {
   const updateProfileHandler = async (data) => {
     const profileData = formHookDataMapper(data);
     await putUserData(profileData, userData.id);
+    getUserData(userData.id);
   };
 
   const updatePasswordHandler = async (data) => {

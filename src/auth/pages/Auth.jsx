@@ -27,7 +27,7 @@ function Auth() {
   const loginInputs = ['email', 'password'];
   const signUpInputs = [
     'name',
-    'image',
+    'imageUrl',
     'country',
     'email',
     'password',
@@ -66,7 +66,7 @@ function Auth() {
                 labelValue="Image URL"
                 HTMLElement="input"
                 type="url"
-                name="image"
+                name="imageUrl"
                 validation={urlValidator}
                 onInputChange={inputChangeHandler}
                 errorMessage="Please a valid url"

@@ -37,13 +37,13 @@ function BusinessForm() {
   useEffect(() => {
     setFormInputs([
       'title',
-      'image',
+      'imageUrl',
       'type',
       'niche',
       'age',
-      'revenue',
-      'profit',
-      'price',
+      'monthlyRevenue',
+      'monthlyProfit',
+      'askingPrice',
       'description',
     ]);
   }, []);
@@ -64,7 +64,7 @@ function BusinessForm() {
         <FormInput
           labelValue="Image URL"
           HTMLElement="input"
-          name="image"
+          name="imageUrl"
           type="text"
           validation={urlValidator}
           onInputChange={inputChangeHandler}
@@ -104,7 +104,7 @@ function BusinessForm() {
         <FormInput
           labelValue="Monthly Revenue"
           HTMLElement="input"
-          name="revenue"
+          name="monthlyRevenue"
           type="number"
           validation={(value) => integerInputValidator(value)}
           onInputChange={inputChangeHandler}
@@ -116,7 +116,7 @@ function BusinessForm() {
         <FormInput
           labelValue="Monthly Profit"
           HTMLElement="input"
-          name="profit"
+          name="monthlyProfit"
           type="number"
           validation={(value) => integerInputValidator(value)}
           onInputChange={inputChangeHandler}
@@ -128,7 +128,7 @@ function BusinessForm() {
         <FormInput
           labelValue="Asking Price"
           HTMLElement="input"
-          name="price"
+          name="askingPrice"
           type="number"
           validation={(value) => integerInputValidator(value)}
           onInputChange={inputChangeHandler}
@@ -155,7 +155,7 @@ function BusinessForm() {
             disabled={!formIsValid}
             onClick={() => {
               addNewBusiness(formData, userData.id);
-              // history.push('/');
+              history.push('/');
             }}
           >
             Create
@@ -165,8 +165,8 @@ function BusinessForm() {
           <FormButton
             disabled={!formIsValid}
             onClick={() => {
-              updateBusiness(formData);
-              // history.push('/');
+              updateBusiness(formData, userData.id, businessToBeEdittedId);
+              history.goBack();
             }}
           >
             Update
