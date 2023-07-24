@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState, useCallback, useEffect } from 'react';
-
-import { DUMMY_OFFERS } from '../util/data';
 import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const OffersContext = React.createContext({
@@ -24,7 +22,6 @@ export function OffersContextProvider(props) {
     const fetchedData = (await response.json()) || {};
     if (response.ok) {
       return setOffersList(Object.values(fetchedData));
-      // return setAllBusinesses(DUMMY_BUSINESSES);
     }
     return alert(response.message);
   }, []);
@@ -50,15 +47,26 @@ export function OffersContextProvider(props) {
     });
 
     if (response.ok) {
-      fetchOffers();
+      await fetchOffers();
       return console.log('Offer Sent Successfully');
     }
 
     return alert(response.message);
   };
 
-  const acceptOffer = (offer) => {
-    return console.log(offer);
+  const acceptOffer = async (offer) => {
+    const updatedOfferData = { ...offer, status: 'accepted' };
+    const response = await fetch(`${url.offersDB}/${offer.id}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedOfferData),
+    });
+
+    if (response.ok) {
+      await fetchOffers();
+      return console.log('Offer Accepted!');
+    }
+
+    return alert(response.message);
   };
   const denyOffer = async (offer) => {
     const response = await fetch(`${url.offersDB}/${offer.id}.json`, {
@@ -71,7 +79,9 @@ export function OffersContextProvider(props) {
       // await fetchOffers();
       return console.log('Offer Denied Successfully');
     }
-    return alert('aaa');
+    return alert(
+      'I was not possible to update our servers! Please try again later!'
+    );
   };
 
   return (

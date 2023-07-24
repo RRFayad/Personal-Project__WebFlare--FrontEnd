@@ -129,7 +129,7 @@ function Auth() {
               disabled={!formIsValid}
               onClick={async () => {
                 const response = await loginHandler(userHasAccount, formData);
-                response.ok && history.goBack();
+                response.ok && history.push('/');
               }}
             >
               {userHasAccount ? 'Login' : 'Sign Up'}

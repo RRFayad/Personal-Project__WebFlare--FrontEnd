@@ -56,9 +56,9 @@ function NewOfferForm() {
         </FormButton>
         <FormButton
           disabled={!formIsValid}
-          onClick={() => {
+          onClick={async () => {
             // eslint-disable-next-line
-            sendOffer(formData, userData.id, businessId);
+            await sendOffer(formData, userData.id, businessId);
             history.push(`/success/offer-sent`);
           }}
         >

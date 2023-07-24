@@ -77,23 +77,36 @@ function OfferCard(props) {
       </main>
       <hr />
       <footer className={classes.card__footer}>
-        {userId !== senderId && (
+        {userId !== senderId && offer.status === 'active' && (
           <>
             <button
               type="button"
               className={classes.card__button}
-              onClick={() => denyOffer(offer)}
+              onClick={async () => {
+                await denyOffer(offer);
+                history.go(0);
+              }}
             >
               Deny Offer
             </button>
             <button
               type="button"
               className={`${classes.card__button} ${classes['card__button--cta']}`}
-              onClick={() => acceptOffer(offer)}
+              onClick={() => {
+                acceptOffer(offer);
+                history.go(0);
+              }}
             >
               Accept Offer
             </button>
           </>
+        )}
+
+        {userId !== senderId && offer.status === 'accepted' && (
+          <p className={classes.card__status}>
+            Accepted Offer! Moving forward with the contractual acquisition
+            procedures.
+          </p>
         )}
 
         {userId === senderId && (

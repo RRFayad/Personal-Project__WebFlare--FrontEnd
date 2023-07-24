@@ -37,6 +37,7 @@
   height: 100%;
   min-width: 40vw;
   overflow: hidden;
+  /* margin: auto; */
 }
 
 .item {

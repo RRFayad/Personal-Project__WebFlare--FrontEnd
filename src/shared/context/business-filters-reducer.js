@@ -65,3 +65,50 @@ export const filtersReducer = (state, action) => {
   }
   return state;
 };
+
+export const homePageFiltersHandler = (businessesList, filters) => {
+  let businesses = businessesList;
+
+  // business type filter logic
+
+  if (filters.typeFilter.length > 0) {
+    businesses = businesses.filter((business) =>
+      filters.typeFilter.includes(business.type)
+    );
+  }
+  // business search filter logic
+  if (filters.searchFilter !== '') {
+    businesses = businesses.filter(
+      (business) =>
+        business.title.trim().toLowerCase().includes(filters.searchFilter) ||
+        business.description
+          .trim()
+          .toLowerCase()
+          .includes(filters.searchFilter) ||
+        business.type.trim().toLowerCase().includes(filters.searchFilter)
+    );
+  }
+  // business price filter logic
+  if (filters.priceFilter.min > 0 || filters.priceFilter.max < Infinity) {
+    businesses = businesses.filter(
+      (business) =>
+        business.askingPrice >= filters.priceFilter.min &&
+        business.askingPrice <= filters.priceFilter.max
+    );
+  }
+  // business profit filter logic
+  if (filters.profitFilter.min > 0 || filters.profitFilter.max < Infinity) {
+    businesses = businesses.filter(
+      (business) =>
+        business.monthlyProfit >= filters.profitFilter.min &&
+        business.monthlyProfit <= filters.profitFilter.max
+    );
+  }
+  // user filter logic
+  if (filters.userFilter.id) {
+    businesses = businesses.filter(
+      (business) => business.ownerId !== filters.userFilter.id
+    );
+  }
+  return businesses;
+};

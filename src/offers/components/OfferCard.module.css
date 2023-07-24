@@ -126,6 +126,14 @@
   background-color: #003fb4;
 }
 
+.card__status {
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+
+  /* color: #003fb4; */
+}
+
 @media (max-width: 760px) {
   .card {
     height: 85vh;
