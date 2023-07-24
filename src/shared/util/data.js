@@ -129,7 +129,8 @@ export const DUMMY_OFFERS = [
 
   {
     id: 'O0001',
-    sender: 'U0001',
+    // sender: 'U0001',
+    sender: 'MyTQBsoMezR509xgt2fUNe4FRsB3',
     businessId: 'B0002',
     offerValue: 1000,
     status: 'active',
@@ -140,7 +141,8 @@ export const DUMMY_OFFERS = [
   },
   {
     id: 'O0002',
-    sender: 'U0001',
+    // sender: 'U0001',
+    sender: 'MyTQBsoMezR509xgt2fUNe4FRsB3',
     businessId: 'B0004',
     offerValue: 2000,
     status: 'active',
@@ -150,7 +152,8 @@ export const DUMMY_OFFERS = [
   },
   {
     id: 'O0003',
-    sender: 'U0001',
+    // sender: 'U0001',
+    sender: 'MyTQBsoMezR509xgt2fUNe4FRsB3',
     businessId: 'B0006',
     offerValue: 3000,
     status: 'active',
@@ -160,7 +163,8 @@ export const DUMMY_OFFERS = [
   },
   {
     id: 'O0004',
-    sender: 'U0002',
+    // sender: 'U0002',
+    sender: 'D5rLcvZQu3dv3Zd61W1nNeaKyII2',
     businessId: 'B0001',
     offerValue: 4000,
     status: 'active',
@@ -171,7 +175,8 @@ export const DUMMY_OFFERS = [
   },
   {
     id: 'O0005',
-    sender: 'U0002',
+    // sender: 'U0002',
+    sender: 'D5rLcvZQu3dv3Zd61W1nNeaKyII2',
     businessId: 'B0003',
     offerValue: 5000,
     status: 'active',
@@ -181,7 +186,8 @@ export const DUMMY_OFFERS = [
   },
   {
     id: 'O0006',
-    sender: 'U0002',
+    // sender: 'U0002',
+    sender: 'D5rLcvZQu3dv3Zd61W1nNeaKyII2',
     businessId: 'B0005',
     offerValue: 6000,
     status: 'active',

@@ -31,7 +31,7 @@ export function AuthContextProvider(props) {
     const response = await fetch(`${url.usersDB}/${userId}.json`);
     const fetchedData = (await response.json()) || {};
     if (response.ok) {
-      return setUserData({ ...fetchedData, id: userId });
+      return setUserData({ ...fetchedData });
     }
     return alert(response.message);
   }, []);
@@ -67,10 +67,12 @@ export function AuthContextProvider(props) {
   };
 
   const putUserData = async (newUserData, userId) => {
-    await fetch(`${url.usersDB}/${userId}.json`, {
+    const response = await fetch(`${url.usersDB}/${userId}.json`, {
       method: 'PUT',
       body: JSON.stringify({ ...newUserData, id: userId }),
     });
+    const userFetchedData = await response.json();
+    setUserData(userFetchedData);
   };
 
   const loginHandler = async (userHasAccount, formData) => {

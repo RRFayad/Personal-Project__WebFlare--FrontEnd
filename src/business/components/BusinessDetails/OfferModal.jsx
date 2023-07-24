@@ -11,7 +11,7 @@ import classes from './OfferModal.module.css';
 
 function OfferCard(props) {
   const { isLoggedIn, userData, usersList } = useContext(AuthContext);
-  console.log(usersList);
+
   const { businessesList } = useContext(DataContext);
   const history = useHistory();
 
@@ -29,11 +29,11 @@ function OfferCard(props) {
     type,
   } = props.business;
 
-  console.log(ownerId);
   const owner = usersList.find((user) => user.id === ownerId);
   let ownersBusiness = 0;
 
   businessesList.forEach((business) => {
+    // Create relation in DB to refacor this logic
     if (business.ownerId === ownerId) {
       ownersBusiness += 1;
     }

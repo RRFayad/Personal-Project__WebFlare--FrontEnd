@@ -11,6 +11,7 @@ import classes from './OfferCard.module.css';
 function OfferCard(props) {
   const history = useHistory();
   const { offer } = props;
+
   const { acceptOffer, denyOffer } = useContext(OffersContext);
 
   const business = useContext(BusinessContext).allBusinesses.find(

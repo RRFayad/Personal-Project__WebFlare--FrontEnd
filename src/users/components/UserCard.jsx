@@ -33,7 +33,7 @@ function UserCard() {
               <dd>{userData.country}</dd>
             </div>
           </dl>
-          <p className={classes.description}>{userData.description} lorem</p>
+          <p className={classes.description}>{userData.description}</p>
           <div className={classes['user-info__button-container']}>
             <button
               type="button"

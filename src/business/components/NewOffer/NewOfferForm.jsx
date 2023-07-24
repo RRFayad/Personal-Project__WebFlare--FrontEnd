@@ -1,11 +1,12 @@
 import React, { useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom';
 
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
 import useForm from '../../../shared/custom-hooks/useForm';
 import OffersContext from '../../../shared/context/OffersContext';
+import AuthContext from '../../../shared/context/AuthContext';
 
 import {
   minLengthValidator,
@@ -16,12 +17,14 @@ import classes from './NewOfferForm.module.css';
 
 function NewOfferForm() {
   const history = useHistory();
+  const { bid: businessId } = useParams();
+  const { userData } = useContext(AuthContext);
   const { sendOffer } = useContext(OffersContext);
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
 
   useEffect(() => {
-    setFormInputs(['value', 'description']);
+    setFormInputs(['offerValue', 'message']);
   }, []);
 
   return (
@@ -31,7 +34,7 @@ function NewOfferForm() {
           labelValue="Offer Value"
           HTMLElement="input"
           type="number"
-          name="value"
+          name="offerValue"
           validation={integerInputValidator}
           onInputChange={inputChangeHandler}
           errorMessage="Please insert a integer and positive number"
@@ -41,7 +44,7 @@ function NewOfferForm() {
         <FormInput
           labelValue="Introduce yourself and describe your offer"
           HTMLElement="textarea"
-          name="description"
+          name="message"
           validation={(value) => minLengthValidator(value, 6)}
           onInputChange={inputChangeHandler}
           errorMessage="Description must contain at least 6 characters"
@@ -55,7 +58,7 @@ function NewOfferForm() {
           disabled={!formIsValid}
           onClick={() => {
             // eslint-disable-next-line
-            sendOffer(formData);
+            sendOffer(formData, userData.id, businessId);
             history.push(`/success/offer-sent`);
           }}
         >
