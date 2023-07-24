@@ -7,7 +7,6 @@ import {
   homePageFiltersHandler,
 } from './business-filters-reducer';
 import { businessTypesOptions, nichesOptions } from '../util/parameters';
-import { DUMMY_BUSINESSES } from '../util/data';
 import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const BusinessContext = React.createContext({
