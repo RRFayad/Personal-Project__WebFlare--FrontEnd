@@ -9,7 +9,7 @@ body {
 }
 
 .fallback {
-  margin: 3rem auto;
+  margin: auto;
   text-align: center;
   display: flex;
   justify-content: center;
