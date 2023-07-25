@@ -142,6 +142,7 @@
 @media (max-width: 450px) {
   .modal {
     height: 80vh;
+    max-height: 600px;
     width: 90vw;
     top: 8px;
     left: 5vw;
