@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
+import Logo from '../util/img/Logo__Clean.png';
 import classes from './SideDrawer.module.css';
 
 function SideDrawer(props) {
@@ -10,7 +11,10 @@ function SideDrawer(props) {
       <header className={`${classes['modal-menu__header']}`}>
         <button type="button" onClick={props.onClick}>
           <Link to="/">
-            <h2 className={`${classes['nav-bar__title']}`}>WEBFLARE</h2>
+            {/* <h2 className={`${classes['nav-bar__title']}`}>WEBFLARE</h2> */}
+            <div className={`${classes['nav-bar__logo-container']}`}>
+              <img src={Logo} alt="Webflare" />
+            </div>
           </Link>
         </button>
       </header>

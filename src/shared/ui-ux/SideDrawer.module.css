@@ -20,7 +20,7 @@
 }
 
 .modal-menu__header {
-  height: 4rem;
+  height: 6rem;
   background-color: #001f44;
 }
 
@@ -34,6 +34,14 @@
   text-decoration: none;
   color: white;
   text-align: center;
+}
+
+.nav-bar__logo-container img {
+  width: 180px;
+  margin: auto;
+  margin-top: 8px;
+  /* margin: 8px 0 8px 16px; */
+  object-fit: contain;
 }
 
 .modal-menu__main {
@@ -67,5 +75,11 @@
 @media (min-width: 769px) {
   .modal-menu {
     display: none;
+  }
+
+  .nav-bar__logo img {
+    height: 32px;
+    margin: 16px 0 16px 16px;
+    object-fit: contain;
   }
 }

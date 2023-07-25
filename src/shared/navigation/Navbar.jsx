@@ -5,6 +5,8 @@ import AuthContext from '../context/AuthContext';
 import ModalMenu from './ModalMenu';
 import Backdrop from '../ui-ux/Backdrop';
 
+import Logo from '../util/img/Logo__Clean.png';
+
 import classes from './Navbar.module.css';
 
 function Navbar() {
@@ -30,7 +32,10 @@ function Navbar() {
           <span className={`${classes['nav-bar__sandwich-bar--last']}`} />
         </button>
         <Link to="/" className={`${classes['nav-bar__logo']}`}>
-          <h2>WEBFLARE</h2>
+          {/* <h2>WEBFLARE</h2> */}
+          <div className={`${classes['nav-bar__logo-container']}`}>
+            <img src={Logo} alt="Webflare" />
+          </div>
         </Link>
         <ul className={`${classes['nav-bar__links']}`}>
           {userData && (
