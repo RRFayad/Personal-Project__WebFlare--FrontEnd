@@ -71,6 +71,7 @@ The application was created in order to let a user:
 
 - As the main goal of this project was to build the Front End using React, it succeeded. The application contains various React Hooks and React Features, such as:
   - useState, useContext, useRef, useEffect, useCallback, useReducer.
+  - Custom Hooks.
   - Portals.
   - React.lazy().
   - Suspense.
