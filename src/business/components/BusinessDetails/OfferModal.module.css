@@ -152,6 +152,17 @@
     font-size: 0.8rem;
   }
 
+  .modal__items {
+    /* background-color: yellow; */
+    width: 70vw;
+  }
+
+  .modal__item,
+  .modal__description,
+  .modal__price {
+    margin-left: 0;
+  }
+
   .modal__price p {
     font-size: 1rem;
   }
