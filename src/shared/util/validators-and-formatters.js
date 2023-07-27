@@ -7,7 +7,7 @@ export const maxLengthValidator = (str, maxChars = 20) =>
 export const fullNameValidator = (fullName) => {
   const minLength = 2;
   const maxLength = 50;
-  const allowedCharacters = /^[A-Za-z\s\-']+$/;
+  const allowedCharacters = /^[A-Za-z\u00C0-\u017F\s\-']+$/;
 
   if (fullName.length < minLength || fullName.length > maxLength) {
     return false;
