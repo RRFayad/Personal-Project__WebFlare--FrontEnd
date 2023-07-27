@@ -59,6 +59,7 @@ The application was created in order to let a user:
 1. Develop My Own Rest Api
    - The focus of this first version was to build the Front End with React. (The Firebase approach was defined only for the usage of this 1st version).
    - The next steps are to develop my own backend logic working with Node, Express, and MongoDB.
+   - Improve the logic related to filtering / mapping data with the backend and database, as, right now, it's all managed only in the front end.
 
 2. Implement Authentication Features
    - Authentication will be improved as the BackEnd is developed.
