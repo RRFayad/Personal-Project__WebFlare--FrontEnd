@@ -1,5 +1,5 @@
 .details {
-  height: min(40vh, 280px);
+  height: 280px;
   width: 75vw;
   /* padding-bottom: 16px; */
   margin: auto;
@@ -112,6 +112,7 @@
     display: none;
   }
 } */
+
 @media (max-width: 1200px) {
   .details {
     height: min(85vh, 540px);

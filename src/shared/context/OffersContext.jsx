@@ -21,6 +21,7 @@ export function OffersContextProvider(props) {
     const response = await fetch(`${url.offersDB}.json`);
     const fetchedData = (await response.json()) || {};
     if (response.ok) {
+      console.log(Object.values(fetchedData));
       return setOffersList(Object.values(fetchedData));
     }
     return alert(response.message);

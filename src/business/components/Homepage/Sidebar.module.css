@@ -27,7 +27,7 @@
 
 .price-filter,
 .profit-filter {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .price-filter__container,
 .profit-filter__container {
@@ -51,6 +51,19 @@
 .profit-filter__container input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+@media (max-height: 560px) {
+  .price-filter,
+  .profit-filter {
+    display: none;
+  }
+}
+
+@media (max-height: 680px) {
+  .profit-filter {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {

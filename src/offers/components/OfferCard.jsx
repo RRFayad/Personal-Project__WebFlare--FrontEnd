@@ -94,7 +94,7 @@ function OfferCard(props) {
               className={`${classes.card__button} ${classes['card__button--cta']}`}
               onClick={() => {
                 acceptOffer(offer);
-                history.go(0);
+                history.push('/');
               }}
             >
               Accept Offer
