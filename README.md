@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# WebFlare - React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is it?
 
-## Available Scripts
+WebFlare is a 100% Personal Project (it's **not** a course project). It's a web app developed to simulate a marketplace of digital assets.
 
-In the project directory, you can run:
+The application was created in order to let a user:
 
-### `npm start`
+- Register his profile and businesses.
+- Send and receive offers for acquiring digital businesses.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How to use it
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Visit [WebFlare](https://webflare.vercel.app/).
+2. Click on the Login Button to be redirected to the Login Form.
+3. Log In or Sign Up (you can switch by clicking on the text that says "Click Here").
+4. Fill out the Form (for validation, invalid data will provide feedback):
+   - For demo purposes, you can copy the following link for the Image URL: `https://thispersondoesnotexist.com/`
+   - For demo purposes, you can set the LinkedIn domain only in the Linkedin URL: `https://www.linkedin.com/`
+5. Once everything is filled, the sign-up (or login) button will be available. Click on it to be redirected to the HomePage.
+6. HomePage:
+   - It will render a list of registered businesses.
+   - You can filter by selecting options in the sidebar or using the "Search" bar.
+   - Clicking on "View Details" will redirect you to the business Details Page.
+7. Business Details:
+   - Here you can see more details about the business and the offer.
+   - Clicking on "Offer details" will open a modal, allowing you to make an offer or buy it for the offered price.
+   - If it's a business of your own, you will have the option to Edit the Business Info and be redirected to the Edit Business Form.
+8. Other Navigation Pages (accessible via the sandwich menu for mobile devices):
+   1. My Profile:
+      - It shows your profile info and your registered businesses info.
+      - From here, you can Edit your Profile or Edit each Business.
+   2. My Offers:
+      - It will display your Received Offers or your Sent Offers (selectable in the top right of the page).
+      - You can accept or deny each received Offer.
+        - If denied, it will be deleted from the Database.
+        - If Accepted, it will show a success message.
+   3. Add Business (same page as Edit Business):
+      - You will be redirected to a Business Form.
+      - When all the inputs are set, you will be able to create your new business.
+      - In editing mode, the current values are filled as default.
+   4. Logout:
+      - It will log you out and redirect to the Home Page.
 
-### `npm test`
+## How it was made
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- This app was created using React and React Router, and the data is stored in Firebase. The next topics will cover and detail the main parts of the App Structure.
 
-### `npm run build`
+### Forms
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- The Forms were created using a custom hook (useForm) that handles the form data, validity, and styles.
+- All the data is handled using React Hooks (useState, useRef, useReducer), event listeners (onClick, onFocus, onBlur), and Conditional Rendering. A logic was created to do basic validation and return feedback to the user.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Storage and Authentication
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The Storage was Developed using the FireBase Realtime Database Rest API.
+- Authentication was developed using the Firebase Auth Rest API.
+- For each DataBase entity (User, Business, Offer), there's a context file to handle the data in the frontend and fetch it via the Rest API.
 
-### `npm run eject`
+## Next Steps to Improve the Logic
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Develop My Own Rest Api
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   - The focus of this first version was to build the Front End with React. (The Firebase approach was defined only for the usage of this 1st version).
+   - The next steps are to develop my own backend logic working with Node, Express, and MongoDB.
+   - Improve the logic related to filtering / mapping data with the backend and database, as, right now, it's all managed only in the front end.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Implement Authentication Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   - Authentication will be improved as the BackEnd is developed.
 
-## Learn More
+3. Upgrade Business Logic
+   - Some business features could be optimized, such as limiting an offer to less than the Asked Price for a business.
+   - Send some emails to formalize some steps (such as getting a response for an offer).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Conclusion and Results of the Project
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- As the main goal of this project was to build the Front End using React, it succeeded. The application contains various React Hooks and React Features, such as:
+  - useState, useContext, useRef, useEffect, useCallback, useReducer.
+  - Custom Hooks.
+  - Portals.
+  - React.lazy().
+  - Suspense.
+  - HTTP Requests.
+  - Conditional Rendering.
+  - UI / UX:
+    - Loading Spinner.
+    - Form Validation and Styling.
+  - Routing.
+  - JWT Authentication.
