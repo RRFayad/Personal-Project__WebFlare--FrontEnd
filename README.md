@@ -72,6 +72,7 @@ The application was created in order to let a user:
 3. Upgrade Business Logic
    - Some business features could be optimized, such as limiting an offer to less than the Asked Price for a business.
    - Send some emails to formalize some steps (such as getting a response for an offer).
+   - For each DataBase entity (User, Business, Offer), there's a context file to handle the data in the frontend and fetch it via the Rest API.
 
 ## Conclusion and Results of the Project
 
