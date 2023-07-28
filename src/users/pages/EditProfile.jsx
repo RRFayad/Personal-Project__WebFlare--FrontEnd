@@ -136,7 +136,7 @@ function EditProfile() {
                 disabled={!formIsValid}
                 onClick={() => {
                   updateProfileHandler(formData);
-                  history.goBack();
+                  history.push('/');
                 }}
               >
                 Update Profile
@@ -147,7 +147,7 @@ function EditProfile() {
                 disabled={!formIsValid}
                 onClick={() => {
                   updatePasswordHandler(formData);
-                  history.goBack();
+                  history.push('/');
                 }}
               >
                 Update Profile

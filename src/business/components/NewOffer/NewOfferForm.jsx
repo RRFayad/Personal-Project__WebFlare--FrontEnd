@@ -51,7 +51,7 @@ function NewOfferForm() {
         />
       </div>
       <div className={classes.form__buttons}>
-        <FormButton caution onClick={() => history.goBack()}>
+        <FormButton caution onClick={() => history.push('/')}>
           Cancel
         </FormButton>
         <FormButton

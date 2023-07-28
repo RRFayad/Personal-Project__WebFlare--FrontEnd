@@ -166,13 +166,16 @@ function BusinessForm() {
             disabled={!formIsValid}
             onClick={() => {
               updateBusiness(formData, userData.id, businessToBeEdittedId);
-              history.goBack();
+              history.push('/');
             }}
           >
             Update
           </FormButton>
         )}
-        <FormButton caution onClick={() => history.goBack()}>
+        <FormButton
+          caution
+          onClick={() => history.push(`/users/${userData.id}/profile`)}
+        >
           Cancel
         </FormButton>
       </div>

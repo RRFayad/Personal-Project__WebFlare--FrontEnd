@@ -84,7 +84,7 @@ function OfferCard(props) {
               className={classes.card__button}
               onClick={async () => {
                 await denyOffer(offer);
-                history.go(0);
+                history.push('/');
               }}
             >
               Deny Offer
@@ -94,7 +94,7 @@ function OfferCard(props) {
               className={`${classes.card__button} ${classes['card__button--cta']}`}
               onClick={() => {
                 acceptOffer(offer);
-                history.push('/');
+                history.push(`/users/${userId}/offers`);
               }}
             >
               Accept Offer
