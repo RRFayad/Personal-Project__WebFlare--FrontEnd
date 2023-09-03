@@ -64,7 +64,7 @@ function EditProfile() {
                   defaultValue={userData.imageUrl}
                 />
                 <FormInput
-                  labelValue="Linkedin Account"
+                  labelValue="Profile URL (Linkedin, Website, Instagram etc.)"
                   HTMLElement="input"
                   type="url"
                   name="linkedinUrl"
