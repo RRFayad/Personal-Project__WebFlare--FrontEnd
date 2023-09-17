@@ -2,8 +2,18 @@ import React from 'react';
 
 import classes from './LoadingSpinner.module.css';
 
-function LoadingSpinner() {
-  return <div className={classes.spinner} />;
+function LoadingSpinner(props) {
+  return (
+    <>
+      {props.overlay && (
+        <div className={`${props.overlay && classes.spinner__overlay}`}>
+          <div className={classes.spinner} />
+        </div>
+      )}
+
+      {!props.overlay && <div className={classes.spinner} />}
+    </>
+  );
 }
 
 export default LoadingSpinner;

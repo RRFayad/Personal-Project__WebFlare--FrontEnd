@@ -2,12 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import AuthContext from '../../shared/context/AuthContext';
+import NewAuthContext from '../../shared/context/NewAuthContext';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';
 import FormInput from '../../shared/ui-ux/FormInput';
 import FormButton from '../../shared/ui-ux/FormButton';
 import useForm from '../../shared/custom-hooks/useForm';
+import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
 import {
   minLengthValidator,
   fullNameValidator,
@@ -20,9 +22,11 @@ import classes from './Auth.module.css';
 
 function Auth() {
   const history = useHistory();
-  const { loginHandler, signUpHandler } = useContext(AuthContext);
+  const { loginHandler } = useContext(AuthContext);
+  const { signUpHandler } = useContext(NewAuthContext);
 
   const [userHasAccount, setUserHasAccount] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginInputs = ['email', 'password'];
   const signUpInputs = [
@@ -49,6 +53,7 @@ function Auth() {
       <Navbar />
       <main className={classes.content}>
         <Form>
+          {isLoading && <LoadingSpinner overlay />}
           <div className={classes.form__inputs}>
             {!userHasAccount && (
               <FormInput
@@ -128,8 +133,15 @@ function Auth() {
             <FormButton
               disabled={!formIsValid}
               onClick={async () => {
-                const response = await loginHandler(userHasAccount, formData);
-                response.ok && history.push('/');
+                setIsLoading(true);
+                if (!userHasAccount) {
+                  await signUpHandler(formData);
+                }
+                if (userHasAccount) {
+                  await signUpHandler(formData);
+                }
+                setIsLoading(false);
+                history.push('/');
               }}
             >
               {userHasAccount ? 'Login' : 'Sign Up'}
