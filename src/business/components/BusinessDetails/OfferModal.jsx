@@ -61,8 +61,8 @@ function OfferCard(props) {
               <div className={classes.modal__item}>
                 <dt>Linkedin:</dt>
                 <dd>
-                  <a href={owner.linkedinUrl} target="_blank" rel="noreferrer">
-                    {owner.linkedinUrl}
+                  <a href={owner.profileUrl} target="_blank" rel="noreferrer">
+                    {owner.profileUrl}
                   </a>
                 </dd>
               </div>

@@ -49,11 +49,11 @@ function OfferCard(props) {
                 <dt>Linkedin:</dt>
                 <dd>
                   <a
-                    href={stakeholder.linkedinUrl}
+                    href={stakeholder.profileUrl}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {stakeholder.linkedinUrl}
+                    {stakeholder.profileUrl}
                   </a>
                 </dd>
               </div>

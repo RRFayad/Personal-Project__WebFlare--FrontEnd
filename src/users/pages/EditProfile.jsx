@@ -67,11 +67,11 @@ function EditProfile() {
                   labelValue="Profile URL (Linkedin, Website, Instagram etc.)"
                   HTMLElement="input"
                   type="url"
-                  name="linkedinUrl"
+                  name="profileUrl"
                   validation={urlValidator}
                   onInputChange={inputChangeHandler}
                   errorMessage="Please insert your linkedin account URL"
-                  defaultValue={userData.linkedinUrl}
+                  defaultValue={userData.profileUrl}
                 />
 
                 <FormInput

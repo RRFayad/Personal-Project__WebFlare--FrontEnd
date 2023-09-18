@@ -23,7 +23,7 @@ export function NewAuthContextProvider(props) {
   const url = {
     signUp: `http://localhost:5000/api/users/signup`,
     login: `http://localhost:5000/api/users/login`,
-    getUserById: `http://localhost:5000/api/users`, // /:uid
+    userData: `http://localhost:5000/api/users`, // /:uid
   };
 
   const signUpHandler = async (formUserData) => {
@@ -70,8 +70,7 @@ export function NewAuthContextProvider(props) {
   const getUserData = async (userId) => {
     let response;
     try {
-      response = await axios.get(`${url.getUserById}/${userId}`);
-      console.log(response);
+      response = await axios.get(`${url.userData}/${userId}`);
       setIsLoggedIn(true);
       setUserData(response.data.user);
       localStorage.setItem(

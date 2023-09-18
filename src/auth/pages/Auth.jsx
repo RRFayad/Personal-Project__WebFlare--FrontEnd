@@ -80,7 +80,7 @@ function Auth() {
                 labelValue="Linkedin Account"
                 HTMLElement="input"
                 type="url"
-                name="linkedinUrl"
+                name="profileUrl"
                 validation={urlValidator}
                 onInputChange={inputChangeHandler}
                 errorMessage="Please insert your linkedin account URL"
