@@ -22,8 +22,8 @@ import classes from './Auth.module.css';
 
 function Auth() {
   const history = useHistory();
-  const { loginHandler } = useContext(AuthContext);
-  const { signUpHandler } = useContext(NewAuthContext);
+  // const { loginHandler } = useContext(AuthContext);
+  const { signUpHandler, loginHandler } = useContext(NewAuthContext);
 
   const [userHasAccount, setUserHasAccount] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -138,10 +138,10 @@ function Auth() {
                   await signUpHandler(formData);
                 }
                 if (userHasAccount) {
-                  await signUpHandler(formData);
+                  await loginHandler(formData);
                 }
                 setIsLoading(false);
-                history.push('/');
+                // history.push('/');
               }}
             >
               {userHasAccount ? 'Login' : 'Sign Up'}

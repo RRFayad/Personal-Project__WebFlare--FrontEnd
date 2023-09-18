@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import AuthContext from '../context/AuthContext';
+import NewAuthContext from '../context/NewAuthContext';
 import ModalMenu from './ModalMenu';
 import Backdrop from '../ui-ux/Backdrop';
 
@@ -10,7 +10,7 @@ import Logo from '../util/img/Logo__Clean.png';
 import classes from './Navbar.module.css';
 
 function Navbar() {
-  const { logoutHandler, isLoggedIn, userData } = useContext(AuthContext);
+  const { isLoggedIn, userData, logoutHandler } = useContext(NewAuthContext);
   const [modalMenuIsShown, setModalMenuIsShown] = useState(false);
 
   return (
