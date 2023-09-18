@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import AuthContext from '../../../shared/context/AuthContext';
+import NewAuthContext from '../../../shared/context/NewAuthContext';
 import BusinessContext from '../../../shared/context/BusinessContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
@@ -24,7 +24,7 @@ function BusinessForm() {
     addNewBusiness,
     updateBusiness,
   } = useContext(BusinessContext);
-  const { userData } = useContext(AuthContext);
+  const { userData } = useContext(NewAuthContext);
   const history = useHistory();
 
   const { bid: businessToBeEdittedId } = useParams();

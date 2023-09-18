@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import AuthContext from '../../../shared/context/AuthContext';
+import NewAuthContext from '../../../shared/context/NewAuthContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import Backdrop from '../../../shared/ui-ux/Backdrop';
 import ConfirmModal from '../../../users/components/ConfirmModal';
@@ -12,7 +12,7 @@ function BusinessItemCard(props) {
   const history = useHistory();
   const path = history.location.pathname;
 
-  const { userData } = useContext(AuthContext);
+  const { userData } = useContext(NewAuthContext);
 
   const {
     age,

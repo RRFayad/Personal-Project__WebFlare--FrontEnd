@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import AuthContext from '../../shared/context/AuthContext';
 import NewAuthContext from '../../shared/context/NewAuthContext';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
@@ -22,7 +21,6 @@ import classes from './Auth.module.css';
 
 function Auth() {
   const history = useHistory();
-  // const { loginHandler } = useContext(AuthContext);
   const { signUpHandler, loginHandler } = useContext(NewAuthContext);
 
   const [userHasAccount, setUserHasAccount] = useState(true);
@@ -141,7 +139,7 @@ function Auth() {
                   await loginHandler(formData);
                 }
                 setIsLoading(false);
-                // history.push('/');
+                history.push('/');
               }}
             >
               {userHasAccount ? 'Login' : 'Sign Up'}

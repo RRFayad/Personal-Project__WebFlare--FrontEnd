@@ -1,6 +1,5 @@
 import React, { useRef, useContext, useEffect } from 'react';
 
-import AuthContext from '../../../shared/context/AuthContext';
 import BusinessContext from '../../../shared/context/BusinessContext';
 import SidebarFilters from './SidebarFilters';
 

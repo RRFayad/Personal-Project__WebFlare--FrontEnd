@@ -4,7 +4,7 @@ import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
 import DataContext from '../../shared/context/BusinessContext';
-import AuthContext from '../../shared/context/AuthContext';
+import NewAuthContext from '../../shared/context/NewAuthContext';
 import UserCard from '../components/UserCard';
 import BusinessList from '../../business/components/Homepage/BusinessList';
 
@@ -12,7 +12,7 @@ import classes from './Profile.module.css';
 
 function Profile() {
   const { allBusinesses } = useContext(DataContext);
-  const { userData } = useContext(AuthContext);
+  const { userData } = useContext(NewAuthContext);
 
   const usersBusiness = allBusinesses.filter(
     (item) => item.ownerId === userData.id

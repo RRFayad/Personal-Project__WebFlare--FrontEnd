@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import AuthContext from '../../shared/context/AuthContext';
+import NewAuthContext from '../../shared/context/NewAuthContext';
 import classes from './UserCard.module.css';
 
 function UserCard() {
   const history = useHistory();
-  const { userData } = useContext(AuthContext);
+  const { userData } = useContext(NewAuthContext);
 
   return (
     <div className={classes['user-info__card']}>

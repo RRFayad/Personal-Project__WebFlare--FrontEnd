@@ -6,7 +6,7 @@ import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
 import useForm from '../../../shared/custom-hooks/useForm';
 import OffersContext from '../../../shared/context/OffersContext';
-import AuthContext from '../../../shared/context/AuthContext';
+import NewAuthContext from '../../../shared/context/NewAuthContext';
 
 import {
   minLengthValidator,
@@ -18,7 +18,7 @@ import classes from './NewOfferForm.module.css';
 function NewOfferForm() {
   const history = useHistory();
   const { bid: businessId } = useParams();
-  const { userData } = useContext(AuthContext);
+  const { userData } = useContext(NewAuthContext);
   const { sendOffer } = useContext(OffersContext);
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();

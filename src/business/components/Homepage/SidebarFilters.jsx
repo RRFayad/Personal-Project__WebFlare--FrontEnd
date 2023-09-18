@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 
-import AuthContext from '../../../shared/context/AuthContext';
+import NewAuthContext from '../../../shared/context/NewAuthContext';
 import BusinessContext from '../../../shared/context/BusinessContext';
 import classes from './SidebarFilters.module.css';
 
 function SidebarFilters() {
-  const { userData, isLoggedIn } = useContext(AuthContext);
+  const { userData, isLoggedIn } = useContext(NewAuthContext);
   const { businessTypesOptions, filterHandler } = useContext(BusinessContext);
 
   useEffect(

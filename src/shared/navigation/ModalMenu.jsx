@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { NavLink, Link } from 'react-router-dom';
 
 import SideDrawer from '../ui-ux/SideDrawer';
-import AuthContext from '../context/AuthContext';
+import NewAuthContext from '../context/NewAuthContext';
 import classes from './ModalMenu.module.css';
 
 function ModalMenu(props) {
-  const { logoutHandler, isLoggedIn, userData } = useContext(AuthContext);
+  const { logoutHandler, isLoggedIn, userData } = useContext(NewAuthContext);
 
   return ReactDOM.createPortal(
     <SideDrawer onClick={props.onClick}>

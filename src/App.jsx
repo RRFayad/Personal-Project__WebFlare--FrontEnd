@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import LoadingSpinner from './shared/ui-ux/LoadingSpinner';
-import AuthContext from './shared/context/AuthContext';
+import NewAuthContext from './shared/context/NewAuthContext';
 
 import classes from './App.module.css';
 
@@ -26,12 +26,12 @@ const EditProfile = React.lazy(() => import('./users/pages/EditProfile'));
 const Offers = React.lazy(() => import('./offers/pages/Offers'));
 
 function App() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(NewAuthContext);
   return (
     <Suspense
       fallback={
         <div className={classes.fallback}>
-          <LoadingSpinner />
+          <LoadingSpinner overlay />
         </div>
       }
     >

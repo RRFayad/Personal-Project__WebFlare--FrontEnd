@@ -10,6 +10,7 @@ const NewAuthContext = React.createContext({
   signUpHandler: () => {},
   loginHandler: () => {},
   logoutHandler: () => {},
+  getUserData: () => {},
   updateProfileHandler: () => {},
   updatePasswordHandler: () => {},
   userData: {},
@@ -17,11 +18,12 @@ const NewAuthContext = React.createContext({
 
 export function NewAuthContextProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(undefined);
 
   const url = {
     signUp: `http://localhost:5000/api/users/signup`,
     login: `http://localhost:5000/api/users/login`,
+    getUserById: `http://localhost:5000/api/users`, // /:uid
   };
 
   const signUpHandler = async (formUserData) => {
@@ -46,24 +48,61 @@ export function NewAuthContextProvider(props) {
 
     try {
       const response = await axios.post(url.login, toBeLoggedUserData);
-      console.log('User created:', response.data);
+      console.log('User Logged In:', response.data);
       setIsLoggedIn(true);
-      setUserData(response.data);
-      console.log(userData);
+      setUserData(response.data.user);
       localStorage.setItem(
         'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.id })
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
       );
     } catch (error) {
-      alert(`Error creating user: ${error.response.data.message}`);
+      alert(`Error fetching user: ${error.response.data.message}`);
     }
   };
 
-  const logoutHandler = () => {};
+  const logoutHandler = () => {
+    localStorage.removeItem('userData');
+    setIsLoggedIn(false);
+    setUserData(null);
+    return console.log('User logged out!!');
+  };
+
+  const getUserData = async (userId) => {
+    let response;
+    try {
+      response = await axios.get(`${url.getUserById}/${userId}`);
+      console.log(response);
+      setIsLoggedIn(true);
+      setUserData(response.data.user);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+      );
+      console.log(response.data);
+    } catch (error) {
+      alert(`Error creating user: ${error.response.data.message}`);
+    }
+    return response.data;
+  };
+
+  useEffect(() => {
+    const localUserData = JSON.parse(localStorage.getItem('userData'));
+    if (localUserData) {
+      getUserData(localUserData.userId);
+      setIsLoggedIn(localUserData.isLoggedIn);
+    }
+  }, []);
 
   return (
     <NewAuthContext.Provider
-      value={{ signUpHandler, loginHandler, userData, isLoggedIn }}
+      value={{
+        signUpHandler,
+        loginHandler,
+        logoutHandler,
+        getUserData,
+        userData,
+        isLoggedIn,
+      }}
     >
       {props.children}
     </NewAuthContext.Provider>
