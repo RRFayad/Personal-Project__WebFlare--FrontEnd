@@ -134,8 +134,8 @@ function EditProfile() {
             {!passwordIsBeingChanged && (
               <FormButton
                 disabled={!formIsValid}
-                onClick={() => {
-                  updateProfileHandler(formData);
+                onClick={async () => {
+                  await updateProfileHandler(formData);
                   history.push('/');
                 }}
               >
@@ -145,8 +145,8 @@ function EditProfile() {
             {passwordIsBeingChanged && (
               <FormButton
                 disabled={!formIsValid}
-                onClick={() => {
-                  updatePasswordHandler(formData);
+                onClick={async () => {
+                  await updatePasswordHandler(formData);
                   history.push('/');
                 }}
               >

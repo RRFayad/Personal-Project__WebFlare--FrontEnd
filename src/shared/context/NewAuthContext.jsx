@@ -24,6 +24,7 @@ export function NewAuthContextProvider(props) {
     signUp: `http://localhost:5000/api/users/signup`,
     login: `http://localhost:5000/api/users/login`,
     userData: `http://localhost:5000/api/users`, // /:uid
+    updatePassword: `http://localhost:5000/api/users/update-password`, // /:uid
   };
 
   const signUpHandler = async (formUserData) => {
@@ -102,7 +103,19 @@ export function NewAuthContextProvider(props) {
     }
   };
 
-  const updatePasswordHandler = () => console.log('ihaaa');
+  const updatePasswordHandler = async (data) => {
+    const profileData = formHookDataMapper(data);
+
+    try {
+      const response = await axios.patch(
+        `${url.updatePassword}/${userData.id}`,
+        profileData
+      );
+      alert(response.data.message);
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
+    }
+  };
 
   useEffect(() => {
     const localUserData = JSON.parse(localStorage.getItem('userData'));
