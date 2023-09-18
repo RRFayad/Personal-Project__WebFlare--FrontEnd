@@ -15,6 +15,7 @@ import {
   emailValidator,
   passwordValidator,
 } from '../../shared/util/validators-and-formatters';
+import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
 
 import classes from './EditProfile.module.css';
 
@@ -28,6 +29,7 @@ function EditProfile() {
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
   const [passwordIsBeingChanged, setPasswordIsBeingChanged] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     passwordIsBeingChanged
@@ -40,6 +42,7 @@ function EditProfile() {
       <Navbar />
       <main className={classes.content}>
         <Form>
+          {isLoading && <LoadingSpinner overlay />}
           <div className={classes.form__inputs}>
             {!passwordIsBeingChanged && (
               <>
@@ -135,7 +138,9 @@ function EditProfile() {
               <FormButton
                 disabled={!formIsValid}
                 onClick={async () => {
+                  setIsLoading(true);
                   await updateProfileHandler(formData);
+                  setIsLoading(false);
                   history.push('/');
                 }}
               >
@@ -146,7 +151,9 @@ function EditProfile() {
               <FormButton
                 disabled={!formIsValid}
                 onClick={async () => {
+                  setIsLoading(true);
                   await updatePasswordHandler(formData);
+                  setIsLoading(false);
                   history.push('/');
                 }}
               >

@@ -111,7 +111,7 @@ export function NewAuthContextProvider(props) {
         `${url.updatePassword}/${userData.id}`,
         profileData
       );
-      alert(response.data.message);
+      console.log('Password updated:', response.data.message);
     } catch (error) {
       alert(`Error updating user: ${error.response.data.message}`);
     }
