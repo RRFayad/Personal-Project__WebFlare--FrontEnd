@@ -31,12 +31,11 @@ export function NewAuthContextProvider(props) {
 
     try {
       const response = await axios.post(url.signUp, newUserData);
-      console.log('User created:', response.data);
       setIsLoggedIn(true);
-      setUserData(response.data);
+      setUserData(response.data.user);
       localStorage.setItem(
         'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.id })
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
       );
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
@@ -48,7 +47,6 @@ export function NewAuthContextProvider(props) {
 
     try {
       const response = await axios.post(url.login, toBeLoggedUserData);
-      console.log('User Logged In:', response.data);
       setIsLoggedIn(true);
       setUserData(response.data.user);
       localStorage.setItem(
@@ -84,6 +82,28 @@ export function NewAuthContextProvider(props) {
     return response.data;
   };
 
+  const updateProfileHandler = async (data) => {
+    const profileData = formHookDataMapper(data);
+    console.log('aa', profileData);
+
+    try {
+      const response = await axios.patch(
+        `${url.userData}/${userData.id}`,
+        profileData
+      );
+      console.log('User updated:', response);
+      setUserData(response.data.user);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+      );
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
+    }
+  };
+
+  const updatePasswordHandler = () => console.log('ihaaa');
+
   useEffect(() => {
     const localUserData = JSON.parse(localStorage.getItem('userData'));
     if (localUserData) {
@@ -99,6 +119,8 @@ export function NewAuthContextProvider(props) {
         loginHandler,
         logoutHandler,
         getUserData,
+        updateProfileHandler,
+        updatePasswordHandler,
         userData,
         isLoggedIn,
       }}

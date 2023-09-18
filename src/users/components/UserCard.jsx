@@ -21,7 +21,7 @@ function UserCard() {
               <dd>{userData.name}</dd>
             </div>
             <div className={classes.item}>
-              <dt>Linkedin:</dt>
+              <dt>Profile:</dt>
               <dd>
                 <a href={userData.profileUrl} target="_blank" rel="noreferrer">
                   {userData.profileUrl}

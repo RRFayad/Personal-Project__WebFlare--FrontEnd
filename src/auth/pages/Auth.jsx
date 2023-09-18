@@ -77,13 +77,13 @@ function Auth() {
             )}
             {!userHasAccount && (
               <FormInput
-                labelValue="Linkedin Account"
+                labelValue="Profile Domain (Website, Linkedin, Instagram etc)"
                 HTMLElement="input"
                 type="url"
                 name="profileUrl"
                 validation={urlValidator}
                 onInputChange={inputChangeHandler}
-                errorMessage="Please insert your linkedin account URL"
+                errorMessage="Please insert a valid URL"
               />
             )}
             {!userHasAccount && (

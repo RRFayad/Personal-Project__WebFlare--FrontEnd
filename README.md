@@ -16,7 +16,7 @@ The application was created in order to let a user:
 3. Log In or Sign Up (you can switch by clicking on the text that says "Click Here").
 4. Fill out the Form (for validation, invalid data will provide feedback):
    - For demo purposes, you can copy the following link for the Image URL: `https://thispersondoesnotexist.com/`
-   - For demo purposes, you can set the LinkedIn domain only in the Linkedin URL: `https://www.linkedin.com/`
+   - For demo purposes, you can set any domain in Profile URL: `https://www.linkedin.com/`
 5. Once everything is filled, the sign-up (or login) button will be available. Click on it to be redirected to the HomePage.
 6. HomePage:
    - It will render a list of registered businesses.

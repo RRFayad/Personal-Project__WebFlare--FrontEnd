@@ -46,7 +46,7 @@ function OfferCard(props) {
                 <dd>{stakeholder.name}</dd>
               </div>
               <div className={classes.card__item}>
-                <dt>Linkedin:</dt>
+                <dt>Profile:</dt>
                 <dd>
                   <a
                     href={stakeholder.profileUrl}

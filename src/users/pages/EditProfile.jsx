@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import AuthContext from '../../shared/context/AuthContext';
+import NewAuthContext from '../../shared/context/NewAuthContext';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';
@@ -21,7 +21,7 @@ import classes from './EditProfile.module.css';
 function EditProfile() {
   const history = useHistory();
   const { userData, updateProfileHandler, updatePasswordHandler } =
-    useContext(AuthContext);
+    useContext(NewAuthContext);
 
   const profileInputs = ['name', 'imageUrl', 'country', 'email', 'description'];
   const passwordInputs = ['password', 'newPassword'];
@@ -70,7 +70,7 @@ function EditProfile() {
                   name="profileUrl"
                   validation={urlValidator}
                   onInputChange={inputChangeHandler}
-                  errorMessage="Please insert your linkedin account URL"
+                  errorMessage="Please insert a valid URL"
                   defaultValue={userData.profileUrl}
                 />
 
