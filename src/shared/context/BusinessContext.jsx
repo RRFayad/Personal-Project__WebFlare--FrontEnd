@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import axios from 'axios';
 
 import {
   filtersInitializer,
@@ -17,6 +18,7 @@ const BusinessContext = React.createContext({
   // business data
   allBusinesses: [],
   homePageBusinessesList: [],
+  fetchBusiness: () => {},
   addNewBusiness: () => {},
   updateBusiness: () => {},
   deleteBusiness: () => {},
@@ -24,88 +26,73 @@ const BusinessContext = React.createContext({
 
 export function BusinessContextProvider(props) {
   const [allBusinesses, setAllBusinesses] = useState([]);
-
   const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);
-
   const [homePageBusinessesList, setHomePageBusinessesList] =
     useState(allBusinesses);
 
   const url = {
-    businessesDB: `https://webflare-523f0-default-rtdb.firebaseio.com/businesses`,
+    businesses: `http://localhost:5000/api/businesses/`,
+    businessesByUser: `http://localhost:5000/api/user/`, // :uid
   };
 
-  const fetchBusinesses = useCallback(async () => {
-    const response = await fetch(`${url.businessesDB}.json`);
-    const fetchedData = (await response.json()) || [];
-    if (response.ok) {
-      return setAllBusinesses(Object.values(fetchedData));
-      // return setAllBusinesses(DUMMY_BUSINESSES);
-    }
-    return alert(response.message);
-  }, []);
-
-  useEffect(() => {
-    fetchBusinesses();
-  }, []);
-
-  // Filters Logic
+  // Filters Logic (Front End Only)
   useEffect(() => {
     setHomePageBusinessesList(() =>
       homePageFiltersHandler(allBusinesses, filters)
     );
   }, [allBusinesses, filters]);
 
-  const putBusinessData = async (businessData) => {
-    return fetch(`${url.businessesDB}/${businessData.id}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(businessData),
-    });
-  };
-
   const addNewBusiness = async (data, ownerId) => {
-    let businessData = formHookDataMapper(data);
-    businessData = {
-      ...businessData,
-      id: new Date().getTime().toString(),
-      ownerId,
-    };
-    const response = await putBusinessData(businessData);
+    const newBusinessData = formHookDataMapper(data);
 
-    if (response.ok) {
-      fetchBusinesses();
-      return console.log('Business Added Successfully');
+    try {
+      const response = await axios.post(url.businesses, newBusinessData);
+      console.log('Business Created Successfully:', response.data.business);
+    } catch (error) {
+      alert(`Error fetching business: ${error.response.data.message}`);
     }
-
-    return alert(response.message);
   };
 
-  const updateBusiness = async (data, ownerId, businessId) => {
+  const fetchBusinesses = async () => {
+    let response;
+    try {
+      response = await axios.get(`${url.businesses}`);
+      setAllBusinesses(response.data.businesses);
+    } catch (error) {
+      alert(`Error creating user: ${error.response.data.message}`);
+    }
+    return response.data;
+  };
+
+  const fetchBusiness = async (businessId) => {
+    let response;
+    try {
+      response = await axios.get(`${url.businesses}/${businessId}`);
+    } catch (error) {
+      return `Error creating user: ${error.response.data.message}`;
+    }
+    return response.data.business;
+  };
+
+  const updateBusiness = async (data, businessId) => {
     const businessData = {
       ...formHookDataMapper(data),
-      ownerId,
-      id: businessId,
     };
 
-    const response = await putBusinessData(businessData);
-    if (response.ok) {
-      fetchBusinesses();
-      return console.log('Business Updated Successfully');
+    try {
+      const response = await axios.patch(
+        `${url.businesses}/${businessId}`,
+        businessData
+      );
+      console.log('Business updated:', response.data);
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
     }
-
-    return alert(response.message);
   };
-  const deleteBusiness = async (data) => {
-    const response = await fetch(`${url.businessesDB}/${data.id}.json`, {
-      method: 'DELETE',
-    });
 
-    if (response.ok) {
-      fetchBusinesses();
-      return console.log('Business Deleted Successfully');
-    }
-
-    return alert(response.message);
-  };
+  useEffect(() => {
+    fetchBusinesses();
+  }, []);
 
   return (
     <BusinessContext.Provider
@@ -118,9 +105,10 @@ export function BusinessContextProvider(props) {
         allBusinesses,
         businessesList: homePageBusinessesList,
         addNewBusiness,
+        fetchBusiness,
         updateBusiness,
         filterHandler: dispatch,
-        deleteBusiness,
+        // deleteBusiness,
       }}
     >
       {props.children}

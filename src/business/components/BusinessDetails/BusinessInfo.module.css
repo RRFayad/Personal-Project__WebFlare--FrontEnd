@@ -17,6 +17,11 @@
   justify-content: space-between;
 }
 
+.error {
+  margin-top: 40px;
+  text-align: center;
+}
+
 .content img {
   height: 35vh;
   width: 100%;

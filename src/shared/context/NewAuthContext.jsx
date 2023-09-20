@@ -76,7 +76,6 @@ export function NewAuthContextProvider(props) {
         'userData',
         JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
       );
-      console.log(response.data);
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
     }
@@ -85,7 +84,6 @@ export function NewAuthContextProvider(props) {
 
   const updateProfileHandler = async (data) => {
     const profileData = formHookDataMapper(data);
-    console.log('aa', profileData);
 
     try {
       const response = await axios.patch(
