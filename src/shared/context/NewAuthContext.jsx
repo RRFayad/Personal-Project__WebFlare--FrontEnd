@@ -70,16 +70,10 @@ export function NewAuthContextProvider(props) {
     let response;
     try {
       response = await axios.get(`${url.userData}/${userId}`);
-      setIsLoggedIn(true);
-      setUserData(response.data.user);
-      localStorage.setItem(
-        'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
-      );
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
     }
-    return response.data;
+    return response.data.user;
   };
 
   const updateProfileHandler = async (data) => {
@@ -116,11 +110,16 @@ export function NewAuthContextProvider(props) {
   };
 
   useEffect(() => {
-    const localUserData = JSON.parse(localStorage.getItem('userData'));
-    if (localUserData) {
-      getUserData(localUserData.userId);
-      setIsLoggedIn(localUserData.isLoggedIn);
-    }
+    const getLoggedUserData = async () => {
+      const localUserData = JSON.parse(localStorage.getItem('userData'));
+      if (localUserData) {
+        const fetchedUserData = await getUserData(localUserData.userId);
+        setIsLoggedIn(localUserData.isLoggedIn);
+        console.log(fetchedUserData);
+        setUserData(fetchedUserData);
+      }
+    };
+    getLoggedUserData();
   }, []);
 
   return (

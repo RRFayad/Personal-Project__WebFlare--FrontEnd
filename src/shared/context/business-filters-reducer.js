@@ -107,7 +107,7 @@ export const homePageFiltersHandler = (businessesList, filters) => {
   // user filter logic
   if (filters.userFilter.id) {
     businesses = businesses.filter(
-      (business) => business.ownerId !== filters.userFilter.id
+      (business) => business.owner !== filters.userFilter.id
     );
   }
   return businesses;

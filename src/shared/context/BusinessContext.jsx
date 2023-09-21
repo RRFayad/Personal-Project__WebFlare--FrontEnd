@@ -19,6 +19,7 @@ const BusinessContext = React.createContext({
   allBusinesses: [],
   homePageBusinessesList: [],
   fetchBusiness: () => {},
+  fetchOwnerData: () => {},
   addNewBusiness: () => {},
   updateBusiness: () => {},
   deleteBusiness: () => {},
@@ -32,7 +33,8 @@ export function BusinessContextProvider(props) {
 
   const url = {
     businesses: `http://localhost:5000/api/businesses/`,
-    businessesByUser: `http://localhost:5000/api/user/`, // :uid
+    businessesByUser: `http://localhost:5000/api/businesses/user/`, // :uid
+    ownerData: `http://localhost:5000/api/users/business/`, //  :bid
   };
 
   // Filters Logic (Front End Only)
@@ -40,10 +42,11 @@ export function BusinessContextProvider(props) {
     setHomePageBusinessesList(() =>
       homePageFiltersHandler(allBusinesses, filters)
     );
+    // console.log(allBusinesses);
   }, [allBusinesses, filters]);
 
   const addNewBusiness = async (data, ownerId) => {
-    const newBusinessData = formHookDataMapper(data);
+    const newBusinessData = { ...formHookDataMapper(data), ownerId };
 
     try {
       const response = await axios.post(url.businesses, newBusinessData);
@@ -67,11 +70,21 @@ export function BusinessContextProvider(props) {
   const fetchBusiness = async (businessId) => {
     let response;
     try {
-      response = await axios.get(`${url.businesses}/${businessId}`);
+      response = await axios.get(`${url.businesses}${businessId}`);
     } catch (error) {
-      return `Error creating user: ${error.response.data.message}`;
+      console.log(`Error creating user: ${error.response.data.message}`);
     }
     return response.data.business;
+  };
+
+  const fetchOwnerData = async (businessId) => {
+    let response;
+    try {
+      response = await axios.get(`${url.ownerData}${businessId}`);
+    } catch (error) {
+      console.log(`Error fetching user: ${error.response.data.message}`);
+    }
+    return response.data.user;
   };
 
   const updateBusiness = async (data, businessId) => {
@@ -106,6 +119,7 @@ export function BusinessContextProvider(props) {
         businessesList: homePageBusinessesList,
         addNewBusiness,
         fetchBusiness,
+        fetchOwnerData,
         updateBusiness,
         filterHandler: dispatch,
         // deleteBusiness,
