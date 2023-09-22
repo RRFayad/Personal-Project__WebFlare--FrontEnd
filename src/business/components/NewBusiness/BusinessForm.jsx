@@ -153,8 +153,8 @@ function BusinessForm() {
         {!businessToBeEdittedId && (
           <FormButton
             disabled={!formIsValid}
-            onClick={() => {
-              addNewBusiness(formData, userData.id);
+            onClick={async () => {
+              await addNewBusiness(formData, userData.id);
               history.push('/');
             }}
           >
@@ -164,8 +164,8 @@ function BusinessForm() {
         {businessToBeEdittedId && (
           <FormButton
             disabled={!formIsValid}
-            onClick={() => {
-              updateBusiness(formData, businessToBeEdittedId);
+            onClick={async () => {
+              await updateBusiness(formData, businessToBeEdittedId);
               history.push('/');
             }}
           >

@@ -1,93 +1,95 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
+
 import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const OffersContext = React.createContext({
-  offersList: [],
+  getSentOffers: () => {},
+  getReceivedOffers: () => {},
   sendOffer: () => {},
   acceptOffer: () => {},
   denyOffer: () => {},
 });
 
 export function OffersContextProvider(props) {
-  // const offersList = DUMMY_OFFERS;
-  const [offersList, setOffersList] = useState([]);
-
-  const url = {
-    offersDB: `https://webflare-523f0-default-rtdb.firebaseio.com/offers`,
+  const getSentOffers = async (userId) => {
+    let response;
+    try {
+      response = await axios.get(
+        `http://localhost:5000/api/offers/user/sent/${userId}`
+      );
+    } catch (error) {
+      console.log(`Error fetching offer: ${error.response.data.message}`);
+    }
+    return response.data.offers;
   };
 
-  const fetchOffers = useCallback(async () => {
-    const response = await fetch(`${url.offersDB}.json`);
-    const fetchedData = (await response.json()) || {};
-    if (response.ok) {
-      return setOffersList(Object.values(fetchedData));
+  const getReceivedOffers = async (userId) => {
+    let response;
+    try {
+      response = await axios.get(
+        `http://localhost:5000/api/offers/user/received/${userId}`
+      );
+    } catch (error) {
+      console.log(`Error fetching offer: ${error.response.data.message}`);
     }
-    return alert(response.message);
-  }, []);
-
-  useEffect(() => {
-    fetchOffers();
-  }, []);
+    return response.data.offers;
+  };
 
   const sendOffer = async (data, senderId, businessId) => {
-    // const offerData = formHookDataMapper(data);
-
     const offerData = {
       ...formHookDataMapper(data),
-      id: new Date().getTime().toString(),
-      sender: senderId,
+      senderId,
       businessId,
-      status: 'active',
     };
 
-    const response = await fetch(`${url.offersDB}/${offerData.id}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(offerData),
-    });
-
-    if (response.ok) {
-      await fetchOffers();
-      return console.log('Offer Sent Successfully');
+    let response;
+    try {
+      response = await axios.post(
+        `http://localhost:5000/api/offers/`,
+        offerData
+      );
+      console.log('Offer Created Successfully:', response.data.offer);
+    } catch (error) {
+      alert(`Error creating offer: ${error.response.data.message}`);
     }
-
-    return alert(response.message);
+    return response.data.offer;
   };
 
-  const acceptOffer = async (offer) => {
-    const updatedOfferData = { ...offer, status: 'accepted' };
-    const response = await fetch(`${url.offersDB}/${offer.id}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(updatedOfferData),
-    });
-
-    if (response.ok) {
-      await fetchOffers();
-      return console.log('Offer Accepted!');
+  const acceptOffer = async (offerId) => {
+    let response;
+    try {
+      response = await axios.patch(
+        `http://localhost:5000/api/offers/${offerId}`
+      );
+      console.log('Offer Updated Successfully:', response.data.offer);
+    } catch (error) {
+      console.log(`Error Updateing Offer: ${error.response.data.message}`);
     }
-
-    return alert(response.message);
+    return response.data.offer;
   };
-  const denyOffer = async (offer) => {
-    const response = await fetch(`${url.offersDB}/${offer.id}.json`, {
-      method: 'DELETE',
-    });
-    if (response.ok) {
-      setOffersList((prevState) => {
-        return prevState.filter((item) => item.id !== offer.id);
-      });
-      // await fetchOffers();
-      return console.log('Offer Denied Successfully');
+  const denyOffer = async (offerId) => {
+    let response;
+    try {
+      response = await axios.delete(
+        `http://localhost:5000/api/offers/${offerId}`
+      );
+      console.log(
+        'Offer Denied (and Deleted) Successfully:',
+        response.data.offer
+      );
+    } catch (error) {
+      console.log(`Error Updateing Offer: ${error.response.data.message}`);
     }
-    return alert(
-      'I was not possible to update our servers! Please try again later!'
-    );
+    return response.data.messages;
   };
 
   return (
     <OffersContext.Provider
       value={{
-        offersList,
+        getSentOffers,
+        getReceivedOffers,
         sendOffer,
         acceptOffer,
         denyOffer,
