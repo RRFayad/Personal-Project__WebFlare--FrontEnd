@@ -1,22 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
-import DataContext from '../../shared/context/BusinessContext';
+import BusinessContext from '../../shared/context/BusinessContext';
 import NewAuthContext from '../../shared/context/NewAuthContext';
 import UserCard from '../components/UserCard';
 import BusinessList from '../../business/components/Homepage/BusinessList';
+import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
 
 import classes from './Profile.module.css';
 
 function Profile() {
-  const { allBusinesses } = useContext(DataContext);
+  const { allBusinesses, getBusinessesByUserId } = useContext(BusinessContext);
   const { userData } = useContext(NewAuthContext);
+  const [usersBusinesses, setUsersBusinesses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const usersBusiness = allBusinesses.filter(
-    (item) => item.ownerId === userData.id
-  );
+  // const usersBusiness = allBusinesses.filter(
+  //   (item) => item.ownerId === userData.id
+  // );
+  useEffect(() => {
+    const fetchBusinesses = async () => {
+      setIsLoading(true);
+      try {
+        const responseData = await getBusinessesByUserId(userData.id);
+        setUsersBusinesses(responseData);
+        setIsLoading(false);
+      } catch (error) {
+        setUsersBusinesses([]);
+        setIsLoading(false);
+        console.log('Error fetching businesses');
+      }
+    };
+    fetchBusinesses();
+  }, []);
 
   return (
     <>
@@ -25,17 +43,22 @@ function Profile() {
         <h1 className={classes['user-info__title']}>Personal Info:</h1>
         <UserCard />
         <hr />
-        {usersBusiness.length === 0 && (
+        {isLoading && (
+          <div className={classes['businesses-list__title']}>
+            <LoadingSpinner />
+          </div>
+        )}
+        {!isLoading && usersBusinesses.length === 0 && (
           <h1 className={classes['businesses-list__title']}>
             No Business Found!
           </h1>
         )}
-        {usersBusiness.length > 0 && (
+        {!isLoading && usersBusinesses.length > 0 && (
           <>
             <h1 className={classes['businesses-list__title']}>
               Your Businesses:
             </h1>
-            <BusinessList businessesList={usersBusiness} />
+            <BusinessList businessesList={usersBusinesses} />
           </>
         )}
       </main>

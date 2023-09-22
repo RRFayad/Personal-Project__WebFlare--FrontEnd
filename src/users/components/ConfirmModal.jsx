@@ -1,17 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
 
 import BusinessContext from '../../shared/context/BusinessContext';
 import FormButton from '../../shared/ui-ux/FormButton';
+import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
 import classes from './ConfirmModal.module.css';
 
 function ConfirmModal(props) {
   const { deleteBusiness } = useContext(BusinessContext);
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   return ReactDOM.createPortal(
     <div className={classes.modal}>
+      {isLoading && <LoadingSpinner overlay />}
       <header className={classes.modal__header}>
         <h2 className={classes.modal__title}>Are you sure?</h2>
         {props.onClick && (
@@ -30,8 +33,10 @@ function ConfirmModal(props) {
       <footer className={classes.modal__footer}>
         <FormButton
           caution
-          onClick={() => {
-            deleteBusiness(props.business);
+          onClick={async () => {
+            setIsLoading(true);
+            await deleteBusiness(props.business.id);
+            setIsLoading(false);
             history.push('/');
           }}
         >

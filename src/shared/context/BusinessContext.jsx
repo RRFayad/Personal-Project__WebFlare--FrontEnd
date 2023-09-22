@@ -20,6 +20,7 @@ const BusinessContext = React.createContext({
   homePageBusinessesList: [],
   fetchBusiness: () => {},
   fetchOwnerData: () => {},
+  getBusinessesByUserId: () => {},
   addNewBusiness: () => {},
   updateBusiness: () => {},
   deleteBusiness: () => {},
@@ -87,12 +88,20 @@ export function BusinessContextProvider(props) {
     return response.data.user;
   };
 
+  const getBusinessesByUserId = async (userId) => {
+    let response;
+    try {
+      response = await axios.get(`${url.businessesByUser}${userId}`);
+    } catch (error) {
+      console.log(`Error fetching user: ${error.response.data.message}`);
+    }
+    return response.data.businesses;
+  };
+
   const updateBusiness = async (data, businessId) => {
     const businessData = {
       ...formHookDataMapper(data),
     };
-
-    console.log(businessId);
 
     try {
       const response = await axios.patch(
@@ -100,6 +109,17 @@ export function BusinessContextProvider(props) {
         businessData
       );
       console.log('Business updated:', response.data);
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
+    }
+  };
+
+  const deleteBusiness = async (businessId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/businesses/${businessId}`
+      );
+      console.log('Business Deleted Successfully!');
     } catch (error) {
       alert(`Error updating user: ${error.response.data.message}`);
     }
@@ -122,9 +142,10 @@ export function BusinessContextProvider(props) {
         addNewBusiness,
         fetchBusiness,
         fetchOwnerData,
+        getBusinessesByUserId,
         updateBusiness,
         filterHandler: dispatch,
-        // deleteBusiness,
+        deleteBusiness,
       }}
     >
       {props.children}

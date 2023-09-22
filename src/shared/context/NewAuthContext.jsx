@@ -115,7 +115,7 @@ export function NewAuthContextProvider(props) {
       if (localUserData) {
         const fetchedUserData = await getUserData(localUserData.userId);
         setIsLoggedIn(localUserData.isLoggedIn);
-        console.log(fetchedUserData);
+        // console.log(fetchedUserData);
         setUserData(fetchedUserData);
       }
     };
