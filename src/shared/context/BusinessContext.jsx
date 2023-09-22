@@ -92,9 +92,11 @@ export function BusinessContextProvider(props) {
       ...formHookDataMapper(data),
     };
 
+    console.log(businessId);
+
     try {
       const response = await axios.patch(
-        `${url.businesses}/${businessId}`,
+        `http://localhost:5000/api/businesses/${businessId}`,
         businessData
       );
       console.log('Business updated:', response.data);

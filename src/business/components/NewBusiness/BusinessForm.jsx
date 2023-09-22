@@ -165,7 +165,7 @@ function BusinessForm() {
           <FormButton
             disabled={!formIsValid}
             onClick={() => {
-              updateBusiness(formData, userData.id, businessToBeEdittedId);
+              updateBusiness(formData, businessToBeEdittedId);
               history.push('/');
             }}
           >
