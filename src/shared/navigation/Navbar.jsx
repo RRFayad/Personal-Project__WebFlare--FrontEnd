@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import NewAuthContext from '../context/NewAuthContext';
+import NewAuthContext from '../context/AuthContext';
 import ModalMenu from './ModalMenu';
 import Backdrop from '../ui-ux/Backdrop';
 

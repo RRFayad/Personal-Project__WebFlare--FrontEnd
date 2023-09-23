@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { NavLink, Link } from 'react-router-dom';
 
 import SideDrawer from '../ui-ux/SideDrawer';
-import NewAuthContext from '../context/NewAuthContext';
+import NewAuthContext from '../context/AuthContext';
 import classes from './ModalMenu.module.css';
 
 function ModalMenu(props) {

@@ -5,31 +5,30 @@ import axios from 'axios';
 import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const OffersContext = React.createContext({
-  getSentOffers: () => {},
-  getReceivedOffers: () => {},
+  fetchOffer: () => {},
+  fetchUserOffers: () => {},
   sendOffer: () => {},
   acceptOffer: () => {},
   denyOffer: () => {},
 });
 
 export function OffersContextProvider(props) {
-  const getSentOffers = async (userId) => {
+  const fetchOffer = async (offerId) => {
     let response;
     try {
-      response = await axios.get(
-        `http://localhost:5000/api/offers/user/sent/${userId}`
-      );
+      response = await axios.get(`http://localhost:5000/api/offers/${offerId}`);
     } catch (error) {
       console.log(`Error fetching offer: ${error.response.data.message}`);
     }
-    return response.data.offers;
+
+    return response.data.offer;
   };
 
-  const getReceivedOffers = async (userId) => {
+  const fetchUserOffers = async (userId) => {
     let response;
     try {
       response = await axios.get(
-        `http://localhost:5000/api/offers/user/received/${userId}`
+        `http://localhost:5000/api/offers/user/${userId}`
       );
     } catch (error) {
       console.log(`Error fetching offer: ${error.response.data.message}`);
@@ -43,6 +42,8 @@ export function OffersContextProvider(props) {
       senderId,
       businessId,
     };
+
+    console.log(offerData);
 
     let response;
     try {
@@ -88,8 +89,8 @@ export function OffersContextProvider(props) {
   return (
     <OffersContext.Provider
       value={{
-        getSentOffers,
-        getReceivedOffers,
+        fetchOffer,
+        fetchUserOffers,
         sendOffer,
         acceptOffer,
         denyOffer,

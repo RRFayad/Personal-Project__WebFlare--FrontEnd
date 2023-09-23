@@ -6,7 +6,7 @@ import FormButton from '../../../shared/ui-ux/FormButton';
 import FormInput from '../../../shared/ui-ux/FormInput';
 import useForm from '../../../shared/custom-hooks/useForm';
 import OffersContext from '../../../shared/context/OffersContext';
-import NewAuthContext from '../../../shared/context/NewAuthContext';
+import NewAuthContext from '../../../shared/context/AuthContext';
 
 import {
   minLengthValidator,

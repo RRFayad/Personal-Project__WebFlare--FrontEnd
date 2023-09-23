@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import NewAuthContext from '../../../shared/context/NewAuthContext';
+import NewAuthContext from '../../../shared/context/AuthContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import Backdrop from '../../../shared/ui-ux/Backdrop';
 import ConfirmModal from '../../../users/components/ConfirmModal';

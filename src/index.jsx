@@ -5,22 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { BusinessContextProvider } from './shared/context/BusinessContext';
-import { AuthContextProvider } from './shared/context/AuthContext';
 import { OffersContextProvider } from './shared/context/OffersContext';
-import { NewAuthContextProvider } from './shared/context/NewAuthContext';
+import { AuthContextProvider } from './shared/context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <NewAuthContextProvider>
-      <AuthContextProvider>
-        <BusinessContextProvider>
-          <OffersContextProvider>
-            <App />
-          </OffersContextProvider>
-        </BusinessContextProvider>
-      </AuthContextProvider>
-    </NewAuthContextProvider>
+    <AuthContextProvider>
+      <BusinessContextProvider>
+        <OffersContextProvider>
+          <App />
+        </OffersContextProvider>
+      </BusinessContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 

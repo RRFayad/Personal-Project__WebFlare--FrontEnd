@@ -1,188 +1,138 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { DUMMY_USERS } from '../util/data';
+import axios from 'axios';
+
 import { formHookDataMapper } from '../util/validators-and-formatters';
 
 const AuthContext = React.createContext({
   isLoggedIn: false,
-  loginHandler: (email, password) => {},
+  signUpHandler: () => {},
+  loginHandler: () => {},
   logoutHandler: () => {},
+  getUserData: () => {},
   updateProfileHandler: () => {},
   updatePasswordHandler: () => {},
   userData: {},
-  usersList: [],
 });
 
 export function AuthContextProvider(props) {
-  const [usersList, setUsersList] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(undefined);
-  const [idToken, setIdToken] = useState(null);
 
   const url = {
-    signUp: `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-    login: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-    changePassword: `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-    usersDB: `https://webflare-523f0-default-rtdb.firebaseio.com/users`,
+    signUp: `http://localhost:5000/api/users/signup`,
+    login: `http://localhost:5000/api/users/login`,
+    userData: `http://localhost:5000/api/users`, // /:uid
+    updatePassword: `http://localhost:5000/api/users/update-password`, // /:uid
   };
 
-  const getUserData = useCallback(async (userId) => {
-    const response = await fetch(`${url.usersDB}/${userId}.json`);
-    const fetchedData = (await response.json()) || {};
-    if (response.ok) {
-      return setUserData({ ...fetchedData });
-    }
-    return alert(response.message);
-  }, []);
+  const signUpHandler = async (formUserData) => {
+    const newUserData = formHookDataMapper(formUserData);
 
-  const fetchUsers = useCallback(async () => {
-    const response = await fetch(`${url.usersDB}.json`);
-    const fetchedData = (await response.json()) || {};
-    if (response.ok) {
-      return setUsersList(Object.values(fetchedData));
-      // return setAllBusinesses(DUMMY_BUSINESSES);
+    try {
+      const response = await axios.post(url.signUp, newUserData);
+      setIsLoggedIn(true);
+      setUserData(response.data.user);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+      );
+    } catch (error) {
+      alert(`Error creating user: ${error.response.data.message}`);
     }
-    return alert(response.message);
-  }, []);
+  };
 
-  useEffect(() => {
-    const localUserData = JSON.parse(localStorage.getItem('userData'));
-    // console.log(localUserData);
-    if (localUserData) {
-      // setUserData(DUMMY_USERS.find((user) => user.id === 'U0001'));
-      getUserData(localUserData.userId);
-      setIsLoggedIn(localUserData.isLoggedIn);
-      setIdToken(localUserData.idToken);
+  const loginHandler = async (formUserData) => {
+    const toBeLoggedUserData = formHookDataMapper(formUserData);
+
+    try {
+      const response = await axios.post(url.login, toBeLoggedUserData);
+      setIsLoggedIn(true);
+      setUserData(response.data.user);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+      );
+    } catch (error) {
+      alert(`Error fetching user: ${error.response.data.message}`);
     }
-    fetchUsers();
-  }, []);
+  };
 
   const logoutHandler = () => {
     localStorage.removeItem('userData');
-    setIdToken(null);
     setIsLoggedIn(false);
     setUserData(null);
     return console.log('User logged out!!');
   };
 
-  const putUserData = async (newUserData, userId) => {
-    const response = await fetch(`${url.usersDB}/${userId}.json`, {
-      method: 'PUT',
-      body: JSON.stringify({ ...newUserData, id: userId }),
-    });
-    const userFetchedData = await response.json();
-    setUserData(userFetchedData);
-  };
-
-  const loginHandler = async (userHasAccount, formData) => {
-    const newUserData = formHookDataMapper(formData);
-    const URL = userHasAccount ? url.login : url.signUp;
-
-    const response = await fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: newUserData.email,
-        password: newUserData.password,
-        returnSecureToken: true,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    delete newUserData.password;
-
-    if (response.ok) {
-      const fetchedData = await response.json();
-      setIdToken(fetchedData.idToken);
-      setIsLoggedIn(true);
-
-      if (userHasAccount) {
-        const loggedUserData = await getUserData(fetchedData.localId);
-      }
-
-      if (!userHasAccount) {
-        await putUserData(newUserData, fetchedData.localId);
-      }
-
-      localStorage.setItem(
-        'userData',
-        JSON.stringify({
-          isLoggedIn: true,
-          userId: fetchedData.localId,
-          idToken: fetchedData.idToken,
-        })
-      );
-
-      console.log(
-        `User ${userHasAccount ? 'Logged In' : 'Signed Up'} Successfully!`
-      );
+  const getUserData = async (userId) => {
+    let response;
+    try {
+      response = await axios.get(`${url.userData}/${userId}`);
+    } catch (error) {
+      alert(`Error creating user: ${error.response.data.message}`);
     }
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      const errorMessage = errorData.error.message
-        ? errorData.error.message
-        : 'Authentication Failed';
-      alert(errorMessage);
-    }
-    return response;
+    return response.data.user;
   };
 
   const updateProfileHandler = async (data) => {
     const profileData = formHookDataMapper(data);
-    await putUserData(profileData, userData.id);
-    getUserData(userData.id);
+
+    try {
+      const response = await axios.patch(
+        `${url.userData}/${userData.id}`,
+        profileData
+      );
+      console.log('User updated:', response);
+      setUserData(response.data.user);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+      );
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
+    }
   };
 
   const updatePasswordHandler = async (data) => {
     const profileData = formHookDataMapper(data);
 
-    const response = await fetch(url.changePassword, {
-      method: 'POST',
-      body: JSON.stringify({
-        idToken,
-        password: profileData.newPassword,
-        returnSecureToken: true,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    if (response.ok) {
-      const fetchedData = await response.json();
-      setIdToken(fetchedData.idToken);
-
-      localStorage.setItem(
-        'userData',
-        JSON.stringify({
-          isLoggedIn: true,
-          userId: fetchedData.localId,
-          idToken: fetchedData.idToken,
-        })
+    try {
+      const response = await axios.patch(
+        `${url.updatePassword}/${userData.id}`,
+        profileData
       );
-
-      return console.log('Password Updated Successfully!');
+      console.log('Password updated:', response.data.message);
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
     }
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      const errorMessage = errorData.error.message
-        ? errorData.error.message
-        : 'Authentication Failed';
-      alert(errorMessage);
-    }
-    return console.log('Failed to Update Password!');
   };
+
+  useEffect(() => {
+    const getLoggedUserData = async () => {
+      const localUserData = JSON.parse(localStorage.getItem('userData'));
+      if (localUserData) {
+        const fetchedUserData = await getUserData(localUserData.userId);
+        setIsLoggedIn(localUserData.isLoggedIn);
+        // console.log(fetchedUserData);
+        setUserData(fetchedUserData);
+      }
+    };
+    getLoggedUserData();
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
+        signUpHandler,
         loginHandler,
         logoutHandler,
-        isLoggedIn,
-        userData,
+        getUserData,
         updateProfileHandler,
         updatePasswordHandler,
-        usersList,
+        userData,
+        isLoggedIn,
       }}
     >
       {props.children}

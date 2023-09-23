@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import NewAuthContext from '../../../shared/context/NewAuthContext';
+import NewAuthContext from '../../../shared/context/AuthContext';
 import BusinessContext from '../../../shared/context/BusinessContext';
 import Form from '../../../shared/ui-ux/Form';
 import FormButton from '../../../shared/ui-ux/FormButton';
@@ -169,9 +169,14 @@ function BusinessForm() {
                   disabled={!formIsValid}
                   onClick={async () => {
                     setIsLoading(true);
-                    await addNewBusiness(formData, userData.id);
-                    setIsLoading(false);
-                    history.push('/');
+                    try {
+                      await addNewBusiness(formData, userData.id);
+                      setIsLoading(false);
+                      history.push('/');
+                    } catch (error) {
+                      console.log(error);
+                      setIsLoading(false);
+                    }
                   }}
                 >
                   Create

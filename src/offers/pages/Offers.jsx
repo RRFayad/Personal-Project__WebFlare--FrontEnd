@@ -1,37 +1,46 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
 import AuthContext from '../../shared/context/AuthContext';
-import BusinessContext from '../../shared/context/BusinessContext';
 import OffersContext from '../../shared/context/OffersContext';
 import OffersList from '../components/OffersList';
+import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
 
 import classes from './Offers.module.css';
 
 function Offers() {
   const { userData } = useContext(AuthContext);
-  const { offersList } = useContext(OffersContext);
-  const usersBusinesses = useContext(BusinessContext).allBusinesses.filter(
-    (item) => item.ownerId === userData.id
-  );
+  const { fetchUserOffers } = useContext(OffersContext);
+  const [userOffers, setUserOffers] = useState([]);
+  const [filter, setFilter] = useState('Received Offers');
+  const [offersToBeRendered, setOffersToBeRendered] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const sentOffers = offersList.filter((item) => item.sender === userData.id);
-
-  const receivedOffers = offersList.filter(
-    (offer) => usersBusinesses.findIndex((b) => offer.businessId === b.id) > -1
-  );
-
-  const [filter, setFilter] = useState('All Offers');
-  const [filteredOffers, setFilteredOffers] = useState(receivedOffers);
+  useEffect(() => {
+    const getUserOffers = async (userId) => {
+      setIsLoading(true);
+      try {
+        const offersData = await fetchUserOffers(userId);
+        setUserOffers(offersData);
+        setOffersToBeRendered(offersData.receivedOffers);
+        setIsLoading(false);
+      } catch (error) {
+        setUserOffers([]);
+        setIsLoading(false);
+        console.log(error);
+      }
+    };
+    getUserOffers(userData.id);
+  }, []);
 
   const changeFilterHandler = (filterText) => {
     if (filterText === 'Received Offers') {
-      setFilteredOffers(receivedOffers);
+      setOffersToBeRendered(userOffers.receivedOffers);
     }
     if (filterText === 'Sent Offers') {
-      setFilteredOffers(sentOffers);
+      setOffersToBeRendered(userOffers.sentOffers);
     }
   };
 
@@ -61,11 +70,14 @@ function Offers() {
         </label>
       </header>
       <hr />
+      {isLoading && <LoadingSpinner overlay />}
       <main className={classes.main}>
-        {filteredOffers.length === 0 && (
+        {!isLoading && offersToBeRendered.length === 0 && (
           <h1 className={classes['main--no-list']}>There Are No Offers Yet!</h1>
         )}
-        {filteredOffers.length > 0 && <OffersList offers={filteredOffers} />}
+        {!isLoading && offersToBeRendered.length > 0 && (
+          <OffersList offers={offersToBeRendered} />
+        )}
       </main>
       <Footer />
     </>

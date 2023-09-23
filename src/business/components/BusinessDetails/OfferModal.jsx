@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 import BusinessContext from '../../../shared/context/BusinessContext';
-import NewAuthContext from '../../../shared/context/NewAuthContext';
+import NewAuthContext from '../../../shared/context/AuthContext';
 import LoadingSpinner from '../../../shared/ui-ux/LoadingSpinner';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 

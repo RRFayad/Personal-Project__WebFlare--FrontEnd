@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import NewAuthContext from '../../../shared/context/NewAuthContext';
+import NewAuthContext from '../../../shared/context/AuthContext';
 import BusinessContext from '../../../shared/context/BusinessContext';
 import classes from './SidebarFilters.module.css';
 

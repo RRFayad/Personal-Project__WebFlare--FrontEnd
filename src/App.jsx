@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import LoadingSpinner from './shared/ui-ux/LoadingSpinner';
-import NewAuthContext from './shared/context/NewAuthContext';
+import NewAuthContext from './shared/context/AuthContext';
 
 import classes from './App.module.css';
 

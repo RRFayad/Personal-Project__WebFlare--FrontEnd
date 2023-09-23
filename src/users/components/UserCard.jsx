@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import NewAuthContext from '../../shared/context/NewAuthContext';
+import NewAuthContext from '../../shared/context/AuthContext';
 import classes from './UserCard.module.css';
 
 function UserCard() {

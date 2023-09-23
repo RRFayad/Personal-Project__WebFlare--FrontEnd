@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import NewAuthContext from '../../shared/context/NewAuthContext';
+import NewAuthContext from '../../shared/context/AuthContext';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';
@@ -133,13 +133,24 @@ function Auth() {
               onClick={async () => {
                 setIsLoading(true);
                 if (!userHasAccount) {
-                  await signUpHandler(formData);
+                  try {
+                    await signUpHandler(formData);
+                    history.push('/');
+                  } catch (error) {
+                    setIsLoading(false);
+                    return console.log(error);
+                  }
                 }
                 if (userHasAccount) {
-                  await loginHandler(formData);
+                  try {
+                    await loginHandler(formData);
+                    history.push('/');
+                  } catch (error) {
+                    setIsLoading(false);
+                    return console.log(error);
+                  }
                 }
-                setIsLoading(false);
-                history.push('/');
+                return setIsLoading(false);
               }}
             >
               {userHasAccount ? 'Login' : 'Sign Up'}

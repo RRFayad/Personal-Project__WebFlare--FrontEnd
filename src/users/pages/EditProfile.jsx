@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import NewAuthContext from '../../shared/context/NewAuthContext';
+import NewAuthContext from '../../shared/context/AuthContext';
 import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 import Form from '../../shared/ui-ux/Form';

@@ -4,7 +4,7 @@ import Navbar from '../../shared/navigation/Navbar';
 import Footer from '../../shared/navigation/Footer';
 
 import BusinessContext from '../../shared/context/BusinessContext';
-import NewAuthContext from '../../shared/context/NewAuthContext';
+import NewAuthContext from '../../shared/context/AuthContext';
 import UserCard from '../components/UserCard';
 import BusinessList from '../../business/components/Homepage/BusinessList';
 import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
