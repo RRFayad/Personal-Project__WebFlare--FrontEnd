@@ -46,17 +46,6 @@ export function BusinessContextProvider(props) {
     // console.log(allBusinesses);
   }, [allBusinesses, filters]);
 
-  const addNewBusiness = async (data, ownerId) => {
-    const newBusinessData = { ...formHookDataMapper(data), ownerId };
-
-    try {
-      const response = await axios.post(url.businesses, newBusinessData);
-      console.log('Business Created Successfully:', response.data.business);
-    } catch (error) {
-      alert(`Error fetching business: ${error.response.data.message}`);
-    }
-  };
-
   const fetchBusinesses = async () => {
     let response;
     try {
@@ -65,7 +54,22 @@ export function BusinessContextProvider(props) {
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
     }
-    return response.data;
+    return response.data.businesses;
+  };
+
+  const addNewBusiness = async (data, ownerId) => {
+    const newBusinessData = { ...formHookDataMapper(data), ownerId };
+
+    let response;
+    try {
+      response = await axios.post(url.businesses, newBusinessData);
+      console.log('Business Created Successfully:', response.data.business);
+    } catch (error) {
+      alert(`Error fetching business: ${error.response.data.message}`);
+    }
+
+    await fetchBusinesses();
+    return response.data.business;
   };
 
   const fetchBusiness = async (businessId) => {
@@ -103,8 +107,9 @@ export function BusinessContextProvider(props) {
       ...formHookDataMapper(data),
     };
 
+    let response;
     try {
-      const response = await axios.patch(
+      response = await axios.patch(
         `http://localhost:5000/api/businesses/${businessId}`,
         businessData
       );
@@ -112,6 +117,8 @@ export function BusinessContextProvider(props) {
     } catch (error) {
       alert(`Error updating user: ${error.response.data.message}`);
     }
+    await fetchBusinesses();
+    return response.data.business;
   };
 
   const deleteBusiness = async (businessId) => {
@@ -123,6 +130,7 @@ export function BusinessContextProvider(props) {
     } catch (error) {
       alert(`Error updating user: ${error.response.data.message}`);
     }
+    await fetchBusinesses();
   };
 
   useEffect(() => {
