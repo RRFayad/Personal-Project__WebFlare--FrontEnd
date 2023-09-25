@@ -12,9 +12,8 @@ import classes from './OfferModal.module.css';
 
 function OfferCard(props) {
   const { isLoggedIn, userData } = useContext(NewAuthContext);
-  const { fetchOwnerData } = useContext(BusinessContext);
+  const { fetchOwnerData, isLoading } = useContext(BusinessContext);
   const [owner, setOwner] = useState(undefined);
-  const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
 
@@ -37,10 +36,8 @@ function OfferCard(props) {
       try {
         const fetchedOwner = await fetchOwnerData(businessId);
         setOwner(fetchedOwner);
-        setIsLoading(false);
       } catch (error) {
         setOwner(null);
-        setIsLoading(false);
         console.log(`Error fetching business`);
       }
     };

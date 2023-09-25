@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 import BusinessList from './BusinessList';
-import DataContext from '../../../shared/context/BusinessContext';
+import BusinessContext from '../../../shared/context/BusinessContext';
 import classes from './MainContent.module.css';
 import FilterModal from './FilterModal';
 import Backdrop from '../../../shared/ui-ux/Backdrop';
+import LoadingSpinner from '../../../shared/ui-ux/LoadingSpinner';
 
 function MainContent() {
-  const { businessesList, filterHandler } = useContext(DataContext);
+  const { businessesList, filterHandler, isLoading } =
+    useContext(BusinessContext);
   const [filterModalIsShown, setFilterModalIsShown] = useState(false);
 
   return (
@@ -45,7 +47,8 @@ function MainContent() {
             <FontAwesomeIcon icon={faFilter} />
           </button>
         </div>
-        {businessesList.length === 0 ? (
+        {isLoading && <LoadingSpinner overlay />}
+        {!isLoading && businessesList.length === 0 ? (
           <h1 className={classes['business-list--no-items']}>
             No Business Found!
           </h1>

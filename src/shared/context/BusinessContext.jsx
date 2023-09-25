@@ -18,6 +18,7 @@ const BusinessContext = React.createContext({
   // business data
   allBusinesses: [],
   homePageBusinessesList: [],
+  isLoading: false,
   fetchBusiness: () => {},
   fetchOwnerData: () => {},
   getBusinessesByUserId: () => {},
@@ -27,7 +28,9 @@ const BusinessContext = React.createContext({
 });
 
 export function BusinessContextProvider(props) {
+  const [isLoading, setIsLoading] = useState(false);
   const [allBusinesses, setAllBusinesses] = useState([]);
+
   const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);
   const [homePageBusinessesList, setHomePageBusinessesList] =
     useState(allBusinesses);
@@ -47,12 +50,15 @@ export function BusinessContextProvider(props) {
   }, [allBusinesses, filters]);
 
   const fetchBusinesses = async () => {
+    setIsLoading(true);
     let response;
     try {
       response = await axios.get(`${url.businesses}`);
       setAllBusinesses(response.data.businesses);
+      setIsLoading(false);
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
+      setIsLoading(false);
     }
     return response.data.businesses;
   };
@@ -79,6 +85,7 @@ export function BusinessContextProvider(props) {
     } catch (error) {
       console.log(`Error creating user: ${error.response.data.message}`);
     }
+
     return response.data.business;
   };
 
@@ -147,6 +154,7 @@ export function BusinessContextProvider(props) {
         // business data
         allBusinesses,
         businessesList: homePageBusinessesList,
+        isLoading,
         addNewBusiness,
         fetchBusiness,
         fetchOwnerData,
