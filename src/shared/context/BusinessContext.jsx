@@ -28,7 +28,7 @@ const BusinessContext = React.createContext({
 });
 
 export function BusinessContextProvider(props) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Created this only to show that I am loading in the HomePage
   const [allBusinesses, setAllBusinesses] = useState([]);
 
   const [filters, dispatch] = useReducer(filtersReducer, filtersInitializer);

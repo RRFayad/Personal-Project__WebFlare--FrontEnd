@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom';
 
 import Form from '../../../shared/ui-ux/Form';
@@ -7,6 +7,7 @@ import FormInput from '../../../shared/ui-ux/FormInput';
 import useForm from '../../../shared/custom-hooks/useForm';
 import OffersContext from '../../../shared/context/OffersContext';
 import NewAuthContext from '../../../shared/context/AuthContext';
+import LoadingSpinner from '../../../shared/ui-ux/LoadingSpinner';
 
 import {
   minLengthValidator,
@@ -20,6 +21,7 @@ function NewOfferForm() {
   const { bid: businessId } = useParams();
   const { userData } = useContext(NewAuthContext);
   const { sendOffer } = useContext(OffersContext);
+  const [isLoadding, setIsLoading] = useState(false);
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
 
@@ -29,6 +31,7 @@ function NewOfferForm() {
 
   return (
     <Form>
+      {isLoadding && <LoadingSpinner overlay />}
       <div className={classes.form__inputs}>
         <FormInput
           labelValue="Offer Value"
@@ -57,8 +60,9 @@ function NewOfferForm() {
         <FormButton
           disabled={!formIsValid}
           onClick={async () => {
-            // eslint-disable-next-line
+            setIsLoading(true);
             await sendOffer(formData, userData.id, businessId);
+            setIsLoading(false);
             history.push(`/success/offer-sent`);
           }}
         >

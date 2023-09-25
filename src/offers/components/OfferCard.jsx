@@ -24,7 +24,6 @@ function OfferCard(props) {
       try {
         const offerData = await fetchOffer(props.offer.id);
         setOffer(offerData);
-        console.log(offerData);
         setStakeHolder(() =>
           userData.id === offerData.sender.id
             ? offerData.business.owner
@@ -96,8 +95,10 @@ function OfferCard(props) {
                   type="button"
                   className={classes.card__button}
                   onClick={async () => {
-                    await denyOffer(offer);
-                    history.push('/');
+                    setIsLoading(true);
+                    await denyOffer(offer.id);
+                    setIsLoading(false);
+                    props.updateOffersHandler(userData.id);
                   }}
                 >
                   Deny Offer
@@ -105,9 +106,11 @@ function OfferCard(props) {
                 <button
                   type="button"
                   className={`${classes.card__button} ${classes['card__button--cta']}`}
-                  onClick={() => {
-                    acceptOffer(offer);
-                    history.push(`/users/${userData.id}/offers`);
+                  onClick={async () => {
+                    setIsLoading(true);
+                    await acceptOffer(offer.id);
+                    setIsLoading(false);
+                    props.updateOffersHandler(userData.id);
                   }}
                 >
                   Accept Offer

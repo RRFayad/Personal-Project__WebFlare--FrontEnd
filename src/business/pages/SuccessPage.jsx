@@ -10,7 +10,7 @@ function SuccessPage(props) {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    setTimeout(() => history.push('/'), 5000);
+    setTimeout(() => history.push('/'), 3500);
     if (successEvent.event === 'offer-sent') {
       setMessage('Offer sent sucessfully! The owner will be in touch soon!');
     }

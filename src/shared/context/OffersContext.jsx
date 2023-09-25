@@ -59,12 +59,12 @@ export function OffersContextProvider(props) {
   };
 
   const acceptOffer = async (offerId) => {
+    console.log(offerId);
     let response;
     try {
       response = await axios.patch(
         `http://localhost:5000/api/offers/${offerId}`
       );
-      console.log('Offer Updated Successfully:', response.data.offer);
     } catch (error) {
       console.log(`Error Updateing Offer: ${error.response.data.message}`);
     }
@@ -83,7 +83,7 @@ export function OffersContextProvider(props) {
     } catch (error) {
       console.log(`Error Updateing Offer: ${error.response.data.message}`);
     }
-    return response.data.messages;
+    return response.data.message;
   };
 
   return (

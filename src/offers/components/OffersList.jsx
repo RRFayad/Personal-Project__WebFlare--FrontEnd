@@ -8,7 +8,11 @@ function OffersList(props) {
   return (
     <ul className={classes['offers-list']}>
       {props.offers.map((offer) => (
-        <OfferCard offer={offer} key={offer.id} />
+        <OfferCard
+          offer={offer}
+          key={offer.id}
+          updateOffersHandler={props.updateOffersHandler}
+        />
       ))}
     </ul>
   );

@@ -18,20 +18,21 @@ function Offers() {
   const [offersToBeRendered, setOffersToBeRendered] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const getUserOffers = async (userId) => {
+    setIsLoading(true);
+    try {
+      const offersData = await fetchUserOffers(userId);
+      setUserOffers(offersData);
+      setOffersToBeRendered(offersData.receivedOffers);
+      setIsLoading(false);
+    } catch (error) {
+      setUserOffers([]);
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getUserOffers = async (userId) => {
-      setIsLoading(true);
-      try {
-        const offersData = await fetchUserOffers(userId);
-        setUserOffers(offersData);
-        setOffersToBeRendered(offersData.receivedOffers);
-        setIsLoading(false);
-      } catch (error) {
-        setUserOffers([]);
-        setIsLoading(false);
-        console.log(error);
-      }
-    };
     getUserOffers(userData.id);
   }, []);
 
@@ -76,7 +77,10 @@ function Offers() {
           <h1 className={classes['main--no-list']}>There Are No Offers Yet!</h1>
         )}
         {!isLoading && offersToBeRendered.length > 0 && (
-          <OffersList offers={offersToBeRendered} />
+          <OffersList
+            offers={offersToBeRendered}
+            updateOffersHandler={getUserOffers}
+          />
         )}
       </main>
       <Footer />
