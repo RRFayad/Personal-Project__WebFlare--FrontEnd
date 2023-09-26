@@ -89,7 +89,7 @@ function OfferCard(props) {
           </main>
           <hr />
           <footer className={classes.card__footer}>
-            {userData.id !== offer.sender && offer.status === 'active' && (
+            {userData.id !== offer.sender.id && offer.status === 'active' && (
               <>
                 <button
                   type="button"
@@ -118,14 +118,14 @@ function OfferCard(props) {
               </>
             )}
 
-            {userData.id !== offer.sender && offer.status === 'accepted' && (
+            {userData.id !== offer.sender.id && offer.status === 'accepted' && (
               <p className={classes.card__status}>
                 Accepted Offer! Moving forward with the contractual acquisition
                 procedures.
               </p>
             )}
 
-            {userData.id === offer.sender && (
+            {userData.id === offer.sender.id && (
               <button
                 type="button"
                 className={`${classes.card__button} ${classes['card__button--cta']}`}
