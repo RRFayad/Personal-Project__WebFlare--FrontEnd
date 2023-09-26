@@ -53,7 +53,7 @@ function OfferCard(props) {
                 <dl className={classes.card__items}>
                   <div className={classes.card__item}>
                     <dt>
-                      {userData.id !== offer.sender ? 'Sender:' : 'Sent to:'}
+                      {userData.id !== offer.sender.id ? 'Sender:' : 'Sent to:'}
                     </dt>
                     <dd>{stakeholder.name}</dd>
                   </div>
@@ -118,14 +118,14 @@ function OfferCard(props) {
               </>
             )}
 
-            {userData.id !== offer.sender.id && offer.status === 'accepted' && (
+            {offer.status === 'accepted' && (
               <p className={classes.card__status}>
                 Accepted Offer! Moving forward with the contractual acquisition
                 procedures.
               </p>
             )}
 
-            {userData.id === offer.sender.id && (
+            {userData.id === offer.sender.id && offer.status !== 'accepted' && (
               <button
                 type="button"
                 className={`${classes.card__button} ${classes['card__button--cta']}`}

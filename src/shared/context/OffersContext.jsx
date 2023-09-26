@@ -43,15 +43,13 @@ export function OffersContextProvider(props) {
       businessId,
     };
 
-    console.log(offerData);
-
     let response;
     try {
       response = await axios.post(
         `http://localhost:5000/api/offers/`,
         offerData
       );
-      console.log('Offer Created Successfully:', response.data.offer);
+      console.log('Offer Created Successfully');
     } catch (error) {
       alert(`Error creating offer: ${error.response.data.message}`);
     }
@@ -76,10 +74,7 @@ export function OffersContextProvider(props) {
       response = await axios.delete(
         `http://localhost:5000/api/offers/${offerId}`
       );
-      console.log(
-        'Offer Denied (and Deleted) Successfully:',
-        response.data.offer
-      );
+      console.log('Offer Denied (and Deleted) Successfully');
     } catch (error) {
       console.log(`Error Updateing Offer: ${error.response.data.message}`);
     }
