@@ -7,8 +7,21 @@
   margin-top: 12px;
 }
 
+.image-input__container {
+  display: flex;
+  align-items: center;
+}
+
+.image-input__input {
+  width: 100%;
+}
+
+input#file-upload-button {
+  display: none;
+}
+
 .input,
-.select,
+.image-input__button .select,
 .textarea {
   background-color: #f3f3f3;
   outline: none;
@@ -17,6 +30,20 @@
   border-radius: 4px;
   padding: 1px 2px;
   font-size: 1rem;
+}
+
+.image-input__button {
+  width: 100px;
+  margin-top: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.input,
+.image-input__button,
+.select {
+  height: 28px;
 }
 
 .input:focus,
@@ -28,11 +55,6 @@
 
 .textarea {
   height: 96px;
-}
-
-.input,
-.select {
-  height: 28px;
 }
 
 .input[type='number']::-webkit-outer-spin-button,

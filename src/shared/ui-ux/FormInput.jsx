@@ -14,10 +14,12 @@ function FormInput(props) {
     errorMessage, // the message to be shown if it's not valid
     onInputChange, // Created to pass the validity and data 1 level up
     defaultValue,
+    accept, //  Created to set input to accept file (image in our case)
   } = props;
 
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
+  const [pickedFile, setPickedFile] = useState(null); // created for file input only
   const inputRef = useRef(null);
 
   let element;
@@ -32,15 +34,28 @@ function FormInput(props) {
 
   // This useEffect exists for passing the updated validity state (as useEffect will work when componentDidUpdate, and without it, before the component update)
   useEffect(() => {
-    const value =
-      type === 'number'
-        ? Number(inputRef.current.value)
-        : inputRef.current.value;
+    let value;
+    if (type === 'number') {
+      value = Number(inputRef.current.value);
+    }
+    if (type === 'file') {
+      value = pickedFile;
+    } else {
+      value = inputRef.current.value;
+    }
+
+    setIsValid(() => (validation ? validation(inputRef.current.value) : true));
+
     onInputChange(name, isValid, value);
-  }, [isValid]);
+  }, [pickedFile, isValid]);
 
   const changeHandler = (e) => {
-    const value = type === 'number' ? Number(e.target.value) : e.target.value;
+    let value;
+    if (type === 'number') {
+      value = Number(inputRef.current.value);
+    } else {
+      value = inputRef.current.value;
+    }
     setIsValid(() => (validation ? validation(inputRef.current.value) : true));
     onInputChange(name, isValid, value);
   };
@@ -62,6 +77,65 @@ function FormInput(props) {
             placeholder={placeholder}
             defaultValue={defaultValue}
           />
+        </label>
+        {!isValid && isTouched && (
+          <p className={classes['error-message']}>{errorMessage}</p>
+        )}
+      </>
+    );
+  }
+
+  if (HTMLElement === 'input' && type === 'file') {
+    const fileInputRef = useRef();
+
+    const pickImageHandler = () => {
+      fileInputRef.current.click();
+    };
+
+    const pickedFileHandler = (event) => {
+      if (event.target.files && event.target.files.length > 0) {
+        setPickedFile(event.target.files[0]);
+      }
+      inputRef.current.value = event.target.files[0].name;
+    };
+
+    element = (
+      <>
+        <label
+          className={`${classes.label} ${classes['image-input__label']}`}
+          htmlFor={name}
+        >
+          {labelValue}
+          <div className={classes['image-input__container']}>
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept={accept}
+              onChange={pickedFileHandler}
+              className={`${classes.input} ${classes[controlClass]} ${classes['image-input__input']}`}
+              style={{ display: 'none' }}
+            />
+            <input
+              className={`${classes.input} ${classes[controlClass]} ${classes['image-input__input']}`}
+              type="url"
+              name={name}
+              id={name}
+              onFocus={() => setIsTouched(false)}
+              onBlur={() => setIsTouched(true)}
+              onChange={changeHandler}
+              ref={inputRef}
+              placeholder={placeholder}
+              defaultValue={defaultValue}
+              accept={accept}
+            />
+            <button
+              type="button"
+              className={`${classes['image-input__button']}`}
+              onClick={pickImageHandler}
+            >
+              Add File
+            </button>
+          </div>
         </label>
         {!isValid && isTouched && (
           <p className={classes['error-message']}>{errorMessage}</p>

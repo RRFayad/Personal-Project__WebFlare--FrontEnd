@@ -29,9 +29,15 @@ export function AuthContextProvider(props) {
 
   const signUpHandler = async (formUserData) => {
     const newUserData = formHookDataMapper(formUserData);
+    const formFields = Object.keys(newUserData);
+
+    const formData = new FormData();
+    formFields.forEach((fieldName) => {
+      formData.append(fieldName, newUserData[fieldName]);
+    });
 
     try {
-      const response = await axios.post(url.signUp, newUserData);
+      const response = await axios.post(url.signUp, formData);
       setIsLoggedIn(true);
       setUserData(response.data.user);
       localStorage.setItem(

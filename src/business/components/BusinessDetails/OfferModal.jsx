@@ -58,7 +58,10 @@ function OfferCard(props) {
           </header>
           <main className={classes.modal__content}>
             <div className={classes['modal__user-info']}>
-              <img src={owner.imageUrl} alt={owner.name} />
+              <img
+                src={`http://localhost:5000/${owner.image}`}
+                alt={owner.name}
+              />
               <div className={classes.modal__container}>
                 <dl className={classes.modal__items}>
                   <div className={classes.modal__item}>

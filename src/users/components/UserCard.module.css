@@ -18,9 +18,12 @@
   /* margin-left: 16px; */
   width: max(160px, 20vw);
   max-width: 220px;
+  height: max(160px, 20vw);
+  max-height: 220px;
   /* height: 100%; */
   border-radius: 100%;
   object-fit: cover;
+  object-position: 50% 0%;
 }
 
 .user-info__details {

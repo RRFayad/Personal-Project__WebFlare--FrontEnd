@@ -7,12 +7,16 @@ import classes from './UserCard.module.css';
 function UserCard() {
   const history = useHistory();
   const { userData } = useContext(NewAuthContext);
+  console.log(userData.image);
 
   return (
     <div className={classes['user-info__card']}>
       <div className={classes['user-info__details']}>
         <div className={classes['user-info__image-container']}>
-          <img src={userData.imageUrl} alt={userData.name} />
+          <img
+            src={`http://localhost:5000/${userData.image}`}
+            alt={userData.name}
+          />
         </div>
         <div className={classes['user-info__info-container']}>
           <dl className={classes.items}>

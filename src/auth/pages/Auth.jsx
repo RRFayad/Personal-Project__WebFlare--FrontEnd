@@ -28,8 +28,9 @@ function Auth() {
 
   const loginInputs = ['email', 'password'];
   const signUpInputs = [
+    // The order matters to the Form Inputs
     'name',
-    'imageUrl',
+    'image',
     'country',
     'email',
     'password',
@@ -66,22 +67,22 @@ function Auth() {
             )}
             {!userHasAccount && (
               <FormInput
-                labelValue="Image URL"
+                labelValue="Image"
                 HTMLElement="input"
-                type="url"
-                name="imageUrl"
-                validation={urlValidator}
+                type="file"
+                name="image"
+                validation={null}
                 onInputChange={inputChangeHandler}
-                errorMessage="Please a valid url"
+                accept=".jpg,.png,.jpeg"
               />
             )}
             {!userHasAccount && (
               <FormInput
-                labelValue="Profile Domain (Website, Linkedin, Instagram etc)"
+                labelValue="Profile Domain (Website, Instagram etc)"
                 HTMLElement="input"
                 type="url"
                 name="profileUrl"
-                validation={urlValidator}
+                validation={null}
                 onInputChange={inputChangeHandler}
                 errorMessage="Please insert a valid URL"
               />
@@ -150,6 +151,7 @@ function Auth() {
                     return console.log(error);
                   }
                 }
+                // console.log(formData);
                 return setIsLoading(false);
               }}
             >
