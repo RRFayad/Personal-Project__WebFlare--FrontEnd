@@ -41,7 +41,7 @@ function BusinessForm() {
   useEffect(() => {
     setFormInputs([
       'title',
-      'imageUrl',
+      'image',
       'type',
       'niche',
       'age',
@@ -72,16 +72,13 @@ function BusinessForm() {
                 }
               />
               <FormInput
-                labelValue="Image URL"
+                labelValue="Image"
                 HTMLElement="input"
-                name="imageUrl"
-                type="text"
-                validation={urlValidator}
+                name="image"
+                type="file"
+                validation={null}
                 onInputChange={inputChangeHandler}
-                errorMessage="Please enter a valid URL"
-                defaultValue={
-                  businessToBeEdittedId && businessToBeEditted.imageUrl
-                }
+                accept=".jpg,.png,.jpeg"
               />
               <FormInput
                 labelValue="Type Of Business"

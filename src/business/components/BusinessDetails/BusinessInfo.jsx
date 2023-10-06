@@ -13,7 +13,7 @@ import classes from './BusinessInfo.module.css';
 
 function BusinessInfo() {
   const { bid } = useParams();
-  const { fetchBusiness } = useContext(BusinessContext);
+  const { fetchBusiness, serverDomain } = useContext(BusinessContext);
   const [business, setBusiness] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -52,7 +52,10 @@ function BusinessInfo() {
             {business && (
               <>
                 <div className={`${classes['content__info-container--top']}`}>
-                  <img src={business.imageUrl} alt={business.title} />
+                  <img
+                    src={`${serverDomain}/${business.image}`}
+                    alt={business.title}
+                  />
                   <h1 className={classes.content__title}>{business.title}</h1>
                   <p className={classes.content__description}>
                     {business.description}

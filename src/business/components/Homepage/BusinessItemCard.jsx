@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-import NewAuthContext from '../../../shared/context/AuthContext';
+import AuthContext from '../../../shared/context/AuthContext';
+import BusinessContext from '../../../shared/context/BusinessContext';
 import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import Backdrop from '../../../shared/ui-ux/Backdrop';
 import ConfirmModal from '../../../users/components/ConfirmModal';
@@ -12,13 +13,14 @@ function BusinessItemCard(props) {
   const history = useHistory();
   const path = history.location.pathname;
 
-  const { userData } = useContext(NewAuthContext);
+  const { serverDomain } = useContext(BusinessContext);
+  const { userData } = useContext(AuthContext);
 
   const {
     age,
     askingPrice,
     description,
-    imageUrl,
+    image,
     monthlyProfit,
     monthlyRevenue,
     niche,
@@ -48,7 +50,7 @@ function BusinessItemCard(props) {
         <div className={classes.details__container}>
           <div className={classes['details__image-container']}>
             <img
-              src={imageUrl}
+              src={`${serverDomain}/${image}`}
               alt={title}
               className={classes.details__image}
             />

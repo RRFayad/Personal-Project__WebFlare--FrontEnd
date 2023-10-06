@@ -25,6 +25,7 @@ const BusinessContext = React.createContext({
   addNewBusiness: () => {},
   updateBusiness: () => {},
   deleteBusiness: () => {},
+  serverDomain: undefined,
 });
 
 export function BusinessContextProvider(props) {
@@ -36,6 +37,7 @@ export function BusinessContextProvider(props) {
     useState(allBusinesses);
 
   const url = {
+    domain: 'http://localhost:5000',
     businesses: `http://localhost:5000/api/businesses/`,
     businessesByUser: `http://localhost:5000/api/businesses/user/`, // :uid
     ownerData: `http://localhost:5000/api/users/business/`, //  :bid
@@ -65,10 +67,16 @@ export function BusinessContextProvider(props) {
 
   const addNewBusiness = async (data, ownerId) => {
     const newBusinessData = { ...formHookDataMapper(data), ownerId };
+    const formFields = Object.keys(newBusinessData);
+
+    const formData = new FormData();
+    formFields.forEach((fieldName) => {
+      formData.append(fieldName, newBusinessData[fieldName]);
+    });
 
     let response;
     try {
-      response = await axios.post(url.businesses, newBusinessData);
+      response = await axios.post(url.businesses, formData);
       console.log('Business Created Successfully:', response.data.business);
     } catch (error) {
       alert(`Error fetching business: ${error.response.data.message}`);
@@ -114,11 +122,18 @@ export function BusinessContextProvider(props) {
       ...formHookDataMapper(data),
     };
 
+    const formFields = Object.keys(businessData);
+
+    const formData = new FormData();
+    formFields.forEach((fieldName) => {
+      formData.append(fieldName, businessData[fieldName]);
+    });
+
     let response;
     try {
       response = await axios.patch(
         `http://localhost:5000/api/businesses/${businessId}`,
-        businessData
+        formData
       );
       console.log('Business updated:', response.data);
     } catch (error) {
@@ -162,6 +177,7 @@ export function BusinessContextProvider(props) {
         updateBusiness,
         filterHandler: dispatch,
         deleteBusiness,
+        serverDomain: url.domain,
       }}
     >
       {props.children}

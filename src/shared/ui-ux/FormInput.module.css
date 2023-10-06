@@ -21,7 +21,8 @@ input#file-upload-button {
 }
 
 .input,
-.image-input__button .select,
+.image-input__button,
+.select,
 .textarea {
   background-color: #f3f3f3;
   outline: none;
