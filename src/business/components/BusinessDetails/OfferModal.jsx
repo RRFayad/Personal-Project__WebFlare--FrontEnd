@@ -11,7 +11,7 @@ import { formatCurrency } from '../../../shared/util/validators-and-formatters';
 import classes from './OfferModal.module.css';
 
 function OfferCard(props) {
-  const { isLoggedIn, userData } = useContext(NewAuthContext);
+  const { isLoggedIn, userData, serverDomain } = useContext(NewAuthContext);
   const { fetchOwnerData, isLoading } = useContext(BusinessContext);
   const [owner, setOwner] = useState(undefined);
 
@@ -58,10 +58,7 @@ function OfferCard(props) {
           </header>
           <main className={classes.modal__content}>
             <div className={classes['modal__user-info']}>
-              <img
-                src={`http://localhost:5000/${owner.image}`}
-                alt={owner.name}
-              />
+              <img src={`${serverDomain}/${owner.image}`} alt={owner.name} />
               <div className={classes.modal__container}>
                 <dl className={classes.modal__items}>
                   <div className={classes.modal__item}>

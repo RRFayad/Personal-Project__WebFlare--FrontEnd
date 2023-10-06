@@ -14,6 +14,7 @@ const AuthContext = React.createContext({
   updateProfileHandler: () => {},
   updatePasswordHandler: () => {},
   userData: {},
+  serverDomain: undefined,
 });
 
 export function AuthContextProvider(props) {
@@ -21,6 +22,7 @@ export function AuthContextProvider(props) {
   const [userData, setUserData] = useState(undefined);
 
   const url = {
+    domain: 'http://localhost:5000',
     signUp: `http://localhost:5000/api/users/signup`,
     login: `http://localhost:5000/api/users/login`,
     userData: `http://localhost:5000/api/users`, // /:uid
@@ -139,6 +141,7 @@ export function AuthContextProvider(props) {
         updatePasswordHandler,
         userData,
         isLoggedIn,
+        serverDomain: url.domain,
       }}
     >
       {props.children}
