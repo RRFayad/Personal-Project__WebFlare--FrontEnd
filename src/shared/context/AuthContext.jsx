@@ -50,6 +50,30 @@ export function AuthContextProvider(props) {
       alert(`Error creating user: ${error.response.data.message}`);
     }
   };
+  const updateProfileHandler = async (data) => {
+    const profileData = formHookDataMapper(data);
+    const formFields = Object.keys(profileData);
+
+    const formData = new FormData();
+    formFields.forEach((fieldName) => {
+      formData.append(fieldName, profileData[fieldName]);
+    });
+
+    try {
+      const response = await axios.patch(
+        `${url.userData}/${userData.id}`,
+        formData
+      );
+      console.log('User updated:', response);
+      setUserData(response.data.user);
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+      );
+    } catch (error) {
+      alert(`Error updating user: ${error.response.data.message}`);
+    }
+  };
 
   const loginHandler = async (formUserData) => {
     const toBeLoggedUserData = formHookDataMapper(formUserData);
@@ -82,25 +106,6 @@ export function AuthContextProvider(props) {
       alert(`Error creating user: ${error.response.data.message}`);
     }
     return response.data.user;
-  };
-
-  const updateProfileHandler = async (data) => {
-    const profileData = formHookDataMapper(data);
-
-    try {
-      const response = await axios.patch(
-        `${url.userData}/${userData.id}`,
-        profileData
-      );
-      console.log('User updated:', response);
-      setUserData(response.data.user);
-      localStorage.setItem(
-        'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
-      );
-    } catch (error) {
-      alert(`Error updating user: ${error.response.data.message}`);
-    }
   };
 
   const updatePasswordHandler = async (data) => {

@@ -24,7 +24,7 @@ function EditProfile() {
   const { userData, updateProfileHandler, updatePasswordHandler } =
     useContext(NewAuthContext);
 
-  const profileInputs = ['name', 'imageUrl', 'country', 'email', 'description'];
+  const profileInputs = ['name', 'image', 'country', 'email', 'description'];
   const passwordInputs = ['password', 'newPassword'];
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
@@ -57,14 +57,13 @@ function EditProfile() {
                   defaultValue={userData.name}
                 />
                 <FormInput
-                  labelValue="Image URL"
+                  labelValue="New Image"
                   HTMLElement="input"
-                  type="url"
-                  name="imageUrl"
-                  validation={urlValidator}
+                  type="file"
+                  name="image"
+                  validation={null}
                   onInputChange={inputChangeHandler}
-                  errorMessage="Please a valid url"
-                  defaultValue={userData.imageUrl}
+                  accept=".jpg,.png,.jpeg"
                 />
                 <FormInput
                   labelValue="Profile URL (Linkedin, Website, Instagram etc.)"
