@@ -127,6 +127,7 @@ function FormInput(props) {
               placeholder={placeholder}
               defaultValue={defaultValue}
               accept={accept}
+              readOnly
             />
             <button
               type="button"

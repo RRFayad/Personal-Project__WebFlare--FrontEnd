@@ -144,12 +144,16 @@
   .details__info {
     padding: 0;
   }
+  .details__description {
+    margin: 8px;
+    margin-left: 0px;
+  }
 
   .details__button {
     position: static;
     margin: auto;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     width: 80%;
     max-width: 280px;
     height: 40px;
