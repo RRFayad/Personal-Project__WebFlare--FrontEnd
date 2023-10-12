@@ -84,6 +84,7 @@ export function AuthContextProvider(props) {
 
     try {
       const response = await axios.post(url.login, toBeLoggedUserData);
+      console.log(response.data.token.value);
       setToken(response.data.token);
       setUserData(response.data.user);
       localStorage.setItem(
@@ -132,7 +133,6 @@ export function AuthContextProvider(props) {
   useEffect(() => {
     const getLoggedUserData = async () => {
       const localUserData = JSON.parse(localStorage.getItem('userData'));
-      console.log(localUserData);
       if (localUserData) {
         const fetchedUserData = await getUserData(localUserData.userId);
         setToken(localUserData.token);

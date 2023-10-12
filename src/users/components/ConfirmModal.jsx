@@ -6,9 +6,11 @@ import BusinessContext from '../../shared/context/BusinessContext';
 import FormButton from '../../shared/ui-ux/FormButton';
 import LoadingSpinner from '../../shared/ui-ux/LoadingSpinner';
 import classes from './ConfirmModal.module.css';
+import AuthContext from '../../shared/context/AuthContext';
 
 function ConfirmModal(props) {
   const { deleteBusiness } = useContext(BusinessContext);
+  const { tokenValue } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
@@ -35,7 +37,7 @@ function ConfirmModal(props) {
           caution
           onClick={async () => {
             setIsLoading(true);
-            await deleteBusiness(props.business.id);
+            await deleteBusiness(props.business.id, tokenValue);
             setIsLoading(false);
             history.push('/');
           }}

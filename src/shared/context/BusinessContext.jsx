@@ -123,7 +123,7 @@ export function BusinessContextProvider(props) {
     return response.data.businesses;
   };
 
-  const updateBusiness = async (data, businessId) => {
+  const updateBusiness = async (data, businessId, token) => {
     const businessData = {
       ...formHookDataMapper(data),
     };
@@ -139,20 +139,32 @@ export function BusinessContextProvider(props) {
     try {
       response = await axios.patch(
         `http://localhost:5000/api/businesses/${businessId}`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
       console.log('Business updated:', response.data);
     } catch (error) {
-      alert(`Error updating user: ${error.response.data.message}`);
+      alert(`Error updating business: ${error.response.data.message}`);
     }
     await fetchBusinesses();
     return response.data.business;
   };
 
-  const deleteBusiness = async (businessId) => {
+  const deleteBusiness = async (businessId, token) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/businesses/${businessId}`
+        `http://localhost:5000/api/businesses/${businessId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
       console.log('Business Deleted Successfully!');
     } catch (error) {

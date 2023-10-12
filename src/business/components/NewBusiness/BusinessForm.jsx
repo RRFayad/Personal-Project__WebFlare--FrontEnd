@@ -184,7 +184,11 @@ function BusinessForm() {
                   disabled={!formIsValid}
                   onClick={async () => {
                     setIsLoading(true);
-                    await updateBusiness(formData, businessToBeEdittedId);
+                    await updateBusiness(
+                      formData,
+                      businessToBeEdittedId,
+                      tokenValue
+                    );
                     setIsLoading(false);
                     history.push('/');
                   }}
