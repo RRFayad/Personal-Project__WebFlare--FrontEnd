@@ -66,7 +66,13 @@ export function AuthContextProvider(props) {
     try {
       const response = await axios.patch(
         `${url.userData}/${userData.id}`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token.value}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
       console.log('User updated:', response);
       setUserData(response.data.user);
