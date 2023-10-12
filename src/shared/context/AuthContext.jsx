@@ -18,6 +18,8 @@ const AuthContext = React.createContext({
   tokenValue: null,
 });
 
+let logoutTimer; // Saved here bcs didn't need to manage state in the Context
+
 export function AuthContextProvider(props) {
   const [token, setToken] = useState(null);
   const [userData, setUserData] = useState(undefined);
@@ -28,6 +30,14 @@ export function AuthContextProvider(props) {
     login: `http://localhost:5000/api/users/login`,
     userData: `http://localhost:5000/api/users`, // /:uid
     updatePassword: `http://localhost:5000/api/users/update-password`, // /:uid
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem('userData');
+    setToken(null);
+    setUserData(null);
+    clearTimeout(logoutTimer);
+    return console.log('User logged out!!');
   };
 
   const signUpHandler = async (formUserData) => {
@@ -50,10 +60,48 @@ export function AuthContextProvider(props) {
           userId: response.data.user.id,
         })
       );
+      logoutTimer = setTimeout(
+        logoutHandler,
+        response.data.token.expirationTime - Date.now()
+      );
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
     }
   };
+
+  const loginHandler = async (formUserData) => {
+    const toBeLoggedUserData = formHookDataMapper(formUserData);
+
+    try {
+      const response = await axios.post(url.login, toBeLoggedUserData);
+      setToken(response.data.token);
+      setUserData(response.data.user);
+      logoutTimer = setTimeout(
+        logoutHandler,
+        response.data.token.expirationTime - Date.now()
+      );
+      localStorage.setItem(
+        'userData',
+        JSON.stringify({
+          token: response.data.token,
+          userId: response.data.user.id,
+        })
+      );
+    } catch (error) {
+      alert(`Error fetching user: ${error.response.data.message}`);
+    }
+  };
+
+  const getUserData = async (userId) => {
+    let response;
+    try {
+      response = await axios.get(`${url.userData}/${userId}`);
+    } catch (error) {
+      alert(`Error creating user: ${error.response.data.message}`);
+    }
+    return response.data.user;
+  };
+
   const updateProfileHandler = async (data) => {
     const profileData = formHookDataMapper(data);
     const formFields = Object.keys(profileData);
@@ -78,48 +126,11 @@ export function AuthContextProvider(props) {
       setUserData(response.data.user);
       localStorage.setItem(
         'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+        JSON.stringify({ token, userId: response.data.user.id })
       );
     } catch (error) {
       alert(`Error updating user: ${error.response.data.message}`);
     }
-  };
-
-  const loginHandler = async (formUserData) => {
-    const toBeLoggedUserData = formHookDataMapper(formUserData);
-
-    try {
-      const response = await axios.post(url.login, toBeLoggedUserData);
-      console.log(response.data.token.value);
-      setToken(response.data.token);
-      setUserData(response.data.user);
-      localStorage.setItem(
-        'userData',
-        JSON.stringify({
-          token: response.data.token,
-          userId: response.data.user.id,
-        })
-      );
-    } catch (error) {
-      alert(`Error fetching user: ${error.response.data.message}`);
-    }
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem('userData');
-    setToken(null);
-    setUserData(null);
-    return console.log('User logged out!!');
-  };
-
-  const getUserData = async (userId) => {
-    let response;
-    try {
-      response = await axios.get(`${url.userData}/${userId}`);
-    } catch (error) {
-      alert(`Error creating user: ${error.response.data.message}`);
-    }
-    return response.data.user;
   };
 
   const updatePasswordHandler = async (data) => {
@@ -142,8 +153,11 @@ export function AuthContextProvider(props) {
       if (localUserData) {
         const fetchedUserData = await getUserData(localUserData.userId);
         setToken(localUserData.token);
-        // console.log(fetchedUserData);
         setUserData(fetchedUserData);
+        logoutTimer = setTimeout(
+          logoutHandler,
+          localUserData.token.expirationTime - Date.now()
+        );
       }
     };
     getLoggedUserData();
