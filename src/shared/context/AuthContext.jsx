@@ -15,10 +15,11 @@ const AuthContext = React.createContext({
   updatePasswordHandler: () => {},
   userData: {},
   serverDomain: undefined,
+  tokenValue: null,
 });
 
 export function AuthContextProvider(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
   const [userData, setUserData] = useState(undefined);
 
   const url = {
@@ -40,11 +41,14 @@ export function AuthContextProvider(props) {
 
     try {
       const response = await axios.post(url.signUp, formData);
-      setIsLoggedIn(true);
       setUserData(response.data.user);
+      setToken(response.data.token);
       localStorage.setItem(
         'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+        JSON.stringify({
+          token: response.data.token,
+          userId: response.data.user.id,
+        })
       );
     } catch (error) {
       alert(`Error creating user: ${error.response.data.message}`);
@@ -80,11 +84,14 @@ export function AuthContextProvider(props) {
 
     try {
       const response = await axios.post(url.login, toBeLoggedUserData);
-      setIsLoggedIn(true);
+      setToken(response.data.token);
       setUserData(response.data.user);
       localStorage.setItem(
         'userData',
-        JSON.stringify({ isLoggedIn: true, userId: response.data.user.id })
+        JSON.stringify({
+          token: response.data.token,
+          userId: response.data.user.id,
+        })
       );
     } catch (error) {
       alert(`Error fetching user: ${error.response.data.message}`);
@@ -93,7 +100,7 @@ export function AuthContextProvider(props) {
 
   const logoutHandler = () => {
     localStorage.removeItem('userData');
-    setIsLoggedIn(false);
+    setToken(null);
     setUserData(null);
     return console.log('User logged out!!');
   };
@@ -125,9 +132,10 @@ export function AuthContextProvider(props) {
   useEffect(() => {
     const getLoggedUserData = async () => {
       const localUserData = JSON.parse(localStorage.getItem('userData'));
+      console.log(localUserData);
       if (localUserData) {
         const fetchedUserData = await getUserData(localUserData.userId);
-        setIsLoggedIn(localUserData.isLoggedIn);
+        setToken(localUserData.token);
         // console.log(fetchedUserData);
         setUserData(fetchedUserData);
       }
@@ -145,8 +153,9 @@ export function AuthContextProvider(props) {
         updateProfileHandler,
         updatePasswordHandler,
         userData,
-        isLoggedIn,
+        isLoggedIn: !!token,
         serverDomain: url.domain,
+        tokenValue: token ? token.value : null,
       }}
     >
       {props.children}

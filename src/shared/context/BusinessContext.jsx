@@ -65,8 +65,8 @@ export function BusinessContextProvider(props) {
     return response.data.businesses;
   };
 
-  const addNewBusiness = async (data, ownerId) => {
-    const newBusinessData = { ...formHookDataMapper(data), ownerId };
+  const addNewBusiness = async (data, token) => {
+    const newBusinessData = { ...formHookDataMapper(data) };
     const formFields = Object.keys(newBusinessData);
 
     const formData = new FormData();
@@ -76,10 +76,16 @@ export function BusinessContextProvider(props) {
 
     let response;
     try {
-      response = await axios.post(url.businesses, formData);
-      console.log('Business Created Successfully:', response.data.business);
+      response = await axios.post(url.businesses, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Business Created Successfully:', response);
     } catch (error) {
-      alert(`Error fetching business: ${error.response.data.message}`);
+      console.log(error);
+      alert(`Error creating business: ${error.response.data.message}`);
     }
 
     await fetchBusinesses();

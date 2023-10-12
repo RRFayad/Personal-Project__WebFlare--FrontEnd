@@ -20,7 +20,7 @@ import classes from './BusinessForm.module.css';
 function BusinessForm() {
   const { bid: businessToBeEdittedId } = useParams();
 
-  const { userData } = useContext(NewAuthContext);
+  const { userData, tokenValue } = useContext(NewAuthContext);
   const {
     businessTypesOptions,
     nichesOptions,
@@ -167,7 +167,7 @@ function BusinessForm() {
                   onClick={async () => {
                     setIsLoading(true);
                     try {
-                      await addNewBusiness(formData, userData.id);
+                      await addNewBusiness(formData, tokenValue);
                       setIsLoading(false);
                       history.push('/');
                     } catch (error) {
