@@ -11,7 +11,7 @@ import classes from './OfferCard.module.css';
 
 function OfferCard(props) {
   const history = useHistory();
-  const { userData } = useContext(AuthContext);
+  const { userData, serverDomain, tokenValue } = useContext(AuthContext);
   const { acceptOffer, denyOffer, fetchOffer } = useContext(OffersContext);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,7 +48,10 @@ function OfferCard(props) {
           </header>
           <main className={classes.card__content}>
             <div className={classes['card__user-info']}>
-              <img src={stakeholder.imageUrl} alt={stakeholder.name} />
+              <img
+                src={`${serverDomain}/${stakeholder.image}`}
+                alt={stakeholder.name}
+              />
               <div className={classes.card__container}>
                 <dl className={classes.card__items}>
                   <div className={classes.card__item}>
@@ -96,7 +99,7 @@ function OfferCard(props) {
                   className={classes.card__button}
                   onClick={async () => {
                     setIsLoading(true);
-                    await denyOffer(offer.id);
+                    await denyOffer(offer.id, tokenValue);
                     setIsLoading(false);
                     props.updateOffersHandler(userData.id);
                   }}
@@ -108,7 +111,7 @@ function OfferCard(props) {
                   className={`${classes.card__button} ${classes['card__button--cta']}`}
                   onClick={async () => {
                     setIsLoading(true);
-                    await acceptOffer(offer.id);
+                    await acceptOffer(offer.id, tokenValue);
                     setIsLoading(false);
                     props.updateOffersHandler(userData.id);
                   }}

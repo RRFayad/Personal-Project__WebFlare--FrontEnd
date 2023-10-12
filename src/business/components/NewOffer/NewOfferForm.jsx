@@ -19,7 +19,7 @@ import classes from './NewOfferForm.module.css';
 function NewOfferForm() {
   const history = useHistory();
   const { bid: businessId } = useParams();
-  const { userData } = useContext(NewAuthContext);
+  const { userData, tokenValue } = useContext(NewAuthContext);
   const { sendOffer } = useContext(OffersContext);
   const [isLoadding, setIsLoading] = useState(false);
 
@@ -61,7 +61,7 @@ function NewOfferForm() {
           disabled={!formIsValid}
           onClick={async () => {
             setIsLoading(true);
-            await sendOffer(formData, userData.id, businessId);
+            await sendOffer(formData, tokenValue, businessId);
             setIsLoading(false);
             history.push(`/success/offer-sent`);
           }}

@@ -36,10 +36,9 @@ export function OffersContextProvider(props) {
     return response.data.offers;
   };
 
-  const sendOffer = async (data, senderId, businessId) => {
+  const sendOffer = async (data, token, businessId) => {
     const offerData = {
       ...formHookDataMapper(data),
-      senderId,
       businessId,
     };
 
@@ -47,7 +46,13 @@ export function OffersContextProvider(props) {
     try {
       response = await axios.post(
         `http://localhost:5000/api/offers/`,
-        offerData
+        offerData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
       );
       console.log('Offer Created Successfully');
     } catch (error) {
@@ -56,23 +61,33 @@ export function OffersContextProvider(props) {
     return response.data.offer;
   };
 
-  const acceptOffer = async (offerId) => {
-    console.log(offerId);
+  const acceptOffer = async (offerId, token) => {
     let response;
     try {
       response = await axios.patch(
-        `http://localhost:5000/api/offers/${offerId}`
+        `http://localhost:5000/api/offers/${offerId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
     } catch (error) {
       console.log(`Error Updateing Offer: ${error.response.data.message}`);
     }
     return response.data.offer;
   };
-  const denyOffer = async (offerId) => {
+  const denyOffer = async (offerId, token) => {
     let response;
     try {
       response = await axios.delete(
-        `http://localhost:5000/api/offers/${offerId}`
+        `http://localhost:5000/api/offers/${offerId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log('Offer Denied (and Deleted) Successfully');
     } catch (error) {

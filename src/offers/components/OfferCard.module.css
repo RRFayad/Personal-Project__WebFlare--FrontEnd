@@ -32,6 +32,7 @@
   width: 160px;
   border-radius: 100%;
   object-fit: cover;
+  object-position: 50% 0%;
 }
 
 .card__item {
