@@ -1,5 +1,7 @@
-export const integerInputValidator = (value) =>
-  Number.isInteger(Number(value)) && Number(value) >= 0;
+export const integerInputValidator = (value, min = 0, max = Infinity) =>
+  Number.isInteger(Number(value)) &&
+  Number(value) >= min &&
+  Number(value) <= max;
 
 export const minLengthValidator = (str, minChars = 3) => str.length >= minChars;
 export const maxLengthValidator = (str, maxChars = 20) =>

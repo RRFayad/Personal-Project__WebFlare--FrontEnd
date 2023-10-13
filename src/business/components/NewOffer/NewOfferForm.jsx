@@ -7,11 +7,13 @@ import FormInput from '../../../shared/ui-ux/FormInput';
 import useForm from '../../../shared/custom-hooks/useForm';
 import OffersContext from '../../../shared/context/OffersContext';
 import NewAuthContext from '../../../shared/context/AuthContext';
+import BusinessContext from '../../../shared/context/BusinessContext';
 import LoadingSpinner from '../../../shared/ui-ux/LoadingSpinner';
 
 import {
   minLengthValidator,
   integerInputValidator,
+  formatCurrency,
 } from '../../../shared/util/validators-and-formatters';
 
 import classes from './NewOfferForm.module.css';
@@ -20,10 +22,27 @@ function NewOfferForm() {
   const history = useHistory();
   const { bid: businessId } = useParams();
   const { userData, tokenValue } = useContext(NewAuthContext);
+  const { fetchBusiness } = useContext(BusinessContext);
   const { sendOffer } = useContext(OffersContext);
   const [isLoadding, setIsLoading] = useState(false);
+  const [maxPrice, setMaxPrice] = useState(Infinity);
 
   const [formIsValid, inputChangeHandler, setFormInputs, formData] = useForm();
+
+  useEffect(() => {
+    const getBusiness = async () => {
+      try {
+        const fetchedBusiness = await fetchBusiness(businessId);
+        setMaxPrice(fetchedBusiness.askingPrice);
+        setIsLoading(false);
+      } catch (error) {
+        setMaxPrice(Infinity);
+        setIsLoading(false);
+        console.log(`Error fetching business`);
+      }
+    };
+    getBusiness(businessId);
+  }, []);
 
   useEffect(() => {
     setFormInputs(['offerValue', 'message']);
@@ -38,9 +57,11 @@ function NewOfferForm() {
           HTMLElement="input"
           type="number"
           name="offerValue"
-          validation={integerInputValidator}
+          validation={(value) => integerInputValidator(value, 0, maxPrice)}
           onInputChange={inputChangeHandler}
-          errorMessage="Please insert a integer and positive number"
+          errorMessage={`Please insert a integer positive number SMALLER than the asked price (${formatCurrency(
+            maxPrice
+          )})`}
           placeholder="XXX.XX"
         />
 
