@@ -25,11 +25,11 @@ export function AuthContextProvider(props) {
   const [userData, setUserData] = useState(undefined);
 
   const url = {
-    domain: 'http://localhost:5000',
-    signUp: `http://localhost:5000/api/users/signup`,
-    login: `http://localhost:5000/api/users/login`,
-    userData: `http://localhost:5000/api/users`, // /:uid
-    updatePassword: `http://localhost:5000/api/users/update-password`, // /:uid
+    domain: process.env.REACT_APP_BACKEND_DOMAIN_URL,
+    signUp: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/users/signup`,
+    login: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/users/login`,
+    userData: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/users`, // /:uid
+    updatePassword: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/users/update-password`, // /:uid
   };
 
   const logoutHandler = () => {

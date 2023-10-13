@@ -37,10 +37,10 @@ export function BusinessContextProvider(props) {
     useState(allBusinesses);
 
   const url = {
-    domain: 'http://localhost:5000',
-    businesses: `http://localhost:5000/api/businesses/`,
-    businessesByUser: `http://localhost:5000/api/businesses/user/`, // :uid
-    ownerData: `http://localhost:5000/api/users/business/`, //  :bid
+    domain: process.env.REACT_APP_BACKEND_DOMAIN_URL,
+    businesses: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/businesses/`,
+    businessesByUser: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/businesses/user/`, // :uid
+    ownerData: `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/users/business/`, //  :bid
   };
 
   // Filters Logic (Front End Only)
@@ -138,7 +138,7 @@ export function BusinessContextProvider(props) {
     let response;
     try {
       response = await axios.patch(
-        `http://localhost:5000/api/businesses/${businessId}`,
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/businesses/${businessId}`,
         formData,
         {
           headers: {
@@ -158,7 +158,7 @@ export function BusinessContextProvider(props) {
   const deleteBusiness = async (businessId, token) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/businesses/${businessId}`,
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/businesses/${businessId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

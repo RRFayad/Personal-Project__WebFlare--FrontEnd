@@ -16,7 +16,9 @@ export function OffersContextProvider(props) {
   const fetchOffer = async (offerId) => {
     let response;
     try {
-      response = await axios.get(`http://localhost:5000/api/offers/${offerId}`);
+      response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/offers/${offerId}`
+      );
     } catch (error) {
       console.log(`Error fetching offer: ${error.response.data.message}`);
     }
@@ -28,7 +30,7 @@ export function OffersContextProvider(props) {
     let response;
     try {
       response = await axios.get(
-        `http://localhost:5000/api/offers/user/${userId}`
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/offers/user/${userId}`
       );
     } catch (error) {
       console.log(`Error fetching offer: ${error.response.data.message}`);
@@ -45,7 +47,7 @@ export function OffersContextProvider(props) {
     let response;
     try {
       response = await axios.post(
-        `http://localhost:5000/api/offers/`,
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/offers/`,
         offerData,
         {
           headers: {
@@ -65,7 +67,7 @@ export function OffersContextProvider(props) {
     let response;
     try {
       response = await axios.patch(
-        `http://localhost:5000/api/offers/${offerId}`,
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/offers/${offerId}`,
         null,
         {
           headers: {
@@ -82,7 +84,7 @@ export function OffersContextProvider(props) {
     let response;
     try {
       response = await axios.delete(
-        `http://localhost:5000/api/offers/${offerId}`,
+        `${process.env.REACT_APP_BACKEND_DOMAIN_URL}/api/offers/${offerId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
