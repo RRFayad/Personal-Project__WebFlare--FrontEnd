@@ -56,7 +56,7 @@ function Auth() {
           <div className={classes.form__inputs}>
             {!userHasAccount && (
               <FormInput
-                labelValue="Full Name"
+                labelValue="Full Name*"
                 HTMLElement="input"
                 name="name"
                 type="text"
@@ -89,7 +89,7 @@ function Auth() {
             )}
             {!userHasAccount && (
               <FormInput
-                labelValue="Country"
+                labelValue="Country*"
                 HTMLElement="input"
                 type="text"
                 name="country"
@@ -99,7 +99,7 @@ function Auth() {
               />
             )}
             <FormInput
-              labelValue="E-mail"
+              labelValue="E-mail*"
               HTMLElement="input"
               type="email"
               name="email"
@@ -108,7 +108,7 @@ function Auth() {
               errorMessage="Please insert a valid e-mail"
             />
             <FormInput
-              labelValue="Password"
+              labelValue="Password*"
               HTMLElement="input"
               type="password"
               name="password"
@@ -118,7 +118,7 @@ function Auth() {
             />
             {!userHasAccount && (
               <FormInput
-                labelValue="Your personal and professional description"
+                labelValue="Your personal and professional description*"
                 HTMLElement="textarea"
                 type="text"
                 name="description"
