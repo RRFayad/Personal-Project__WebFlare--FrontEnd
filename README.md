@@ -1,91 +1,78 @@
-# WebFlare - React App
+![image](https://github.com/RRFayad/Personal-Project__WebFlare--FrontEnd/assets/88623045/92ff7357-bf10-405a-b883-e4819b90a493)# WebFlare - React App
 
-## What is it?
+## Overview
 
-WebFlare is a 100% Personal Project (it's **not** a course project). It's a web app developed to simulate a marketplace of digital assets.
+WebFlare is a 100% Personal Project (it's **not** a course project). It's a web application developed to simulate a marketplace of digital assets.
 
-The application was created in order to let a user:
+Users can:
 
-- Register his profile and businesses.
+- Register their profile;
+- Register their businesses;
 - Send and receive offers for acquiring digital businesses.
 
-## How to use it
+## Usage
 
 1. Visit [WebFlare](https://webflare.vercel.app/).
-2. Click on the Login Button to be redirected to the Login Form.
-3. Log In or Sign Up (you can switch by clicking on the text that says "Click Here").
+2. Click the "Login" button to access the Login Form.
+3. Log In or Sign Up (you can switch between the two by clicking "Click Here").
 4. Fill out the Form (for validation, invalid data will provide feedback):
-   - For demo purposes, you can copy the following link for the Image URL: `https://thispersondoesnotexist.com/`
-   - For demo purposes, you can set any domain in Profile URL: `https://www.linkedin.com/`
-5. Once everything is filled, the sign-up (or login) button will be available. Click on it to be redirected to the HomePage.
+   - For demo purposes:
+      - dummy.user@gmail.com
+      - Dummy123+
+5. Once the form is completed, the sign-up (or login) button will be available. Click on it to be redirected to the HomePage.
 6. HomePage:
-   - It will render a list of registered businesses.
+   - It shows a list of registered businesses.
    - You can filter by selecting options in the sidebar or using the "Search" bar.
-   - Clicking on "View Details" will redirect you to the business Details Page.
+   - Click "View Details" to explore business Details.
 7. Business Details:
    - Here you can see more details about the business and the offer.
-   - Clicking on "Offer details" will open a modal, allowing you to make an offer or buy it for the offered price.
-   - If it's a business of your own, you will have the option to Edit the Business Info and be redirected to the Edit Business Form.
+   - Click "Offer Details" to make an offer or purchase it for the listed price.
+   - If it's your own business, you can edit its information and be redirected to the Edit Business Form.
 8. Other Navigation Pages (accessible via the sandwich menu for mobile devices):
    1. My Profile:
-      - It shows your profile info and your registered businesses info.
-      - From here, you can Edit your Profile or Edit each Business.
+      - View your profile and registered business information.
+      - Edit your profile or individual businesses.
    2. My Offers:
-      - It will display your Received Offers or your Sent Offers (selectable in the top right of the page).
-      - You can accept or deny each received Offer.
-        - If denied, it will be deleted from the Database.
-        - If Accepted, it will show a success message.
-   3. Add Business (same page as Edit Business):
-      - You will be redirected to a Business Form.
-      - When all the inputs are set, you will be able to create your new business.
-      - In editing mode, the current values are filled as default.
+      - View received or sent offers (selectable in the top-right corner).
+      - Accept or deny received offers.
+   3. Add Business (also used for editing):
+      - Access a business form.
+      - Create a new business once all fields are completed.
+      - In editing mode, pre-fill current values as defaults.
    4. Logout:
-      - It will log you out and redirect to the Home Page.
+      - Log out and return to the homepage.
 
 ## How it was made
 
-- This app was created using React and React Router, and the data is stored in Firebase. The next topics will cover and detail the main parts of the App Structure.
+- This app was developed using React and React Router. It communicates with the [WebFlare Rest API](https://github.com/RRFayad/Personal-Project__WebFlare--BackEnd) for data.
 
 ### Forms
 
-- The Forms were created using a custom hook (useForm) that handles the form data, validity, and styles.
-- All the data is handled using React Hooks (useState, useRef, useReducer), event listeners (onClick, onFocus, onBlur), and Conditional Rendering. A logic was created to do basic validation and return feedback to the user.
+- Custom forms are created using a custom hook (useForm) to handle form data, validity, and styles.
+- All data is managed with React Hooks (useState, useRef, useReducer), event listeners (onClick, onFocus, onBlur), and conditional rendering for validation feedback.
 
-### Storage and Authentication
+### Back End and Authentication
 
-- The Storage was Developed using the FireBase Realtime Database Rest API.
-- Authentication was developed using the Firebase Auth Rest API.
-- For each DataBase entity (User, Business, Offer), there's a context file to handle the data in the frontend and fetch it via the Rest API.
+- For server-side details, refer to the [Webflare Rest API](https://github.com/RRFayad/Personal-Project__WebFlare--BackEnd).
+- Authentication is managed using JWT, and tokens are stored in the browser. Auto-logout occurs when tokens expire.
+- Context files are implemented for each database entity (User, Business, Offer) to handle frontend data and fetch it from the REST API.
 
-## Next Steps to Improve the Logic
+## Future Enhancements
 
-1. Develop My Own Rest Api
+1. Enhance Existing Features
+   - Implement email notifications for key actions, such as receiving offers.
+   - Add a "Forgot Password" feature.
 
-   - The focus of this first version was to build the Front End with React. (The Firebase approach was defined only for the usage of this 1st version).
-   - The next steps are to develop my own backend logic working with Node, Express, and MongoDB.
-   - Improve the logic related to filtering / mapping data with the backend and database, as, right now, it's all managed only in the front end.
+## Conclusion
 
-2. Implement Authentication Features
+WebFlare successfully achieves its primary goal of building a frontend using React. It leverages various React features and hooks, making it a valuable project for learning and understanding modern web development.
 
-   - Authentication will be improved as the BackEnd is developed.
+- Key Features:
+  - State management using useState, useContext, useRef, useEffect, useCallback, and useReducer.
+  - Custom hooks, portals, React.lazy, and Suspense for code splitting.
+  - Handling HTTP requests.
+  - Implementing JWT-based authentication.
+  - User interface enhancements, including loading spinners and form validation.
+  - Navigation and routing.
 
-3. Upgrade Business Logic
-   - Some business features could be optimized, such as limiting an offer to less than the Asked Price for a business.
-   - Send some emails to formalize some steps (such as getting a response for an offer).
-   - For each DataBase entity (User, Business, Offer), there's a context file to handle the data in the frontend and fetch it via the Rest API.
-
-## Conclusion and Results of the Project
-
-- As the main goal of this project was to build the Front End using React, it succeeded. The application contains various React Hooks and React Features, such as:
-  - useState, useContext, useRef, useEffect, useCallback, useReducer.
-  - Custom Hooks.
-  - Portals.
-  - React.lazy().
-  - Suspense.
-  - HTTP Requests.
-  - Conditional Rendering.
-  - UI / UX:
-    - Loading Spinner.
-    - Form Validation and Styling.
-  - Routing.
-  - JWT Authentication.
+Feel free to explore, use, or contribute to this project.
