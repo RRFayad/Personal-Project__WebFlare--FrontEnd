@@ -1,4 +1,4 @@
-![image](https://github.com/RRFayad/Personal-Project__WebFlare--FrontEnd/assets/88623045/92ff7357-bf10-405a-b883-e4819b90a493)# WebFlare - React App
+# WebFlare - React App
 
 ## Overview
 
